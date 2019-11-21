@@ -749,6 +749,8 @@ map
 
 If you want to explore Leaflet more have a look at [this website](https://rstudio.github.io/leaflet/)
 
+To see other basemap options (there are loads!) have a look here: http://leaflet-extras.github.io/leaflet-providers/preview/
+
 ## Bad maps
 
 What makes a bad map then... and what should you avoid:
