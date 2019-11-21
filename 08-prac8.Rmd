@@ -1,9 +1,20 @@
-# Online mapping
+# Online mapping / descriptive statistics 
 
-This practical is formed of two parts, you can pick one you are more intersted in or complete both. 
+This practical is formed of two parts, you can pick one you are more intersted in or complete both.
 
-## Spatial Descriptive Statistics
-### what will you achieve by the end of this practical.
+Part A looks at some more spatial descriptive statistics 
+
+Part B looks focuses on online mapping 
+
+## Recommended listening
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=6Bh6IL1mNfc)
+
+## Part A spatial descriptive statistics
+
+### Learning objectives
 
 1. You will learn how to make descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data
 2. You will understand how you can use R to write custom functions to process your data
@@ -11,7 +22,7 @@ This practical is formed of two parts, you can pick one you are more intersted i
 4. You will see an example of how you can write a function in R to produce a range of different maps based on user inputs
 5. You will learn how to perform a very basic cluster analysis and output the results of a basic geodemographic classification
 
-## Getting Started
+### Getting Started
 Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -40,16 +51,11 @@ LondonWardsSF <- st_as_sf(LondonWards)
 
 extradata <- read_csv("prac8_data/LondonAdditionalDataFixed.csv")
 
-#or straight from GitHub
-
-extradata <- read_csv("prac8_data/LondonAdditionalDataFixed.csv")
-
-
 LondonWardsSF <- merge(LondonWardsSF, extradata, by.x = "WD11CD", by.y = "Wardcode")
 
 ```
 
-## Main Tasks
+### Main Tasks
 
 ### Task 1 - Descriptive Statistics
 Using the lecture notes for guidance, you should generate the following graphs and descriptive statistics using standard functions and ggplot2 in R. Each element should be copied and saved to a word document or something similar:
@@ -116,10 +122,9 @@ londonpoint+stat_density2d(aes(fill = ..level..), geom="polygon")
 
 ```
 
-#### Extension 1
+### Extension 1
 
-If you really want to go down the road of carrying out KDE in a range of different ways, then this is an excellent place to start: http://egallic.fr/R/sKDE/smooth-maps/kde.html - perhaps try it with some of the Blue Plaques data from previous weeks. 
-
+If you really want to go down the road of carrying out KDE in a range of different ways, then this is an excellent place to start: http://egallic.fr/R/sKDE/smooth-maps/kde.html --- perhaps try it with some of the Blue Plaques data from previous weeks. 
 
 ### Task 2 - Introduction to functions in R
 	
@@ -150,7 +155,7 @@ recode<-function(variable,high,medium,low){
 }
 ```
 
-#### What's going on in this function?
+### What's going on in this function?
 
 * First we initialise a new variable called `newvar` and set it to = 0. We then define a new function called `recode`. This takes in 4 pieces of information: A variable (called `variable` but I could have called it anything) and three values called `high`, `medium` and `low`. It outputs a value to the new string variable `newvar` based on the values of high, medium and low that are given to the function. 
 	
@@ -205,7 +210,6 @@ The two functions above calculate the same Location Quotient, but the first one 
 ```{r}
 head(LondonWardsSF[,1:7])
 ```
-
 
 Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:
 
@@ -323,9 +327,7 @@ LQMapper<-function(sfdataframe){
 LQMapper(LondonWardsSF)
 ```
 
-![](LQ_PctWithNoQ.png)
-
-#### Extension 2 
+### Extension 2 
 
 Clearly there are lots of things that can be done to improve this function, it's plotting, legend, layout etc. - feel free to experiment and customise
 
@@ -386,18 +388,11 @@ Now of course this is just the most basic of classifications, but you can easily
 
 I haven't even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right... or indeed a dissertation topic!
 
-
-
-
-
-
-
-
-
 ##############################################################################
 
+## Part B Online mapping
 
-## Learning objectives
+### Learning objectives
 
 By the end of this practical you should be able to:
 
@@ -405,19 +400,13 @@ By the end of this practical you should be able to:
 2. Create interative maps using RPubs, RMarkdown site generator and Shiny
 3. Critically appraise the appropriateness of mapping technqiues based on the dataset and purpose of the output map
 
-## Recommended listening
-
-Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
-
-[Andy](https://www.youtube.com/watch?v=6Bh6IL1mNfc)
-
-## Introduction 
+### Introduction 
 
 In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year.  However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.
 
 We will now explore several ways to do this...
 
-## RPubs
+### RPubs
 
 One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd``` and directly uploads it to rpubs.com --- all files are publically available on this website.
 
@@ -606,9 +595,9 @@ And for more code chunk control..
 * https://bookdown.org/yihui/rmarkdown/r-code.html
 * https://rmarkdown.rstudio.com/lesson-3.html
 
-## RMarkdown site generator 
+### RMarkdown site generator 
 
-### Set the file structure
+#### Set the file structure
 
 RPubs are useful but what if you wanted to make a full site with different tabs for introduction, methodology, results and recommedations...one way is to use the RMarkdown site generator hosted on GitHub
 
@@ -647,15 +636,15 @@ navbar:
       href: publishexample.html
 ```
 
-### Link to GitHub
+#### Link to GitHub
 
 There are two ways to do this....
 
-#### GitHub first
+##### GitHub first
 
 This is the 'easy' way as you woould repeat the steps in [Practical 4][Git, GitHub and RMarkdown] by firstly making a new repository on GitHub then loading a new project in RStudio, linking that to GitHub and copying all your files into your new project from the exisiting one. 
 
-#### GitHub last
+##### GitHub last
 
 So if you already have a RStudio project...like we do...we can link this to GitHub but the steps are a bit more invovled and there are several ways to acheive it --- as with most things in R.
 
@@ -726,7 +715,7 @@ For more information on hosting your code from RStudio on GitHub check out the b
 
 My RMarkdown site can be found [here](https://andrewmaclachlan.github.io/PUBLISHEXAMPLE/), but note that i've added a Shiny tab...we'll cover Shiny next...
 
-## Shiny
+### Shiny
 
 Shiny is an R package that lets you build interactive web apps, host them online and embed them within RMarkdown documents... have a [look at some examples](https://shiny.rstudio.com/gallery/)
 
@@ -754,7 +743,7 @@ Here you can select either a single file or multiple file format, originally Shi
 
 Now let's make one with our data...
 
-### Data preparation
+#### Data preparation
 
 29. The first part is easy and is based on analysis we have already compelted...we need to produce a ```sf``` multipolygon layer containing the number of hotels and airbnbs per London borough through....
 
@@ -870,7 +859,7 @@ ti$Hotel[is.na(ti$Hotel)] <- 0
 ti$Airbnb[is.na(ti$Airbnb)] <- 0
 ```
 
-### User interface 
+#### User interface 
 
 31. Ok, first let's set up the user interface or ```ui```. I've commented the code to descrbie what each bit does.
 
@@ -932,7 +921,7 @@ ui <- bootstrapPage(
 
 ```
 
-### Server function
+#### Server function
 
 33. It's a good idea to actuallly see what this produces...at the bottom of the code add an empty server function and then generate the Shiny application **BE SURE TO COPY ALL OF BRACKETS**
 
@@ -1034,7 +1023,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-### Publish Shiny app
+#### Publish Shiny app
 
 Now we will publish our Shiny app on the internet. There are a few ways to do this, but we'll use Shinyapps.io which let's us upload our app straight from our R session to a sever hosted by RStudio.
 
@@ -1060,7 +1049,7 @@ knitr::include_graphics('prac8_images/finalapp.png')
 
 Mine is here: https://amaclachlan.shinyapps.io/test/
 
-### Incoproate into RMarkdown site
+#### Incoproate into RMarkdown site
 
 40. To include our Shiny application into our RMarkdown site just add the following code in a code chunk:
 
@@ -1083,7 +1072,7 @@ knitr::include_graphics('prac8_images/Shiny_rmarksite_yml.png')
 
 41. Remember to update your site you'll need to build the website, commit to Git and push to GitHub
 
-### Additional example
+#### Additional example
 
 Last year Adam created a similar (but slightly different) Shiny, check it out [here](https://adam-dennett.shinyapps.io/londonShiny/)
 
@@ -1101,13 +1090,13 @@ To do it like this the scrips must be in the same project!
 
 Want to see something really cool i came across....how about controlling the map elements with your voice using Shiny...https://yihui.shinyapps.io/voice/
 
-### More Shiny
+#### More Shiny
 
 For Shiny help explore [Mastering Shiny](https://mastering-shiny.org/index.html) and [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html), specifcally the section on Advanced applications. 
 
 For advancements / large scale projects with Shiny explore [Building Big Shiny Apps - A Workflow](https://thinkr-open.github.io/building-shiny-apps-workflow/) 
 
-## How to lie with maps
+### How to lie with maps
 
 If you play around with the Shiny app, changing the colour scheme, interval style and accomodation count using the slider you'll notice that you can actually almost change what the maps shows. For example, if you wanted to hide the distribution of Airbnb accomodation over London you could select any color scheme, use the full range of accomodation count and then select the pretty interval style to give some like...
 
@@ -1117,7 +1106,7 @@ knitr::include_graphics('prac8_images/liewithmap.png')
 
 It's therefore important to provide reasoning for the choices you make in analysis and when creating mapped outputs. This especially true with the advent of GitHub and journals publishing data and code meaning it is almost impossible to present false representations of analysis. 
 
-## Warning
+### Warning
 
 Whilst it might seem tempting to use the most advanced interactive maps for your the assignments within this module and course it is important to think and reflect upon the appropriateness of the mapped output. You should ask yourself the following questions:
 
@@ -1130,7 +1119,7 @@ In all these examples i've used the same data (Hotels and Airbnbs in London boro
 
 The take home message from this is to critically think about the best way to map and disseminate your data/results.
 
-## Advanced online publishing
+### Advanced online publishing
 
 Already familiar with RPubs, RMarkdown site generator or Shiny? Try and and produce an online document using either: bookdown, flexdashboard, blogdown or shinydashboard. These are listed in order of difficutly from my experience. 
 
@@ -1144,7 +1133,7 @@ Already familiar with RPubs, RMarkdown site generator or Shiny? Try and and prod
 
 * Interactive Shiny dashboards: https://rstudio.github.io/shinydashboard/get_started.html
 
-## Feedback
+### Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know [here](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
 

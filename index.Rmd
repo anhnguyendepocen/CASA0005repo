@@ -38,10 +38,35 @@ Want to see what you can do with spatial analysis...check out this 'What's Next'
 knitr::include_url("https://www.youtube.com/embed/K0qZffiKwak")
 ```
 
-
 ## Getting started {-}
 
 One of the issues with GIS is that many of the files we will be working with are quite large. Fortunately in recent years UCL has seriously beefed up the storage available for students. You now get 100GB of free storage, which should be plenty for the work you will be doing this year! The Bartlett faculty has several gigabytes of storage space available on their central servers, so before we get started, we will connect to our N drive to carry out all of our practical work over the coming weeks. 
+
+## How to dowload data and files from GitHub {-}
+
+In some of the practicals it will say to download the data from my GitHub. To do so you have a few options. Option 1 will download everything i have used to make the practicals and option 2 will let you download just a spceific folder (e.g. the data folders).
+
+### Option 1 {-}
+
+1. Go to the online repository page here: https://github.com/andrewmaclachlan/CASA0005repo
+
+2. Click Clone or download, the download as ZIP. This will download the everything i have used to make this website including all the data for the practicals
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('index_images/downloadrepo.png') 
+```
+
+### Option 2 {-}
+
+Use [DownGit](https://minhaskamal.github.io/DownGit/#/home)
+
+1. Go to: https://minhaskamal.github.io/DownGit/#/home
+
+2. Head over to the GitHub repository: https://github.com/andrewmaclachlan/CASA0005repo
+
+3. Select a folder you wish to download --- here i'll use practical data as the example, click into the folder (prac6_data) and copy the url: https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac6_data
+
+4. Paste it into DownGit and click Download, once downloaded then unzip the folder.
 
 ## Self guided learning {-}
 
