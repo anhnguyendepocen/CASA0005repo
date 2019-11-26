@@ -10,6 +10,8 @@ Part B looks focuses on online mapping
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
+[Adam](https://open.spotify.com/track/3BGF4XAm8jaEi2LcGR57O3?si=gfYc6LS6Tgy9M9oXVVG4SQ)
+Bit different from me this week - I'm not all about drum and bass (although I mostly am). Stumbled across these recently and I should have known about them for much longer. The Joy Formidable - this is a 10th Anniversary revisit of their first EP and is ace. If you like Welsh, you're in for a treat! 
 [Andy](https://www.youtube.com/watch?v=6Bh6IL1mNfc)
 
 ## Part A spatial descriptive statistics
@@ -387,8 +389,6 @@ map
 Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try. 
 
 I haven't even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right... or indeed a dissertation topic!
-
-##############################################################################
 
 ## Part B Online mapping
 
