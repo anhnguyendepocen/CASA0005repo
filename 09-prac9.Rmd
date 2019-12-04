@@ -6,6 +6,8 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 [Andy](https://www.youtube.com/watch?v=z1LLWHroWgA)
 
+[Adam](https://www.bbc.co.uk/sounds/play/m000bvml)This week it's Radio1's DnB 60, recorded live at the Warehouse Project. Die, Bryan G, Jumpin' Jack Frost and it sounds like Dynamite on the mic --- some proper rollers in here!
+
 ## Introduction
 
 In this practical you will be introduced to a suite of different models that will allow you to test a variety of research questions and hypotheses through modelling the associations between two or more spatially reference variables. 
@@ -100,7 +102,6 @@ LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profile
 str(LondonWardProfiles)
 ```
 
-
 Now you have read in both your boundary data and your attribute data, you need to merge the two together using a common ID. In this case, we can use the ward codes to achieve the join
 
 ```{r}
@@ -129,7 +130,6 @@ qtm(LonWardProfiles, fill = "Average GCSE capped point scores - 2014", borders =
 In addition to our main datasets, it might also be useful to add some contextual data. While our exam results have been recorded at the home address of students, most students would have attended one of the schools in the City. 
 
 Let's add some schools data as well.
-
 
 ```{r}
 #might be a good idea to see where the secondary schools are in London too
@@ -161,7 +161,6 @@ Examining the spatial distribution of GSCE point scores in the map above, it is 
 My research hypothesis that I am going to test is that there are other observable factors occurring in Wards in London that might affect the average GCSE scores of students living in those areas. 
 
 In inferential statistics, we cannot definitively prove a hypothesis is true, but we can seek to *disprove* that there is absolutely nothing of interest occurring or no association between variables. 
-
 The *null hypothesis* that I am going to test empirically with some models is that there is *no* relationship between exam scores and other observed variables across London. 
 
 ### Regression Basics
@@ -272,7 +271,7 @@ Therefore, these will be checked in turn.
 
 ### Assumption 1 - There is a linear relationship between the dependent and Independent variables
 
-The best way to test for this assumption is to plot a scatter plot similar to the one created earlier. It may not always be practical to create a series of scatter plots, so one quick way to check that a linear relationship is probable is to look at the frquency distributions of the variables. If they are normally distributed, then there is a good chance that if the two variables are in some way correlated, this will be a linear relationship.
+The best way to test for this assumption is to plot a scatter plot similar to the one created earlier. It may not always be practical to create a series of scatter plots, so one quick way to check that a linear relationship is probable is to look at the frequency distributions of the variables. If they are normally distributed, then there is a good chance that if the two variables are in some way correlated, this will be a linear relationship.
 
 For example, look at the frequency distributions of our two variables earlier:
 
@@ -709,7 +708,7 @@ You should try and build the optimum model of GCSE performance from your data in
 For example, let's try adding the rate of drugs related crime (logged as it is a positively skewed variable, where as the log is normal) and the number of cars per household... are these variables significant? What happens to the spatial errors in your models?
 
 
-##Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)
+## Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)
 
 Here's my final model from the last section:
 

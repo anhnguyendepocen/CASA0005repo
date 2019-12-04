@@ -40,7 +40,7 @@ library(plotly)
 library(highcharter)
 ```
 
-There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file come from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
+There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
 
 Rather than making you go off to Nomisweb and fetch this data, because I'm really nice, I've posted on GitHub a file containing this and extra categorical, ratio and geographical data that we will need to add to our existing London data file. 
 
