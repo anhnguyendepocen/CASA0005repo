@@ -183,7 +183,7 @@ basicloop <- 1
 while (basicloop < 6) {
   #print the varaible (starts at 1)
   print(basicloop)
-  # then add 2 to the variable
+  # then add 1 to the variable
   basicloop = basicloop+1
   # go back to the start of the loop
   #and if it is still <6 run again
@@ -394,7 +394,7 @@ knitr::include_graphics('prac10_images/linear_regression.png')
 This can be represented with the equation:
 
 $$Y = \beta_{1} + \beta_{2} X + \epsilon$$
-Where $\beta_{1}$ is the intercept (expected value of Y when X=0, also called bias in machine learning), $\beta_{2}$ is the slope of the line and $\epsilon$ is the error term, the part that the model is unable to explain (and variables are not included)...
+Where $\beta_{1}$ is the intercept (expected value of Y when X=0, also called bias in machine learning), $\beta_{2}$ is the slope of the line and $\epsilon$ is the error term, the part that the model is unable to explain (and variables are not included)...Here we would call the intercept and slop coefficients.
 
 12. To start with we're going to crop our wards data to our boroughs data. In the borough data you can see the river Thames which isn't in the wards data. I don't think this is technically required, but it's good practice to make sure you datasets align and if they don't to do something about it...
 ```{r}
@@ -446,6 +446,8 @@ boxplot(joinednames$Wardcount, main="Wards")
 
 ```
 
+>**Warning** The data used within this practical is purely for demonstration purposes! These box plots indicate that our data is not normally distributed so you might want to refer to the assumptions in last week's practical if you were to do this propperly.
+
 ### Correlation
 
 16. Correlation let's use see the level of linear dependence between two varaibles between -1 and 1. High values (towards 1) mean that for every x instance there is an increase in y. Low values (towards -1) mean the opposite. 
@@ -473,29 +475,34 @@ summary(linearMod)
 So from this output we have the coefficients of intercept and Boroughcount, going back to our formula from earlier this would mean...
 
 $$Wardcount = -3.8188 + 0.0541*Boroughcount$$
+
 ### Linear model outputs
+
+**Coefficient Estimates**
+
+Our intercept, the expected value of Y when X=0 is -3.8 and slope is 0.054.
+
+**Standard error**
+
+The coefficient standard error represents the average amount that coeffieint estimates vary from the average of our response. It basically shows the expected range if we were to model again and again. So here, for a 1% increase in the number of Airbnbs per ward by 0.05, but this might vary by 0.001. Ideally the standard error is lower than the size of the coeffeicient (0.001 is lower the 0.05)
 
 **p-value**
 
-A linear model is only statistically significant when both p-values are <0.05 within the summary call. There are two values as one if for the coefficient  (is the specific coefficient significant) and the other is for the model (is the model significant). Here as they both are, this would allow us to accept the alternative hypothesis that the coefficients are not equal to 0 (and therefore there is a relationship between the independent and dependent variabile)
+A linear model is only statistically significant when both p-values are <0.05 within the summary call. There are two values as one if for the coefficient (is the specific coefficient significant) and the other is for the model (is the model significant). Here as they both are, this would allow us to accept the alternative hypothesis that the coefficients are not equal to 0 (and therefore there is a relationship between the independent and dependent variabile).
 
 **R-squared**
 
-R squared represents the proportion of variance of the dependent variable that is explained by the independent. It is different from correlation as that is the strength of the relationship!!!
+R squared represents the proportion of variance of the dependent variable that is explained by the independent. It is different from correlation as that is the strength of the relationship!!! R squared is often referred to as 'goodness-of-fit'. Here 61% of the variance in Airbnb ward count can be explained by the varaition in Airbnb borough count.
 
 But there are a few issues with R squared --- every time you add a predictor to the model R squared will increase and if there are too many predictors it will model random noise
 
 **Adjusted R squared**
 
-Adjusted R squared therefore considered the number of variables within the model, increasing only if the new term assits by more than just chance.
-
-**Standard error**
-
-The coefficient standard error represents the average amoint that coeffieint estaimtes vary from the average of our response. It basically shows the expected range if we were to model again and again. 
+Adjusted R squared consideres the number of variables within the model, increasing only if the new term assits by more than just chance.
 
 **t**
 
-Coefficient t shows how many standard deviations the coefficient estaimte is away from 0 --- the further away means the more likely we can reject the null hypothesis.
+Coefficient t shows how many standard deviations the coefficient estaimte is away from 0 --- the further away means the more likely we can reject the null hypothesis. It is calcaulted by dividing the value of the coeffeicient by the standard error
 
 **Residual error**
 
@@ -508,7 +515,7 @@ F-statistcs, basically, the futher from 1 the better it is.
 See [this guide](https://feliperego.github.io/blog/2015/10/23/Interpreting-Model-Output-In-R) for more information on the outputs
 
 
-Remeber the formula produced from the regression equation, well we can also extract this automatically ...to make that original formula in RMarkdown I used this (not within a code chunk)....
+Remember the formula produced from the regression equation, well we can also extract this automatically ...to make that original formula in RMarkdown I used this (not within a code chunk)....
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 $$Wardcount = -3.8188 + 0.0541*Boroughcount$$
@@ -572,10 +579,29 @@ lmMod <- lm(Wardcount ~ Boroughcount, data=trainingData)
 # use the model to make some predicitons with our test data
 wardpredict <- predict(lmMod, testData)
 
-summary (lmMod)
+summary(lmMod)
+
+# get R2, RMSE and MAE
+predictions <- lmMod %>% predict(testData)
+data.frame( R2 = R2(predictions, testData$Wardcount),
+            RMSE = RMSE(predictions, testData$Wardcount),
+            MAE = MAE(predictions, testData$Wardcount))
 ```
 
-20. We can just run a correlation between the data we left out and the predicted data to assess the accuracy...
+20. We can use the R2, Root Mean Square Error and Mean Absolute Error. 
+
+* $R^2$ is the variation of y explained by x
+
+* Mean Absolute Error measures the average magnitude of the errors (distance of points from the regression line) using:
+
+$$RMSE = {\frac{1}{n}\Sigma_{i=1}^{n}{\Big({d_i -f_i\Big)}}}$$
+
+* Root Mean Square Error (RMSE) is the standard deviation of the resuiduals, this means how far away the points are from the regression line...
+
+$$RMSE= \sqrt{\frac{1}{n}\Sigma_{i=1}^{n}{\Big({d_i -f_i}\Big)^2}}$$
+Where $d_i$ is the actual value,  $d_f$ is the predicted value, and $n$ is the number of data points 
+
+We could also just run a correlation between the data we left out and the predicted data to assess the accuracy...
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
 
@@ -594,7 +620,6 @@ This shows us that we have a strong and statistically significant relationship b
 21. We can also use min-max accuracy to see how close the actual and predicted values are...using the equation...
 
 $$MinMaxAccuracy= mean\left( \frac{min(actuals, predicteds}{max(actuals, predicteds)} \right)$$
-
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
 min_max_accuracy <- mean(apply(actuals_preds, 1, min, na.rm=TRUE) /
@@ -648,6 +673,8 @@ model<- train(Wardcount ~ Boroughcount,
                                      verboseIter=FALSE))
 
 summary(model)
+#print R2, MAE and RMSE
+print(model)
 ```
 
 Results show that our cross validated model accounts for around 60% of varaince of the number of Airbnbs per ward...compare this to the results from the standard linear regression...
