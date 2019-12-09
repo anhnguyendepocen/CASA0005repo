@@ -2,6 +2,9 @@ Package: placeholder
 Type: Book
 Title: Does not matter.
 Version: 0.0.1
+Authors@R: person("Andrew", "MacLachlan", role = c("aut"))
+Description: CASA0005
+License: CC BY-NC-ND 4.0
 Imports: bookdown
 Depends: 
     bookdown,
