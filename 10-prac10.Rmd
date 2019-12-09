@@ -594,7 +594,7 @@ data.frame( R2 = R2(predictions, testData$Wardcount),
 
 * Mean Absolute Error measures the average magnitude of the errors (distance of points from the regression line) using:
 
-$$RMSE = {\frac{1}{n}\Sigma_{i=1}^{n}{\Big({d_i -f_i\Big)}}}$$
+$$MAE = {\frac{1}{n}\Sigma_{i=1}^{n}{\Big({d_i -f_i\Big)}}}$$
 
 * Root Mean Square Error (RMSE) is the standard deviation of the resuiduals, this means how far away the points are from the regression line...
 
