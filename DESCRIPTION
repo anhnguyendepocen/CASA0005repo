@@ -4,4 +4,16 @@ Title: Does not matter.
 Version: 0.0.1
 Imports: bookdown
 
+Depends: 
+    bookdown,
+    sf,
+    tmap,
+    spDataLarge,
+    geocompkg
+Remotes: 
+    geocompr/geocompkg,
+    mtennekes/tmap,
+    nowosad/spDataLarge,
+    r-spatial/sf
+
 Remotes: rstudio/bookdown
