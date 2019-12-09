@@ -3,6 +3,8 @@ cache: packages
 pandoc_version: 1.19.2.1
 
 install:
+  - R -e "install.packages('dplyr')"
+  - R -e "install.packages('sf')"
   - R -e "install.packages('remotes')"
 
   
