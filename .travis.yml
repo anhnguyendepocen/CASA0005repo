@@ -19,7 +19,8 @@ install:
   "tidyverse",
   "remotes",
   "tinytex",
-  "rgdal")
+  "rgdal",
+  "sf")
 
 before_script:
   - chmod +x ./_build.sh
