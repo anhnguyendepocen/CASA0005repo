@@ -2,6 +2,8 @@ language: r
 cache: packages
 pandoc_version: 1.19.2.1
 
+before_install: R -e 'source("https://install-github.me/r-lib/remotes")'
+
 before_script:
   - chmod +x ./_build.sh
   - chmod +x ./_deploy.sh
