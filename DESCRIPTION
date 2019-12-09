@@ -13,7 +13,6 @@ Depends:
     spDataLarge,
     geocompkg
 Remotes: 
-    rstudio/bookdown,
     geocompr/geocompkg,
     mtennekes/tmap,
     nowosad/spDataLarge,
