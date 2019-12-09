@@ -1,6 +1,8 @@
 language: r
-sudo: false
 cache: packages
+latex: false
+dist: trusty
+sudo: required
 
 before_install:
   - sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev 
