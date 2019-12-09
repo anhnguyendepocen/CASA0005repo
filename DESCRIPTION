@@ -15,5 +15,5 @@ Remotes:
     mtennekes/tmap,
     nowosad/spDataLarge,
     r-spatial/sf
-
-Remotes: rstudio/bookdown
+Encoding: UTF-8
+LazyData: true
