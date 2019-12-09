@@ -44,6 +44,7 @@ spwr,
 shiny, 
 RColorBrewer,
 highcharter,
-RSQLite
+RSQLite,
+remotes
 
-Remotes: rstudio/bookdown
+Remotes: rstudio/bookdown, datalorax/equatiomatic
