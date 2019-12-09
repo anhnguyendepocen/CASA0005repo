@@ -6,7 +6,6 @@ Authors@R: c(person("Andrew", "MacLachlan", email="a.maclachlan@ucl.ac.uk", role
 Maintainer: Andrew MacLachlan <a.maclachlan@ucl.ac.uk>
 Description: CASA0005
 License: CC BY-NC-ND 4.0
-Imports: sf
 Depends: 
     bookdown,
     sf,
