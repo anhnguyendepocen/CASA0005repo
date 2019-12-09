@@ -45,4 +45,10 @@ highcharter,
 RSQLite,
 remotes
 
+Suggests: 
+    testthat,
+    pkgdown,
+    dplyr,
+    rgeos
+
 Remotes: rstudio/bookdown, datalorax/equatiomatic
