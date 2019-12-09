@@ -1,31 +1,13 @@
-language: r
+language: R
 cache: packages
-latex: false
-dist: trusty
-sudo: required
-
-before_install:
-  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
-  - sudo add-apt-repository ppa:opencpu/jq --yes
-  - sudo apt-get update  --yes
-  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev libv8-dev
-  - sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev 
-
-install:
-  - R -e install.packages(c("sf", 
-  "tmap", 
-  "tmaptools", 
-  "RSQLite", 
-  "tidyverse",
-  "remotes",
-  "tinytex",
-  "rgdal",
-  "sf")
-
-before_script:
-  - chmod +x ./_build.sh
-  - chmod +x ./_deploy.sh
+pandoc_version: 2.3.1
 
 script:
-  - ./_build.sh
-  - ./_deploy.sh
+- Rscript -e 'bookdown::render_book("index.Rmd")'
+
+deploy:
+  provider: pages
+  local_dir: _book
+  skip_cleanup: true
+  on:
+    branch: master
