@@ -10,6 +10,8 @@ before_install:
   - sudo apt-get --yes --force-yes update -qq
   - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev libv8-dev
   - sudo apt-get install --yes libjq-dev libprotobuf-dev libprotoc-dev protobuf-compiler libnetcdf-dev r-cran-ncdf4
+  - sudo apt-get install libgsl0-dev
+  - sudo apt-get install -y libcurl-dev
 
 install:
   - R -e "install.packages('remotes')"
