@@ -2,53 +2,6 @@ Package: placeholder
 Type: Book
 Title: Does not matter.
 Version: 0.0.1
-Imports: bookdown, ggplot2, dplyr, sf, 
-tmap, 
-plotly, 
-reshape2, 
-raster, 
-weathermetrics, 
-flexdashboard, 
-citr,
-tmaptools, 
-plyr,
-tidyverse,
-grid,
-leafpop,
-leaflet,
-spatstat,
-sp,
-rgeos,
-maptools,
-GISTools,
-geojson,
-jeojsonio,
-fpc,
-OpenStreetMap,
-dbscan,
-rgdal,
-spdep,
-rasterVis,
-GGally,
-RStoolbox,
-htmlwidgets,
-broom,
-mapview,
-crosstalk,
-car,
-corrplot,
-spatialreg,
-spwr,
-shiny, 
-RColorBrewer,
-highcharter,
-RSQLite,
-remotes
+Imports: bookdown
 
-Suggests: 
-    testthat,
-    pkgdown,
-    dplyr,
-    rgeos
-
-Remotes: rstudio/bookdown, datalorax/equatiomatic
+Remotes: rstudio/bookdown
