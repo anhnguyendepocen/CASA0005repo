@@ -2,7 +2,7 @@ Package: placeholder
 Type: Book
 Title: Does not matter.
 Version: 0.0.1
-Authors@R: person("Andrew", "MacLachlan", role = c("aut"))
+Authors@R: person("Andrew", "MacLachlan", email="a.maclachlan@ucl.ac.uk", role = c("aut", "cre"))
 Description: CASA0005
 License: CC BY-NC-ND 4.0
 Imports: bookdown
