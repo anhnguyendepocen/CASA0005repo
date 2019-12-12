@@ -38,6 +38,7 @@ New packages and functions that i've recently come across that are worth explori
 * Rayshader: https://www.rayshader.com/
 * Cartography package: http://riatelab.github.io/cartography/docs/
 * Data is beautiful reddit: https://www.reddit.com/r/dataisbeautiful/
+* Network visualisation: https://kateto.net/network-visualization
 
 ## Books/reading resources
 
@@ -59,12 +60,14 @@ There are a lot of free online books for geospatial analysis, especially using R
 * https://thinkr-open.github.io/building-shiny-apps-workflow/
 * http://www.paulamoraga.com/book-geospatial/index.html
 * https://moderndive.com/
+* https://serialmentor.com/dataviz/index.html
+*[21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
 
 Complied list of R books: https://bookdown.org/
 
 If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.
 
-...that's a lot of books, should we read all of them? No, be selective, a lot of the same material will be covered in each book. Follow your interests and read widely !
+...that's a lot of books, should we read all of them? No, be selective, a lot of the same material will be covered in each book. Follow your interests, read widely and think about how you could apply these ideas / concepts to different topics or disciplines!
 
 ## New developments
 
@@ -82,6 +85,7 @@ Other useful tutorials can be found here:
 * http://rpubs.com/chrisbrunsdon/
 * http://rpubs.com/alexsingleton/
 * https://mgimond.github.io/megug2017/#cropping-a-raster-interactively
+* https://simplystatistics.org/
 
 ### Twitter
 

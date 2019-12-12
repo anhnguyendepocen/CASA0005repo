@@ -993,8 +993,6 @@ predict(linearmodel, newdata, interval="confidence", level=0.95)
 
 It would be great if you could write your analysis in as least possible lines of code as possible...**BUT** you are not marked on how concise or efficient your code is in this course. My advice would be to get something that works and addresses all of the marking criteria. 
 
-
-
 ## More resources
 
 * [Ridge regression](https://www.youtube.com/watch?v=Q81RR3yKn30&t=443s)
@@ -1009,6 +1007,7 @@ It would be great if you could write your analysis in as least possible lines of
 If you are already familiar with these regression methods try the following:
 
 * Apply them to a dataset of your choice to see if you can predict a specific variable 
+* This [free course by Julia Silge](https://supervised-ml-course.netlify.com/) on supversied machine learning is pretty great
 * Explore and apply machine learning techniques for predicting data such as [Random Forest](https://www.guru99.com/r-random-forest-tutorial.html), [Classification and Regression Trees, Support Vector Machine and others](https://machinelearningmastery.com/machine-learning-in-r-step-by-step/)
 * Try out [maximum likelihood](https://www.r-bloggers.com/fitting-a-model-by-maximum-likelihood/) for estimating model parameters 
 * Have a look at the [new tidymodels package](https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/)
