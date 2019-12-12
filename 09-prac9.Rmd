@@ -18,6 +18,8 @@ The London Data Store collates a range of other variables for each Ward and so w
 
 This practical will walk you through the common steps that you should go through when building a regression model using spatial data to test a stated research hypothsis; from carrying out some descriptive visualisation and summary statistics, to interpreting the results and using the outputs of the model to inform your next steps. 
 
+If you want to do some more reading around regression, then [Chapter 5 of the Modern Dive book](https://moderndive.com/5-regression.html) is pretty great. 
+
 ### Setting up your Data
 
 First, let's set up R and read in some data to enable us to carry out our analysis. 

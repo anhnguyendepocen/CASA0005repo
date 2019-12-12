@@ -57,6 +57,8 @@ There are a lot of free online books for geospatial analysis, especially using R
 * https://plotly-r.com/index.html
 * https://bookdown.org/ndphillips/YaRrr/
 * https://thinkr-open.github.io/building-shiny-apps-workflow/
+* http://www.paulamoraga.com/book-geospatial/index.html
+* https://moderndive.com/
 
 Complied list of R books: https://bookdown.org/
 
