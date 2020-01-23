@@ -95,10 +95,10 @@
     },
     "ModelMetrics": {
       "Package": "ModelMetrics",
-      "Version": "1.2.2",
+      "Version": "1.2.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d85508dd2162bf34aaf15d6a022e42e5"
+      "Hash": "f0d8132eac48aeead07b3a7d5056d059"
     },
     "OpenStreetMap": {
       "Package": "OpenStreetMap",
