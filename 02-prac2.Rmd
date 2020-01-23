@@ -327,7 +327,7 @@ If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see t
 ```{r, cache=TRUE}
 # by default in R, the file path should be defined with / but on a #windows file system it is defined with \. Using \\ instead allows R #to read the path correctly – alternatively, just use /
 LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", 
-                         header = TRUE, sep = ",")
+                         header = TRUE, sep = ",", encoding = "latin1")
 ```
 
 This would specify that the first row of the file contains header information; and the values in the file are separated with commas (not ; or : as can be the case sometimes).
