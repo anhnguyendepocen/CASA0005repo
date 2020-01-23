@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science</title>
   <meta name="description" content="Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science" />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-01-22" />
+<meta name="date" content="2020-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,21 +51,21 @@
 
 
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script async defer src="https://hypothes.is/embed.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -1100,10 +1100,11 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 <p>So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of <code>london_boroughs_fly_tipping</code>. I’ve set <code>delete_layer</code> to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.</p>
 <p>Let’s also add the <code>.csv</code> as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the <code>.gpkg</code> we just made:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw">library</span>(RSQLite)</a>
-<a class="sourceLine" id="cb27-3" title="3">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb27-2" title="2"><span class="kw">library</span>(RSQLite)</a></code></pre></div>
+<pre><code>## Warning: package &#39;RSQLite&#39; was built under R version 3.6.2</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a></code></pre></div>
 <p>Now examine what is in the <code>.gpkg</code>…you can see that i’ve already got my <code>original_csv</code> stored within the <code>.gpkg</code> as when i developed this practical i made sure it was working!</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
 <pre><code>##  [1] &quot;gpkg_contents&quot;                                
 ##  [2] &quot;gpkg_extensions&quot;                              
 ##  [3] &quot;gpkg_geometry_columns&quot;                        
@@ -1121,44 +1122,44 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 ## [15] &quot;rtree_london_boroughs_fly_tipping_geom_rowid&quot; 
 ## [16] &quot;sqlite_sequence&quot;</code></pre>
 <p>Add your <code>.csv</code> and disconnect from the <code>.gpkg</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">dbWriteTable</span>(con,<span class="st">&quot;original_csv&quot;</span>, mycsv, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb30-2" title="2"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">dbWriteTable</span>(con,<span class="st">&quot;original_csv&quot;</span>, mycsv, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
 <p>Here overwrite let’s you well..overwrite the exisiting file…if this wasn’t specified as true you would get an error saying the file already existed if you tried to run this code again.</p>
 <div id="making-a-script" class="section level4">
 <h4><span class="header-section-number">1.4.8.1</span> Making a script</h4>
 <p>To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb31-2" title="2"><span class="kw">library</span>(tmap) </a>
-<a class="sourceLine" id="cb31-3" title="3"><span class="kw">library</span>(tmaptools)</a>
-<a class="sourceLine" id="cb31-4" title="4"><span class="kw">library</span>(RSQLite)</a>
-<a class="sourceLine" id="cb31-5" title="5"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb31-6" title="6"><span class="co">#read in the shapefile</span></a>
-<a class="sourceLine" id="cb31-7" title="7">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(</a>
-<a class="sourceLine" id="cb31-8" title="8">  <span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
-<a class="sourceLine" id="cb31-9" title="9"><span class="co"># read in the csv</span></a>
-<a class="sourceLine" id="cb31-10" title="10">mycsv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a>
-<a class="sourceLine" id="cb31-11" title="11"><span class="co"># merge csv and shapefile</span></a>
-<a class="sourceLine" id="cb31-12" title="12">shape &lt;-<span class="st"> </span><span class="kw">merge</span>(shape, </a>
-<a class="sourceLine" id="cb31-13" title="13">               mycsv, </a>
-<a class="sourceLine" id="cb31-14" title="14">               <span class="dt">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </a>
-<a class="sourceLine" id="cb31-15" title="15">               <span class="dt">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</a>
-<a class="sourceLine" id="cb31-16" title="16"><span class="co"># set tmap to plot</span></a>
-<a class="sourceLine" id="cb31-17" title="17"><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</a>
-<a class="sourceLine" id="cb31-18" title="18"><span class="co"># have a look at the map</span></a>
-<a class="sourceLine" id="cb31-19" title="19"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a>
-<a class="sourceLine" id="cb31-20" title="20"><span class="co"># write to a .gpkg</span></a>
-<a class="sourceLine" id="cb31-21" title="21"><span class="kw">st_write</span>(shape, <span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>, <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>, <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb31-22" title="22"><span class="co"># connect to the .gpkg</span></a>
-<a class="sourceLine" id="cb31-23" title="23">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a>
-<a class="sourceLine" id="cb31-24" title="24"><span class="co"># list what is in it</span></a>
-<a class="sourceLine" id="cb31-25" title="25"><span class="kw">dbListTables</span>(con)</a>
-<a class="sourceLine" id="cb31-26" title="26"><span class="co"># add the original .csv</span></a>
-<a class="sourceLine" id="cb31-27" title="27"><span class="kw">dbWriteTable</span>(con,<span class="st">&quot;original_csv&quot;</span>, mycsv, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb31-28" title="28"><span class="co"># disconnect from it</span></a>
-<a class="sourceLine" id="cb31-29" title="29"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw">library</span>(tmap) </a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="kw">library</span>(tmaptools)</a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="kw">library</span>(RSQLite)</a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="co">#read in the shapefile</span></a>
+<a class="sourceLine" id="cb33-7" title="7">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(</a>
+<a class="sourceLine" id="cb33-8" title="8">  <span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
+<a class="sourceLine" id="cb33-9" title="9"><span class="co"># read in the csv</span></a>
+<a class="sourceLine" id="cb33-10" title="10">mycsv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a>
+<a class="sourceLine" id="cb33-11" title="11"><span class="co"># merge csv and shapefile</span></a>
+<a class="sourceLine" id="cb33-12" title="12">shape &lt;-<span class="st"> </span><span class="kw">merge</span>(shape, </a>
+<a class="sourceLine" id="cb33-13" title="13">               mycsv, </a>
+<a class="sourceLine" id="cb33-14" title="14">               <span class="dt">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </a>
+<a class="sourceLine" id="cb33-15" title="15">               <span class="dt">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</a>
+<a class="sourceLine" id="cb33-16" title="16"><span class="co"># set tmap to plot</span></a>
+<a class="sourceLine" id="cb33-17" title="17"><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</a>
+<a class="sourceLine" id="cb33-18" title="18"><span class="co"># have a look at the map</span></a>
+<a class="sourceLine" id="cb33-19" title="19"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a>
+<a class="sourceLine" id="cb33-20" title="20"><span class="co"># write to a .gpkg</span></a>
+<a class="sourceLine" id="cb33-21" title="21"><span class="kw">st_write</span>(shape, <span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>, <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>, <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb33-22" title="22"><span class="co"># connect to the .gpkg</span></a>
+<a class="sourceLine" id="cb33-23" title="23">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a>
+<a class="sourceLine" id="cb33-24" title="24"><span class="co"># list what is in it</span></a>
+<a class="sourceLine" id="cb33-25" title="25"><span class="kw">dbListTables</span>(con)</a>
+<a class="sourceLine" id="cb33-26" title="26"><span class="co"># add the original .csv</span></a>
+<a class="sourceLine" id="cb33-27" title="27"><span class="kw">dbWriteTable</span>(con,<span class="st">&quot;original_csv&quot;</span>, mycsv, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb33-28" title="28"><span class="co"># disconnect from it</span></a>
+<a class="sourceLine" id="cb33-29" title="29"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
 <p>You can then save your script through File &gt; Save As.</p>
 <p>If you are on a Mac you might also need to load <code>rgdal</code>…just add the following at the top of the script.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(rgdal)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">library</span>(rgdal)</a></code></pre></div>
 </div>
 </div>
 <div id="what-will-i-use-1" class="section level3">
@@ -1278,6 +1279,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

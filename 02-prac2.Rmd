@@ -313,13 +313,13 @@ Leave the replace box empty each time and click Replace All to remove these from
 24. Once you have cleaned out all of the trixy characters from the file, to read it into R, we will use the ```read.csv()``` function:
 
 ```{r, cache=TRUE}
-LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv")
+LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", sep=",")
 ```
 
 > **Note**, I've made an R project for all these practicals, which is why my file path starts with ```prac2_data/```. If you save the ```.csv``` in the same folder as the ```.Rproj``` then you can just use:
 
 ```{r eval=FALSE, cache=TRUE}
-LondonDataOSK<- read.csv("ward-profiles-excel-version.csv")
+LondonDataOSK<- read.csv("ward-profiles-excel-version.csv", sep=",")
 ```
 
 If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see that we can actually include many more parameters when reading in a .csv file. For example, we could read in the same file as follows:
