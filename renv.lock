@@ -214,10 +214,10 @@
     },
     "V8": {
       "Package": "V8",
-      "Version": "2.3",
+      "Version": "3.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "34b3a6d16f9cfeb07a41aacaf8830512"
+      "Hash": "ac43492758d14247f5b99dc810f81aac"
     },
     "XML": {
       "Package": "XML",
