@@ -536,10 +536,7 @@ Install Java 64-bit from: https://java.com/en/download/manual.jsp
 library(maptools)
 library(RColorBrewer)
 library(classInt)
-<<<<<<< HEAD
-=======
 #library(rJava)
->>>>>>> 4a02287850da1a5c133c6cb029e5e471e4c9dc9b
 #library(OpenStreetMap)
 library(sp)
 library(rgeos)
