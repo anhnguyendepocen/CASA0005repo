@@ -16,11 +16,7 @@ jobs:
         run: |
           brew install pandoc
           brew install pandoc-citeproc
-
-     - name: Install pandoc and pandoc citeproc
-        run: |
-          sudo R CMD javareconf
-
+
       - name: Cache Renv packages
         uses: actions/cache@v1
         with:
