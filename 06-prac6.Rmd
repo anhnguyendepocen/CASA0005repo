@@ -301,7 +301,6 @@ or consult the [wikipedia page](https://en.wikipedia.org/wiki/DBSCAN)
 library(raster)
 library(fpc)
 library(plyr)
-library(OpenStreetMap)
 ```
 
 We will now carry out a DBSCAN analysis of blue plaques in my borough to see if there are any clusters present.

@@ -516,7 +516,7 @@ install.packages("maptools")
 There are a few other packages we’ll need to get to grips with. Some, like ```ggplot2``` (one of the most influential R packages ever) are part of the ```tidyverse``` package we came across earlier. Others we will need to install for the first time.
 
 ```{r, eval=FALSE, cache=TRUE}
-install.packages(c("OpenStreetMap", "classInt", "tmap"))
+install.packages(c("classInt", "tmap"))
 
 # might also need these ones
 install.packages(c("RColorBrewer", "sp", "rgeos", 
@@ -536,8 +536,6 @@ Install Java 64-bit from: https://java.com/en/download/manual.jsp
 library(maptools)
 library(RColorBrewer)
 library(classInt)
-#library(rJava)
-#library(OpenStreetMap)
 library(sp)
 library(rgeos)
 library(tmap)
