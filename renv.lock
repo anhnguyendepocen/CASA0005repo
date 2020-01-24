@@ -100,13 +100,6 @@
       "Repository": "CRAN",
       "Hash": "f0d8132eac48aeead07b3a7d5056d059"
     },
-    "OpenStreetMap": {
-      "Package": "OpenStreetMap",
-      "Version": "0.3.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "01411659918d6e4d5b3eda0e9e7c0bf1"
-    },
     "R6": {
       "Package": "R6",
       "Version": "2.4.1",
@@ -1280,13 +1273,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "12895b7bc4cd4f5209aa8ff52f6cf6b3"
-    },
-    "rJava": {
-      "Package": "rJava",
-      "Version": "0.9-11",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "5fe07fc151fe8fc7de511f6bd8ecbe19"
     },
     "rappdirs": {
       "Package": "rappdirs",
