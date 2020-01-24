@@ -193,10 +193,10 @@
     },
     "V8": {
       "Package": "V8",
-      "Version": "3.0",
+      "Version": "3.0.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "ac43492758d14247f5b99dc810f81aac"
+      "Hash": "7d1118179f4cb56f5e49e58b166999fe"
     },
     "XML": {
       "Package": "XML",
