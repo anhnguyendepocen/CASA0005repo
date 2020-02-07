@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-02-06" />
+<meta name="date" content="2020-02-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -956,10 +956,10 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <a class="sourceLine" id="cb470-2" title="2"><span class="co"># Create a new data frame just containing the two variables we are #interested in</span></a>
 <a class="sourceLine" id="cb470-3" title="3">mydata&lt;-<span class="kw">as.data.frame</span>(LondonWardsDF[,<span class="kw">c</span>(<span class="st">&quot;PctOwned20&quot;</span>,<span class="st">&quot;PctNoEngli&quot;</span>)])</a>
 <a class="sourceLine" id="cb470-4" title="4"><span class="kw">attach</span>(mydata)</a></code></pre></div>
-<pre><code>## The following objects are masked from LondonWardsSF (pos = 4):
+<pre><code>## The following objects are masked from LondonWardsSF (pos = 7):
 ## 
 ##     PctNoEngli, PctOwned20</code></pre>
-<pre><code>## The following objects are masked from LondonWardsSF (pos = 5):
+<pre><code>## The following objects are masked from LondonWardsSF (pos = 8):
 ## 
 ##     PctNoEngli, PctOwned20</code></pre>
 <div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="co">#– check variable distributions first</span></a>
@@ -978,9 +978,9 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <a class="sourceLine" id="cb477-5" title="5"><span class="co">#print the results of the cluster groupings</span></a>
 <a class="sourceLine" id="cb477-6" title="6">centroid</a></code></pre></div>
 <pre><code>##   Group.1 PctOwned20 PctNoEngli
-## 1       1   72.36387   6.379581
-## 2       2   48.92551  14.697571
-## 3       3   27.49037  17.034225</code></pre>
+## 1       1   48.92551  14.697571
+## 2       2   27.49037  17.034225
+## 3       3   72.36387   6.379581</code></pre>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
 <a class="sourceLine" id="cb479-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))</a>
 <a class="sourceLine" id="cb479-3" title="3">p<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
