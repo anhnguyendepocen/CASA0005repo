@@ -301,7 +301,6 @@ or consult the [wikipedia page](https://en.wikipedia.org/wiki/DBSCAN)
 library(raster)
 library(fpc)
 library(plyr)
-library(OpenStreetMap)
 ```
 
 We will now carry out a DBSCAN analysis of blue plaques in my borough to see if there are any clusters present.
@@ -402,6 +401,7 @@ BoroughWGS@bbox
 Now convert the basemap to British National Grid
 
 ```{r, cache=TRUE}
+library(OpenStreetMap)
 basemap<-openmap(c(51.5530613,-0.4040719),c(51.6405318,-0.2671556), zoom=NULL,"stamen-toner")
 # convert the basemap to British National Grid - remember we created the 
 # BNG object right at the beginning of the practical - it's an epsg string...

@@ -584,6 +584,7 @@ wardpredict <- predict(lmMod, testData)
 summary(lmMod)
 
 # get R2, RMSE and MAE
+library(caret)
 predictions <- lmMod %>% predict(testData)
 data.frame( R2 = R2(predictions, testData$Wardcount),
             RMSE = RMSE(predictions, testData$Wardcount),

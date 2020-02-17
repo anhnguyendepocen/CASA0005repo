@@ -526,6 +526,7 @@ fullgrid(emptygrd) <- TRUE  # Create SpatialGrid object
 # Add the projection to the grid
 proj4string(emptygrd) <- proj4string(spatialpt)
 
+library(gstat)
 # Interpolate the grid cells using a power value of 2 
 interpolate <- gstat::idw(Jan ~ 1, spatialpt, newdata=emptygrd, idp=2.0)
 

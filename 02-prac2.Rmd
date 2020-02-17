@@ -313,13 +313,13 @@ Leave the replace box empty each time and click Replace All to remove these from
 24. Once you have cleaned out all of the trixy characters from the file, to read it into R, we will use the ```read.csv()``` function:
 
 ```{r, cache=TRUE}
-LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv")
+LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", header = TRUE, sep = ",",  encoding = "latin1")
 ```
 
 > **Note**, I've made an R project for all these practicals, which is why my file path starts with ```prac2_data/```. If you save the ```.csv``` in the same folder as the ```.Rproj``` then you can just use:
 
 ```{r eval=FALSE, cache=TRUE}
-LondonDataOSK<- read.csv("ward-profiles-excel-version.csv")
+LondonDataOSK<- read.csv("ward-profiles-excel-version.csv", sep=",")
 ```
 
 If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see that we can actually include many more parameters when reading in a .csv file. For example, we could read in the same file as follows:
@@ -327,7 +327,7 @@ If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see t
 ```{r, cache=TRUE}
 # by default in R, the file path should be defined with / but on a #windows file system it is defined with \. Using \\ instead allows R #to read the path correctly – alternatively, just use /
 LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", 
-                         header = TRUE, sep = ",")
+                         header = TRUE, sep = ",", encoding = "latin1")
 ```
 
 This would specify that the first row of the file contains header information; and the values in the file are separated with commas (not ; or : as can be the case sometimes).
@@ -516,7 +516,7 @@ install.packages("maptools")
 There are a few other packages we’ll need to get to grips with. Some, like ```ggplot2``` (one of the most influential R packages ever) are part of the ```tidyverse``` package we came across earlier. Others we will need to install for the first time.
 
 ```{r, eval=FALSE, cache=TRUE}
-install.packages(c("OpenStreetMap", "classInt", "tmap"))
+install.packages(c("classInt", "tmap"))
 
 # might also need these ones
 install.packages(c("RColorBrewer", "sp", "rgeos", 
@@ -536,7 +536,6 @@ Install Java 64-bit from: https://java.com/en/download/manual.jsp
 library(maptools)
 library(RColorBrewer)
 library(classInt)
-library(OpenStreetMap)
 library(sp)
 library(rgeos)
 library(tmap)
