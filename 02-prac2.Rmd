@@ -1079,6 +1079,9 @@ library(sp)
 library(magrittr)
 library(classInt)
 library(leaflet)
+library(htmlTable)
+library(htmltools)
+library(htmlwidgets)
 ```
 
 ##### Generating a colour ramp and palette
@@ -1134,15 +1137,15 @@ leaflet(BoroughDataMapSP) %>%
               smoothFactor = 0.5,
               color = ~pal(Claimant.Rate.of.Housing.Benefit..2015.),
               popup = ~NAME
-  ) %>%
-  addProviderTiles("CartoDB.DarkMatter") %>%
-  addLegend("bottomright", 
-            pal= pal, 
-            values = ~Claimant.Rate.of.Housing.Benefit..2015., 
-            title = "Housing Benefit Claimant Rate", 
-            labFormat = labelFormat(prefix = "Per 1,000 people "),
-            opacity = 1
   )
+  #addProviderTiles("CartoDB.DarkMatter") %>%
+  #addLegend("bottomright", 
+            #pal= pal, 
+            #values = ~Claimant.Rate.of.Housing.Benefit..2015., 
+            #title = "Housing Benefit Claimant Rate", 
+            #labFormat = labelFormat(prefix = "Per 1,000 people "),
+            #opacity = 1
+  #)
 ```
 
 ## Writing good R code

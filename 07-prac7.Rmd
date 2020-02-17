@@ -339,7 +339,7 @@ Grescale and Brescale are available from the ```.MTL``` file provided when you d
 
 ```{r results="hide", warnings=FALSE, message=FALSE, cache=TRUE}
 library(RStoolbox)
-MTL <- list.files("prac7_data/Lsatdata/",pattern="*.txt", ignore.case=TRUE, full.names = TRUE)
+MTL <- list.files("prac7_data/Lsatdata/",pattern="*MTL.txt", ignore.case=TRUE, full.names = TRUE)
 
 readMTL<-readMeta(MTL)
 #To see all the attributes

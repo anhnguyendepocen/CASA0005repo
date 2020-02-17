@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>CASA0005 Geographic Information Systems and Science</title>
-  <meta name="description" content="CASA0005 Geographic Information Systems and Science" />
+  <title>Chapter 2 test | CASA0005 Geographic Information Systems and Science</title>
+  <meta name="description" content="Chapter 2 test | CASA0005 Geographic Information Systems and Science" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="CASA0005 Geographic Information Systems and Science" />
+  <meta property="og:title" content="Chapter 2 test | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="CASA0005 Geographic Information Systems and Science" />
+  <meta name="twitter:title" content="Chapter 2 test | CASA0005 Geographic Information Systems and Science" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="geographic-information.html"/>
 
-<link rel="next" href="geographic-information.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,120 +207,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">CASA0005 Geographic Information Systems and Science</h1>
-<p class="author"><em>Andy MacLachlan and Adam Dennett</em></p>
-<p class="date"><em>2020-02-17</em></p>
-</div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<p><a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" height="200" alt="CASAlogo" align="right" style="margin: 0 1em 0 1em" /></a></p>
-<p>Welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns.</p>
-<p>If you need the practical data you can access it from my <a href="https://github.com/andrewmaclachlan/CASA0005repo">GitHub repository</a></p>
-<p>Practical data is divided into the relevant sessions (e.g. prac1_data), although sometimes i’ll refer to a dataset used within a previous week.</p>
-<div id="the-world-of-gis" class="section level2 unnumbered">
-<h2>The world of GIS</h2>
-<p>Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It’s a good idea to become familar with online sources of help, such as:</p>
-<ul>
-<li>Stack Exchange <a href="https://stackexchange.com/" class="uri">https://stackexchange.com/</a></li>
-<li>RStudio community <a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a></li>
-<li>QGIS documemtation <a href="https://docs.qgis.org/3.4/en/docs/index.html" class="uri">https://docs.qgis.org/3.4/en/docs/index.html</a></li>
-<li>R documentation <a href="https://www.rdocumentation.org/" class="uri">https://www.rdocumentation.org/</a></li>
-<li>ArcGIS help pages <a href="https://support.esri.com/en" class="uri">https://support.esri.com/en</a></li>
-</ul>
-<p>Want to see what you can do with spatial analysis…check out this ‘What’s Next’ video produced for the ESRI conference…</p>
-<iframe src="https://www.youtube.com/embed/K0qZffiKwak" width="672" height="400px">
+<div id="test" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> test</h1>
+<pre><code>## Warning: package &#39;leaflet&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;htmlwidgets&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning in file.create(to[okay]): cannot create file &#39;~/geocompr/
+## geocompr.github.io/static/img/interactive.html&#39;, reason &#39;No such file or
+## directory&#39;</code></pre>
+<div class="figure"><span id="fig:interactive"></span>
+<iframe src="https://geocompr.github.io/img/interactive.html" width="100%" height="400px">
 </iframe>
+<p class="caption">
+Figure 2.1: The blue markers indicate where the authors are from. The basemap is a tiled image of the Earth at night provided by NASA. Interact with the online version at geocompr.robinlovelace.net, for example by zooming in and clicking on the popups.
+</p>
 </div>
-<div id="getting-started" class="section level2 unnumbered">
-<h2>Getting started</h2>
-<p>One of the issues with GIS is that many of the files we will be working with are quite large. Fortunately in recent years UCL has seriously beefed up the storage available for students. You now get 100GB of free storage, which should be plenty for the work you will be doing this year! The Bartlett faculty has several gigabytes of storage space available on their central servers, so before we get started, we will connect to our N drive to carry out all of our practical work over the coming weeks.</p>
-</div>
-<div id="how-to-dowload-data-and-files-from-github" class="section level2 unnumbered">
-<h2>How to dowload data and files from GitHub</h2>
-<p>In some of the practicals it will say to download the data from my GitHub. To do so you have a few options. Option 1 will download everything i have used to make the practicals and option 2 will let you download just a spceific folder (e.g. the data folders).</p>
-<div id="option-1" class="section level3 unnumbered">
-<h3>Option 1</h3>
-<ol style="list-style-type: decimal">
-<li><p>Go to the online repository page here: <a href="https://github.com/andrewmaclachlan/CASA0005repo" class="uri">https://github.com/andrewmaclachlan/CASA0005repo</a></p></li>
-<li><p>Click Clone or download, the download as ZIP. This will download the everything i have used to make this website including all the data for the practicals</p></li>
-</ol>
-<p><img src="index_images/downloadrepo.png" width="500pt" style="display: block; margin: auto;" /></p>
-</div>
-<div id="option-2" class="section level3 unnumbered">
-<h3>Option 2</h3>
-<p>Use <a href="https://minhaskamal.github.io/DownGit/#/home">DownGit</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Go to: <a href="https://minhaskamal.github.io/DownGit/#/home" class="uri">https://minhaskamal.github.io/DownGit/#/home</a></p></li>
-<li><p>Head over to the GitHub repository: <a href="https://github.com/andrewmaclachlan/CASA0005repo" class="uri">https://github.com/andrewmaclachlan/CASA0005repo</a></p></li>
-<li><p>Select a folder you wish to download — here i’ll use practical data as the example, click into the folder (prac6_data) and copy the url: <a href="https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac6_data" class="uri">https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac6_data</a></p></li>
-<li><p>Paste it into DownGit and click Download, once downloaded then unzip the folder.</p></li>
-</ol>
-</div>
-</div>
-<div id="self-guided-learning" class="section level2 unnumbered">
-<h2>Self guided learning</h2>
-<p>The lectures and practicals of this course only form a part of the learning process. You are expected to undertake wider reading and explore new methods and approaches. We have provided guidance on useful resources throughout the course to use as a starting point but you are encouraged to go beyond our recommedations and fully engage with applied GIS research, methods and visualisation techniques.</p>
-<p>If you find a practical particularly easy or straightforward then please move on to the next one. Practicals that look at analytical relationships also have extension activities for you to try.</p>
-</div>
-<div id="interactive-lectures" class="section level2 unnumbered">
-<h2>Interactive lectures</h2>
-<p>During the lectures we will be using an interative polling and Q&amp;A application called vevox. It’s very simple to use, you can either:</p>
-<ul>
-<li>Download the app on iOS or Android: <a href="http://get.vevox.app" class="uri">http://get.vevox.app</a></li>
-<li>Use the web app: <a href="https://vevox.app/" class="uri">https://vevox.app/</a></li>
-</ul>
-<p>The meeting ID we will use is: 186-395-009</p>
-</div>
-<div id="more-help" class="section level2 unnumbered">
-<h2>More help</h2>
-<p>If you need specific assistance with this course please:</p>
-<ul>
-<li><p>Check the Moodle assessment tab for queries relating to assignments / deadlines. There is also an expected assignment timeline and frequently asked questions section within the assessment outline document.</p></li>
-<li><p>Speak to a member of the teaching team in the computer lab sessions</p></li>
-<li><p>Ask a question at the end of a lecture (time permitting)</p></li>
-<li><p>Ask a question on slack under the GIS channel— you should have recevied an invite email from Steve Gray otherwise use <a href="https://join.slack.com/t/casastudents2019-2020/signup">this link</a>. The teaching team will monitor this — use the #gis channel for this course.</p></li>
-</ul>
-<p>Due to the size of the class we will <strong>only reply</strong> to messages <strong>on slack</strong> so all students can see the discussion. If you have a personal matter in relation to completing the course then please speak to or email Andy or Adam.</p>
-<p>If you are struggling to use R don’t worry…here is some advice from an <a href="https://www.r-bloggers.com/advice-to-young-and-old-programmers-a-conversation-with-hadley-wickham/">interview</a> with Hadley Wickham, chief scientist at RStudio</p>
-<blockquote>
-<p>It’s easy when you start out programming to get really frustrated and think, “Oh it’s me, I’m really stupid,” or, “I’m not made out to program.” But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It’s just a natural part of programming. So, it happens to everyone and gets less and less over time. Don’t blame yourself. Just take a break, do something fun, and then come back and try again later.</p>
-</blockquote>
-<p>You can also go through other free resources including:</p>
-<ul>
-<li><p><a href="https://education.rstudio.com">Free RStudio Education resources</a></p></li>
-<li><p><a href="https://www.codecademy.com/learn/learn-r">Codeacademy</a></p></li>
-<li><p><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a></p></li>
-</ul>
-<p>At the end of every practical there is a link anonymous Google feeback form, let us know if something is unclear and we will go over it in a future session.</p>
-<p>If after pursuing all these avenues you still need help you can book into our office hours. These meetings are <strong>to discuss a geographical concept in relation to the material/assessment or for any personal matters relevant to the completion of the module</strong>.</p>
-<p>These meetings are <strong>not</strong> to be used for specific technical issues. Problems of this nature should be addressed in the practical sessions.</p>
-<p>Andy: <a href="https://amaclachlan.youcanbook.me/" class="uri">https://amaclachlan.youcanbook.me/</a></p>
-<p>Adam: <a href="https://dr-d-casa.youcanbook.me" class="uri">https://dr-d-casa.youcanbook.me</a></p>
-</div>
-<div id="noticed-a-mistake" class="section level2 unnumbered">
-<h2>Noticed a mistake?</h2>
-<p>No one is perfect, if you notice a mistake let us know through the <a href="https://github.com/andrewmaclachlan/CASA0005repo/issues">GitHub issues tab</a></p>
-<p>Don’t worry if you are unsure about what GitHub is we cover it in the course.</p>
-</div>
-<div id="assignment-resources" class="section level2 unnumbered">
-<h2>Assignment resources</h2>
-<p>Want some tips for resources on your assignment?…. head over to the <a href="index.html#assignment-resources">Assignment resources</a> pages</p>
-</div>
-<div id="reading-list" class="section level2 unnumbered">
-<h2>Reading list</h2>
-<p>We link to books and resources throughout each practical and in the <a href="index.html#assignment-resources">Assignment resources</a> pages, but a full reading list for the course is provided <a href="https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&amp;login=1">here</a>, there is also a link to it over on Moodle.</p>
-<p>We’ve tried to mostly recommend open source and free books, any others are available from the library.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="geographic-information.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="geographic-information.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -342,7 +251,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/test.Rmd",
 "text": "Edit"
 },
 "history": {
