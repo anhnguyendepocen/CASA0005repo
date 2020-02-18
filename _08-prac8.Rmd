@@ -38,6 +38,7 @@ library(ggplot2)
 library(reshape2)
 library(plotly)
 library(highcharter)
+library(raster)
 ```
 
 There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
@@ -252,7 +253,7 @@ Creating the maps using it is the easy bit, but see if you can figure out from m
 
 You should, however, be able to Copy the code into R, run the whole function and then test it out and produce a map like the one below:
 
-```{r, message=FALSE, warning=FALSE, cache=FALSE}
+```{r prac8leaf, message=FALSE, warning=FALSE, cache=FALSE}
 #############################################################
 ##A Function for creating various location quotient maps
 ##
@@ -418,9 +419,7 @@ One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd`
 
 3. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon (if you remember we covered this in [Knitting your output])...
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac8_images/knitt.png') 
-```
+HERE
 
 4. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)
 
@@ -749,7 +748,7 @@ Now let's make one with our data...
 
 29. The first part is easy and is based on analysis we have already compelted...we need to produce a ```sf``` multipolygon layer containing the number of hotels and airbnbs per London borough through....
 
-```{r eval=TRUE, cache=FALSE}
+```{r eval=TRUE, cache=FALSE, eval=FALSE}
 # load packages
 library(sf)
 library(tmap)
