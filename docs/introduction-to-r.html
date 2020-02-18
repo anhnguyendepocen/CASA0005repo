@@ -57,6 +57,15 @@
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script async defer src="https://hypothes.is/embed.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -223,6 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#maps-with-extra-features"><i class="fa fa-check"></i><b>2.5.2</b> Maps with extra features</a></li>
 <li class="chapter" data-level="2.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#extension"><i class="fa fa-check"></i><b>2.5.3</b> Extension</a></li>
 </ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#writing-good-r-code"><i class="fa fa-check"></i><b>2.6</b> Writing good R code</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidying-data"><i class="fa fa-check"></i><b>2.7</b> Tidying data</a></li>
+<li class="chapter" data-level="2.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#feedback-1"><i class="fa fa-check"></i><b>2.8</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html"><i class="fa fa-check"></i><b>3</b> Rasters, descriptive statistics and interpolation</a><ul>
 <li class="chapter" data-level="3.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#learning-outcomes-2"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
@@ -241,9 +253,176 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-3-interpolation"><i class="fa fa-check"></i><b>3.6</b> Part 3 interpolation</a></li>
 <li class="chapter" data-level="3.7" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#auto-data-download"><i class="fa fa-check"></i><b>3.7</b> Auto data download</a></li>
 <li class="chapter" data-level="3.8" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#advanced-analysis"><i class="fa fa-check"></i><b>3.8</b> Advanced analysis</a></li>
-<li class="chapter" data-level="3.9" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#feedback-1"><i class="fa fa-check"></i><b>3.9</b> Feedback</a></li>
+<li class="chapter" data-level="3.9" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#feedback-2"><i class="fa fa-check"></i><b>3.9</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>4</b> test</a></li>
+<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a><ul>
+<li class="chapter" data-level="4.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#learning-outcomes-3"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#recommended-listening-3"><i class="fa fa-check"></i><b>4.2</b> Recommended listening</a></li>
+<li class="chapter" data-level="4.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#introduction-5"><i class="fa fa-check"></i><b>4.3</b> Introduction</a></li>
+<li class="chapter" data-level="4.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.4</b> The three ways</a></li>
+<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.6</b> Using RStudio with Git</a></li>
+<li class="chapter" data-level="4.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.7</b> Using the Git GUI - way 1</a></li>
+<li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.8</b> Create a new version control in RStudio - way 2</a></li>
+<li class="chapter" data-level="4.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#if-have-have-an-existing-project---way-3"><i class="fa fa-check"></i><b>4.9</b> If have have an existing project - way 3</a></li>
+<li class="chapter" data-level="4.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#commiting-to-git"><i class="fa fa-check"></i><b>4.10</b> Commiting to Git</a></li>
+<li class="chapter" data-level="4.11" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.11</b> Using Git outside RStudio</a></li>
+<li class="chapter" data-level="4.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.12</b> Push to Github</a></li>
+<li class="chapter" data-level="4.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.13</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#troubleshooting"><i class="fa fa-check"></i><b>4.14</b> Troubleshooting</a><ul>
+<li class="chapter" data-level="4.14.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#were-you-challenged-for-your-password"><i class="fa fa-check"></i><b>4.14.1</b> Were you challenged for your password?</a></li>
+<li class="chapter" data-level="4.14.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#greyed-out-push-button"><i class="fa fa-check"></i><b>4.14.2</b> Greyed out push button</a></li>
+</ul></li>
+<li class="chapter" data-level="4.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.15</b> Fork a repository</a></li>
+<li class="chapter" data-level="4.16" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.16</b> Branches</a></li>
+<li class="chapter" data-level="4.17" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#back-in-time"><i class="fa fa-check"></i><b>4.17</b> Back in time</a></li>
+<li class="chapter" data-level="4.18" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning-1"><i class="fa fa-check"></i><b>4.18</b> Health warning</a></li>
+<li class="chapter" data-level="4.19" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.19</b> RMarkdown</a><ul>
+<li class="chapter" data-level="4.19.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.19.1</b> HTML</a></li>
+<li class="chapter" data-level="4.19.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#flexdashboard"><i class="fa fa-check"></i><b>4.19.2</b> Flexdashboard</a></li>
+<li class="chapter" data-level="4.19.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#word-document"><i class="fa fa-check"></i><b>4.19.3</b> Word document</a></li>
+<li class="chapter" data-level="4.19.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#knit-options"><i class="fa fa-check"></i><b>4.19.4</b> Knit options</a></li>
+</ul></li>
+<li class="chapter" data-level="4.20" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#adding-references"><i class="fa fa-check"></i><b>4.20</b> Adding references</a><ul>
+<li class="chapter" data-level="4.20.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-mendeley"><i class="fa fa-check"></i><b>4.20.1</b> Set up Mendeley</a></li>
+<li class="chapter" data-level="4.20.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#add-refereces-into-r"><i class="fa fa-check"></i><b>4.20.2</b> Add refereces into R</a></li>
+<li class="chapter" data-level="4.20.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#references-using-citr"><i class="fa fa-check"></i><b>4.20.3</b> References using <code>citr</code></a></li>
+<li class="chapter" data-level="4.20.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#yaml-options"><i class="fa fa-check"></i><b>4.20.4</b> YAML options</a></li>
+<li class="chapter" data-level="4.20.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#packrat"><i class="fa fa-check"></i><b>4.20.5</b> Packrat</a></li>
+</ul></li>
+<li class="chapter" data-level="4.21" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#binder"><i class="fa fa-check"></i><b>4.21</b> Binder</a></li>
+<li class="chapter" data-level="4.22" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.22</b> Further reading</a></li>
+<li class="chapter" data-level="4.23" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.23</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a><ul>
+<li class="chapter" data-level="5.1" data-path="map-making.html"><a href="map-making.html#learning-outcomes-4"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="map-making.html"><a href="map-making.html#recommended-listening-4"><i class="fa fa-check"></i><b>5.2</b> Recommended listening</a></li>
+<li class="chapter" data-level="5.3" data-path="map-making.html"><a href="map-making.html#introduction-6"><i class="fa fa-check"></i><b>5.3</b> Introduction</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="map-making.html"><a href="map-making.html#osm-1"><i class="fa fa-check"></i><b>5.3.1</b> OSM</a></li>
+<li class="chapter" data-level="5.3.2" data-path="map-making.html"><a href="map-making.html#airbnb"><i class="fa fa-check"></i><b>5.3.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.4</b> Data</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="map-making.html"><a href="map-making.html#osm-2"><i class="fa fa-check"></i><b>5.4.1</b> OSM</a></li>
+<li class="chapter" data-level="5.4.2" data-path="map-making.html"><a href="map-making.html#london-boroughs"><i class="fa fa-check"></i><b>5.4.2</b> London boroughs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#mapping-in-arcmap"><i class="fa fa-check"></i><b>5.5</b> Mapping in ArcMap</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="map-making.html"><a href="map-making.html#load-data-3"><i class="fa fa-check"></i><b>5.5.1</b> Load data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="map-making.html"><a href="map-making.html#manipulate-data"><i class="fa fa-check"></i><b>5.5.2</b> Manipulate data</a></li>
+<li class="chapter" data-level="5.5.3" data-path="map-making.html"><a href="map-making.html#map-data"><i class="fa fa-check"></i><b>5.5.3</b> Map data</a></li>
+<li class="chapter" data-level="5.5.4" data-path="map-making.html"><a href="map-making.html#export-map"><i class="fa fa-check"></i><b>5.5.4</b> Export map</a></li>
+<li class="chapter" data-level="5.5.5" data-path="map-making.html"><a href="map-making.html#model-builder"><i class="fa fa-check"></i><b>5.5.5</b> Model builder</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#qgis-1"><i class="fa fa-check"></i><b>5.6</b> QGIS</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="map-making.html"><a href="map-making.html#load-data-4"><i class="fa fa-check"></i><b>5.6.1</b> Load data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="map-making.html"><a href="map-making.html#manipulate-data-1"><i class="fa fa-check"></i><b>5.6.2</b> Manipulate data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="map-making.html"><a href="map-making.html#map-data-1"><i class="fa fa-check"></i><b>5.6.3</b> Map data</a></li>
+<li class="chapter" data-level="5.6.4" data-path="map-making.html"><a href="map-making.html#export-map-1"><i class="fa fa-check"></i><b>5.6.4</b> Export map</a></li>
+<li class="chapter" data-level="5.6.5" data-path="map-making.html"><a href="map-making.html#graphical-modeler"><i class="fa fa-check"></i><b>5.6.5</b> Graphical modeler</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-1"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.2</b> Export</a></li>
+<li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
+<li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.8</b> Bad maps</a></li>
+<li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.9</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Analysing spatial patterns</a><ul>
+<li class="chapter" data-level="6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#learning-outcomes-5"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#recommended-listening-5"><i class="fa fa-check"></i><b>6.2</b> Recommended listening</a></li>
+<li class="chapter" data-level="6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#introduction-7"><i class="fa fa-check"></i><b>6.3</b> Introduction</a></li>
+<li class="chapter" data-level="6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.4</b> Setting up your data</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.4.1</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.4.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.4.2</b> Study area</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.5</b> Point pattern analysis</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#kernel-density-estimation"><i class="fa fa-check"></i><b>6.5.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="6.5.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#quadrat-analysis"><i class="fa fa-check"></i><b>6.5.2</b> Quadrat Analysis</a></li>
+<li class="chapter" data-level="6.5.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#try-experimenting"><i class="fa fa-check"></i><b>6.5.3</b> Try experimenting…</a></li>
+<li class="chapter" data-level="6.5.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#ripleys-k"><i class="fa fa-check"></i><b>6.5.4</b> Ripley’s K</a></li>
+<li class="chapter" data-level="6.5.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#alternatives-to-ripleys-k"><i class="fa fa-check"></i><b>6.5.5</b> Alternatives to Ripley’s K</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.6</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
+<li class="chapter" data-level="6.7" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.7</b> Point pattern analysis summary</a></li>
+<li class="chapter" data-level="6.8" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>6.8</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-download-1"><i class="fa fa-check"></i><b>6.8.1</b> Data download</a></li>
+<li class="chapter" data-level="6.8.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning-1"><i class="fa fa-check"></i><b>6.8.2</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.8.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-manipulation"><i class="fa fa-check"></i><b>6.8.3</b> Data manipulation</a></li>
+<li class="chapter" data-level="6.8.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#spatial-autocorrelation"><i class="fa fa-check"></i><b>6.8.4</b> Spatial autocorrelation</a></li>
+<li class="chapter" data-level="6.8.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#mapping-outputs"><i class="fa fa-check"></i><b>6.8.5</b> Mapping outputs</a></li>
+<li class="chapter" data-level="6.8.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#other-variables"><i class="fa fa-check"></i><b>6.8.6</b> Other variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#extension-1"><i class="fa fa-check"></i><b>6.9</b> Extension</a></li>
+<li class="chapter" data-level="6.10" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#arcmap-part-2"><i class="fa fa-check"></i><b>6.10</b> ArcMap part 2</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#getting-started-2"><i class="fa fa-check"></i><b>6.10.1</b> Getting started</a></li>
+<li class="chapter" data-level="6.10.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#using-the-model-builder"><i class="fa fa-check"></i><b>6.10.2</b> Using the Model Builder</a></li>
+<li class="chapter" data-level="6.10.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#extension-work"><i class="fa fa-check"></i><b>6.10.3</b> Extension work</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.11</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html"><i class="fa fa-check"></i><b>7</b> GWR and spatially lagged regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#recommended-listening-6"><i class="fa fa-check"></i><b>7.1</b> Recommended listening</a></li>
+<li class="chapter" data-level="7.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#introduction-8"><i class="fa fa-check"></i><b>7.2</b> Introduction</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#setting-up-your-data-1"><i class="fa fa-check"></i><b>7.2.1</b> Setting up your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>7.3</b> Analysing GCSE exam performance - testing a research hypothesis</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#research-question-and-hypothesis"><i class="fa fa-check"></i><b>7.3.1</b> Research Question and Hypothesis</a></li>
+<li class="chapter" data-level="7.3.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#regression-basics"><i class="fa fa-check"></i><b>7.3.2</b> Regression Basics</a></li>
+<li class="chapter" data-level="7.3.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#running-a-regression-model-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Running a Regression Model in R</a></li>
+<li class="chapter" data-level="7.3.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumptions-underpinning-linear-regression"><i class="fa fa-check"></i><b>7.3.4</b> Assumptions Underpinning Linear Regression</a></li>
+<li class="chapter" data-level="7.3.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><i class="fa fa-check"></i><b>7.3.5</b> Assumption 1 - There is a linear relationship between the dependent and Independent variables</a></li>
+<li class="chapter" data-level="7.3.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><i class="fa fa-check"></i><b>7.3.6</b> Assumption 2 - The residuals in your model should be normally distributed</a></li>
+<li class="chapter" data-level="7.3.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-3---no-multicolinearity-in-the-independent-variables"><i class="fa fa-check"></i><b>7.3.7</b> Assumption 3 - No Multicolinearity in the independent variables</a></li>
+<li class="chapter" data-level="7.3.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-4---homoscedasticity"><i class="fa fa-check"></i><b>7.3.8</b> Assumption 4 - Homoscedasticity</a></li>
+<li class="chapter" data-level="7.3.9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-5---independence-of-errors"><i class="fa fa-check"></i><b>7.3.9</b> Assumption 5 - Independence of Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-models"><i class="fa fa-check"></i><b>7.4</b> Spatial Regression Models</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>7.4.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#section"><i class="fa fa-check"></i><b>7.4.2</b> </a></li>
+<li class="chapter" data-level="7.4.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>7.4.3</b> Extending your regression model - Dummy Variables</a></li>
+<li class="chapter" data-level="7.4.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>7.4.4</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>7.5</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
+<li class="chapter" data-level="7.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#arcgis-2"><i class="fa fa-check"></i><b>7.6</b> ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html"><i class="fa fa-check"></i><b>8</b> Advanced R, MAUP and more regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#learning-outcomes-6"><i class="fa fa-check"></i><b>8.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#recommended-listening-7"><i class="fa fa-check"></i><b>8.2</b> Recommended listening</a></li>
+<li class="chapter" data-level="8.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#introduction-9"><i class="fa fa-check"></i><b>8.3</b> Introduction</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#maup"><i class="fa fa-check"></i><b>8.4</b> MAUP</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#get-the-data"><i class="fa fa-check"></i><b>8.4.1</b> Get the data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#project-the-data"><i class="fa fa-check"></i><b>8.4.2</b> Project the data</a></li>
+<li class="chapter" data-level="8.4.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Functions</a></li>
+<li class="chapter" data-level="8.4.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#loops"><i class="fa fa-check"></i><b>8.4.4</b> Loops</a></li>
+<li class="chapter" data-level="8.4.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#advanced-mapping-again"><i class="fa fa-check"></i><b>8.4.5</b> Advanced mapping (again)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#regression-relationships"><i class="fa fa-check"></i><b>8.5</b> Regression relationships</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#preprocessing"><i class="fa fa-check"></i><b>8.5.1</b> Preprocessing</a></li>
+<li class="chapter" data-level="8.5.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#scatter-plot"><i class="fa fa-check"></i><b>8.5.2</b> Scatter plot</a></li>
+<li class="chapter" data-level="8.5.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#outliers"><i class="fa fa-check"></i><b>8.5.3</b> Outliers</a></li>
+<li class="chapter" data-level="8.5.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#correlation"><i class="fa fa-check"></i><b>8.5.4</b> Correlation</a></li>
+<li class="chapter" data-level="8.5.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#linear-model"><i class="fa fa-check"></i><b>8.5.5</b> Linear model</a></li>
+<li class="chapter" data-level="8.5.6" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#linear-model-outputs"><i class="fa fa-check"></i><b>8.5.6</b> Linear model outputs</a></li>
+<li class="chapter" data-level="8.5.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#validation"><i class="fa fa-check"></i><b>8.5.7</b> Validation</a></li>
+<li class="chapter" data-level="8.5.8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#cross-validation"><i class="fa fa-check"></i><b>8.5.8</b> Cross validation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#advanced-regression"><i class="fa fa-check"></i><b>8.6</b> Advanced regression</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#more-data"><i class="fa fa-check"></i><b>8.6.1</b> More data</a></li>
+<li class="chapter" data-level="8.6.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>8.6.2</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="8.6.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#ridge-regression"><i class="fa fa-check"></i><b>8.6.3</b> Ridge regression</a></li>
+<li class="chapter" data-level="8.6.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#lasso"><i class="fa fa-check"></i><b>8.6.4</b> LASSO</a></li>
+<li class="chapter" data-level="8.6.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#elastic-net-regression"><i class="fa fa-check"></i><b>8.6.5</b> Elastic net regression</a></li>
+<li class="chapter" data-level="8.6.6" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#whats-the-best-here"><i class="fa fa-check"></i><b>8.6.6</b> What’s the best here</a></li>
+<li class="chapter" data-level="8.6.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#what-should-i-use"><i class="fa fa-check"></i><b>8.6.7</b> What should i use</a></li>
+<li class="chapter" data-level="8.6.8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#so-how-do-i-predict"><i class="fa fa-check"></i><b>8.6.8</b> So how do i predict</a></li>
+<li class="chapter" data-level="8.6.9" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#should-i-write-advanced-code"><i class="fa fa-check"></i><b>8.6.9</b> Should i write advanced code</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#more-resources"><i class="fa fa-check"></i><b>8.7</b> More resources</a></li>
+<li class="chapter" data-level="8.8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#extension-2"><i class="fa fa-check"></i><b>8.8</b> Extension</a></li>
+<li class="chapter" data-level="8.9" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#acknowledgement"><i class="fa fa-check"></i><b>8.9</b> Acknowledgement</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>9</b> test</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -464,7 +643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="elements-of-a-data-frame" class="section level3">
 <h3><span class="header-section-number">2.3.11</span> Elements of a data frame</h3>
 <ol start="19" style="list-style-type: decimal">
-<li>When programming you will frequently want to refer to different elements in a data frame or a vector/list. To select elements of a data frame, or subset it, you can refer specifically to ranges or elements of rows and columns. These are accessed using the single square bracket operator [], with the form:</li>
+<li>When programming you will frequently want to refer to different elements in a data frame or a vector/list. To select elements of a data frame, or subset it, you can refer specifically to ranges or elements of rows and columns. These are accessed using the single square bracket operator <a href="gwr-and-spatially-lagged-regression.html#section"></a>, with the form:</li>
 </ol>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">data.frame[row,column]</a></code></pre></div>
 <p>Rows are always referenced first, before the comma, columns second, after the comma.</p>
@@ -507,7 +686,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
 ##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
 ##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
-<p>or we can use the double square bracket operator [[]], and refer to our column by name using quotes e.g.</p>
+<p>or we can use the double square bracket operator [<a href="gwr-and-spatially-lagged-regression.html#section"></a>], and refer to our column by name using quotes e.g.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1">df[[<span class="st">&quot;column1&quot;</span>]]</a></code></pre></div>
 <pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 ##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
@@ -829,7 +1008,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb102-6" title="6">        <span class="dt">type =</span> <span class="st">&quot;scatter&quot;</span>, </a>
 <a class="sourceLine" id="cb102-7" title="7">        <span class="dt">mode =</span> <span class="st">&quot;markers&quot;</span>)</a></code></pre></div>
 <div id="htmlwidget-d75a05b64e76e0bcd4ed" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d75a05b64e76e0bcd4ed">{"x":{"visdat":{"41e85a21255e":["function () ","plotlyVisDat"]},"cur_data":"41e85a21255e","attrs":{"41e85a21255e":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Male.life.expectancy..2009.13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"X..children.in.reception.year.who.are.obese...2011.12.to.2013.14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-d75a05b64e76e0bcd4ed">{"x":{"visdat":{"30c86ffc77e2":["function () ","plotlyVisDat"]},"cur_data":"30c86ffc77e2","attrs":{"30c86ffc77e2":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Male.life.expectancy..2009.13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"X..children.in.reception.year.who.are.obese...2011.12.to.2013.14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3">
 <h3><span class="header-section-number">2.4.7</span> Spatial Data in R</h3>
@@ -1405,7 +1584,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb165-6" title="6"></a>
 <a class="sourceLine" id="cb165-7" title="7">graphics<span class="op">::</span><span class="kw">plot</span>(breaks, </a>
 <a class="sourceLine" id="cb165-8" title="8">               <span class="dt">pal=</span>colours)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>So we have now created a breaks object which uses the jenks natural breaks algorithm to divide up our variable into 5 classes. You will notice that breaks is a list of 2 objects. We want only the <code>brks</code> bit which contains the values for the breaks</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">summary</span>(breaks)</a></code></pre></div>
 <pre><code>##      Length Class  Mode   
@@ -1426,7 +1605,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb169-6" title="6"></a>
 <a class="sourceLine" id="cb169-7" title="7">graphics<span class="op">::</span><span class="kw">plot</span>(breaks, </a>
 <a class="sourceLine" id="cb169-8" title="8">               <span class="dt">pal=</span>colours)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 <p>So we have now created a breaks object which uses the jenks natural breaks algorithm to divide up our variable into 5 classes. You will notice that breaks is a list of 2 objects. We want only the <code>brks</code> bit which contains the values for the breaks</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="kw">summary</span>(breaks)</a></code></pre></div>
 <pre><code>##      Length Class  Mode   
@@ -1471,10 +1650,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb173-34" title="34">  )</a></code></pre></div>
 <iframe src="prac2_data/prac2leaf.html" width="672" height="400px">
 </iframe>
+</div>
+</div>
+</div>
+</div>
+<div id="writing-good-r-code" class="section level2">
+<h2><span class="header-section-number">2.6</span> Writing good R code</h2>
+<p>There are some basic principles to follow when writing code</p>
+<ol style="list-style-type: decimal">
+<li>Use descriptive names for variaibles so you know what they are — this can be difficult especailly if you have multiple similar variables.</li>
+<li>Comment out parts you don’t need to run using #</li>
+<li>Provide regular comments for each part of your code. As you work through this practical book you should be able to find a small description of what each part of the code does. This is good practice as it not only helps you remember what your codes does, when you inevitably forget in the future, but also lets other understand and ‘read’ your code quicker.</li>
+<li>Use indents appropriately — this again greatly helps with readability and understanding. For example, what is easier to understand…this..</li>
+</ol>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">map&lt;-ggmap<span class="op">::</span><span class="kw">ggmap</span>(b) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb174-2" title="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> BoroughDataMapWGS84,</a>
+<a class="sourceLine" id="cb174-3" title="3">          <span class="kw">aes</span>(<span class="dt">geometry=</span>geometry,</a>
+<a class="sourceLine" id="cb174-4" title="4">              <span class="dt">fill=</span>Rate.of.JobSeekers.Allowance..JSA..Claimants...<span class="dv">2015</span>),</a>
+<a class="sourceLine" id="cb174-5" title="5">          <span class="dt">alpha=</span><span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb174-6" title="6">          <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb174-7" title="7"><span class="st">  </span><span class="kw">theme_minimal</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb174-8" title="8"><span class="st">  </span>palette1<span class="op">+</span></a>
+<a class="sourceLine" id="cb174-9" title="9"><span class="st">  </span>labels<span class="op">+</span></a>
+<a class="sourceLine" id="cb174-10" title="10"><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;JSA&quot;</span>))</a>
+<a class="sourceLine" id="cb174-11" title="11"></a>
+<a class="sourceLine" id="cb174-12" title="12"><span class="kw">plot</span>(map)</a></code></pre></div>
+<p>or this…</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1">map&lt;-ggmap<span class="op">::</span><span class="kw">ggmap</span>(b) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> BoroughDataMapWGS84,<span class="kw">aes</span>(<span class="dt">geometry=</span>geometry,<span class="dt">fill=</span>Rate.of.JobSeekers.Allowance..JSA..Claimants...<span class="dv">2015</span>),<span class="dt">alpha=</span><span class="fl">0.5</span>,<span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)<span class="op">+</span><span class="kw">theme_minimal</span>()<span class="op">+</span>palette1<span class="op">+</span>labels<span class="op">+</span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;JSA&quot;</span>))</a>
+<a class="sourceLine" id="cb175-2" title="2"></a>
+<a class="sourceLine" id="cb175-3" title="3"><span class="kw">plot</span>(map)</a></code></pre></div>
+</div>
+<div id="tidying-data" class="section level2">
+<h2><span class="header-section-number">2.7</span> Tidying data</h2>
+<p>In this practical we just showed how you to load, extract and reshape data using <code>melt</code>, however there is a better way to tidy data. As per the <a href="https://r4ds.had.co.nz/tidy-data.html">R for Data Science book</a>, tidy data is defined using the following three rules:</p>
+<ol style="list-style-type: decimal">
+<li><p>Each variable must have its own column.</p></li>
+<li><p>Each observation must have its own row.</p></li>
+<li><p>Each value must have its own cell.</p></li>
+</ol>
+<p>But, as per the book, these three are interrelated as you can’t only adhere to two without adhering to all three. So this gives us:</p>
+<ol style="list-style-type: decimal">
+<li><p>Put each dataset in a tibble</p></li>
+<li><p>Put each variable in a column</p></li>
+</ol>
+<p>Earlier we read in the data using:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1">flytipping &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>)</a></code></pre></div>
+<p>But we can also do something like this to force the columns to the appopraite data types (e.g. text, numberic)</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1">flytipping1 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>, </a>
+<a class="sourceLine" id="cb177-2" title="2">                       <span class="dt">col_types =</span> <span class="kw">cols</span>(</a>
+<a class="sourceLine" id="cb177-3" title="3">                         <span class="dt">code =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb177-4" title="4">                         <span class="dt">area =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb177-5" title="5">                         <span class="dt">year =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb177-6" title="6">                         <span class="dt">total_incidents =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-7" title="7">                         <span class="dt">total_action_taken =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-8" title="8">                         <span class="dt">warning_letters =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-9" title="9">                         <span class="dt">fixed_penalty_notices =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-10" title="10">                         <span class="dt">statutory_notices =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-11" title="11">                         <span class="dt">formal_cautions =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-12" title="12">                         <span class="dt">injunctions =</span> <span class="kw">col_number</span>(),</a>
+<a class="sourceLine" id="cb177-13" title="13">                         <span class="dt">prosecutions =</span> <span class="kw">col_number</span>()</a>
+<a class="sourceLine" id="cb177-14" title="14">                       ))</a>
+<a class="sourceLine" id="cb177-15" title="15"><span class="co"># view the data</span></a>
+<a class="sourceLine" id="cb177-16" title="16"><span class="kw">view</span>(flytipping1)</a></code></pre></div>
+<p>So we have a tibble with columns of each varaible (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row…it doesn’t as in the first row here we have observations for total incidents and total actions taken etc…to do this we will use <code>pivot_longer()</code>. Make sure you have the most recent version of <code>tidyverse</code> if you get an error.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="co">#convert the tibble into a tidy tibble</span></a>
+<a class="sourceLine" id="cb178-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb178-3" title="3">flytipping_long &lt;-<span class="st"> </span>flytipping1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb178-4" title="4">  <span class="dt">cols =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">11</span>,</a>
+<a class="sourceLine" id="cb178-5" title="5">  <span class="dt">names_to =</span> <span class="st">&quot;tipping_type&quot;</span>,</a>
+<a class="sourceLine" id="cb178-6" title="6">  <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span></a>
+<a class="sourceLine" id="cb178-7" title="7">)</a>
+<a class="sourceLine" id="cb178-8" title="8"></a>
+<a class="sourceLine" id="cb178-9" title="9"><span class="co"># view the data</span></a>
+<a class="sourceLine" id="cb178-10" title="10"><span class="kw">view</span>(flytipping_long)</a></code></pre></div>
+<p>Do you see the difference…this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.</p>
+<p>You could also use this to do the same thing…</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="co">#an alternative which just pulls everything out into a single table</span></a>
+<a class="sourceLine" id="cb179-2" title="2">flytipping2 &lt;-<span class="st"> </span>flytipping1[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<p>But my advice would be to learn how to use the tidy tools!</p>
+<p>Now let’s make it a bit more suitable for mapping with <code>pivot_wider()</code> by making coloumns for each year of each variable….in the original <code>.csv</code> we had a year coloumn that had values of 2011-2012 to 2017-2018, so if we wanted to map a specifc year we’d have to filter out the year then map. Here we can just alter the data from <code>pivot_longer()</code> using the year and tipping type…</p>
+<blockquote>
+<p>Note, just because the data is considered tidy doesn’t mean it is directly appropriate for mapping. It might need to be tidy for analysis, such as where we used <code>melt()</code> earlier on (you could replace <code>melt()</code> with what we’ve shown you here) but for mapping you probably want something a bit different.</p>
+</blockquote>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="co">#pivot the tidy tibble into one that is suitable for mapping</span></a>
+<a class="sourceLine" id="cb180-2" title="2">flytipping_wide &lt;-<span class="st"> </span>flytipping_long <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb180-3" title="3">  <span class="dt">id_cols =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb180-4" title="4">  <span class="dt">names_from =</span> <span class="kw">c</span>(year,tipping_type),</a>
+<a class="sourceLine" id="cb180-5" title="5">  <span class="dt">names_sep =</span> <span class="st">&quot;_&quot;</span>,</a>
+<a class="sourceLine" id="cb180-6" title="6">  <span class="dt">values_from =</span> count</a>
+<a class="sourceLine" id="cb180-7" title="7">)</a>
+<a class="sourceLine" id="cb180-8" title="8"></a>
+<a class="sourceLine" id="cb180-9" title="9"><span class="kw">view</span>(flytipping_wide)</a></code></pre></div>
+<p>But what if you were just interested in a specific varaible and wanted the coloums to be each year of the data…again using <code>pivot_wider()</code></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">widefly &lt;-<span class="st"> </span>flytipping2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb181-2" title="2">  <span class="dt">names_from =</span> year, </a>
+<a class="sourceLine" id="cb181-3" title="3">  <span class="dt">values_from =</span> total_incidents)</a></code></pre></div>
+<p>You could now join this to the London borough <code>.shp</code> and produce a map…</p>
+<p>What’s the take home from this? Basically always try to put your data into a certain format before doing further analysis on it as it will be easier for you to determine the right tools to select.</p>
+</div>
+<div id="feedback-1" class="section level2">
+<h2><span class="header-section-number">2.8</span> Feedback</h2>
+<p>Was anything that we explained unclear this week or was something really clear…let us know <a href="https://forms.gle/w2GUDYc7tSavGy7r6">here</a>. It’s anonymous and we’ll use the responses to clear any issues up in the future / adapt the material.</p>
 
-</div>
-</div>
-</div>
 </div>
 </div>
             </section>
