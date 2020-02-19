@@ -29,7 +29,8 @@ Bit different from me this week - I'm not all about drum and bass (although I mo
 ### Getting Started
 Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
 
-```{r, message=FALSE, warning=FALSE}
+```{r prac8_load}
+library(highcharter)
 library(tidyverse)
 library(downloader)
 library(rgdal)
@@ -37,9 +38,11 @@ library(sf)
 library(ggplot2)
 library(reshape2)
 library(plotly)
-library(highcharter)
 library(raster)
+library(downloader)
+library(rgdal)
 ```
+
 
 There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
 
@@ -47,7 +50,7 @@ Rather than making you go off to Nomisweb and fetch this data, because I'm reall
 
 We can easily join this new data to our original data in R.
 
-```{r}
+```{r prac8_read_data}
 getwd()
 
 LondonWards <- readOGR("prac8_data/NewLondonWard.shp", layer="NewLondonWard")
@@ -74,7 +77,7 @@ Generate the following from your LondonWardsSF data frame (*hint, use the code i
 * A boxplot of the same variable
 * A faceted grid of histograms with for every variable in your London Wards data file. In order to do this, you will need to remove Factor (non-numeric) variables from your dataset and re-shape your data using the `melt()` function in the `reshape2` package (hint – check the help file for `melt.data.frame()` to understand what the code below is doing). The code below will help you:
 
-```{r, message=FALSE, warning=FALSE}
+```{r prac8_data_manipulate, message=FALSE, warning=FALSE}
 #check which variables are numeric first
 
 list1 <- as.data.frame(cbind(lapply(LondonWardsSF, class)))
@@ -107,14 +110,14 @@ Make a note of which variables appear normally distributed and which appear to b
 
 Try performing a log10() transformation on the x variables and plotting a similar facet grid of histograms – what does this do to some of the skewed variables? For example, with the last subset:
 
-```{r}
+```{r prac8_hist}
 hist5 <- ggplot(LondonMelt4, aes(x=log10(value))) + geom_histogram(aes(y = ..density..)) + stat_function(fun=dnorm, colour="red", size=1)
 hist5 + facet_wrap(~ variable, scales="free")
 ```
 
 * Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:
 
-```{r}
+```{r prac8_ggplot}
 londonpoint<-ggplot(LondonSub, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
 londonpoint
 
@@ -141,7 +144,7 @@ In the lecture, it was mentioned that sometimes we should recode variables to re
 
 There are various online guides which will help you a little more in writing functions, but the structure of a function in R is given below:
 
-```{r eval=FALSE}
+```{r prac8_fun,eval=FALSE}
 myfunction <- function(arg1, arg2, ... ){
   statements
   return(object)
@@ -150,7 +153,7 @@ myfunction <- function(arg1, arg2, ... ){
 
 A function to recode data in our dataset might look like the one below:
 
-```{r eval=T}
+```{r, prac8_fun2, eval=T}
 newvar<-0
 recode<-function(variable,high,medium,low){
   newvar[variable<=high]<-"High"
@@ -171,7 +174,7 @@ recode<-function(variable,high,medium,low){
 * We are going to recode the Average GCSE Score variable into High, Medium and Low values – High will be anything above the 3rd Quartile, Low will be anything below the 1st Quartile and Medium – anything in between.
 *Note, if your data doesn't have the 2013 GCSE scores but 2014, it will have different figures to these figures below and you will need to call the column by the column header you have*
 
-```{r, message=FALSE, warning=FALSE}
+```{r prac8_attatch, message=FALSE, warning=FALSE}
 attach(LondonWardsSF)
 #Check the name of your column, there could be a slight error and it might be called 'AvgGCSED201'
 summary(AvgGCSE201) 
@@ -181,7 +184,7 @@ Create a new column in your data frame and fill it with recoded data for the Ave
 
 If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”
 
-```{r}
+```{r prac8_recode}
 LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
 
 #or
@@ -195,7 +198,7 @@ Make sure these are saved to your data frame as we will use these in next week�
 
 On to another function. This time, we will calculate some location quotients for housing tenure in London. If you remember, a location quotient is simply the ratio of a local distribution to the ratio of a global distribution. In our case, our global distribution will be London. 
 
-```{r}
+```{r prac8_LQ}
 #Location Quotient function 1
 LQ1<-function(pctVariable){
   pctVariable /mean(pctVariable)
@@ -212,20 +215,20 @@ LQ2<-function(variable,rowtotal){
 
 The two functions above calculate the same Location Quotient, but the first one works on variables which have already been converted into row percentages, the second will work on raw variables where an additional column for the row totals is stored in a separate column – e.g. “age 0-15”, “age 16-64” and “age 65 plus” all sum to the “Pop2013” column in our data London Wards data set:
 
-```{r}
+```{r prac8_head}
 head(LondonWardsSF[,1:7])
 ```
 
 Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:
 
-```{r eval=FALSE}
+```{r prac8_df,eval=FALSE}
 #this is pseudo code, but you should see how this works
 dataframe$newLQVariable <- LQ1(originalPercentageVariable)
 #or
 dataframe$newLQVariable <- LQ2(originalVariable,rowTotalVariable)
 ```
 
-```{r, include=FALSE}
+```{r prac8_cols, include=FALSE}
 #note, you will probably need to change the column headers of the columns you are referring to here
 attach(LondonWardsSF)
 summary(LondonWardsSF$UnauthAbse)
@@ -326,7 +329,7 @@ LQMapper<-function(sfdataframe){
 
 ```
 
-```{r eval=FALSE}
+```{r prac8_LQmapper, eval=FALSE}
 #run the function by calling it and putting in the data frame parameter - at several points you will be asked for some user input
 
 LQMapper(LondonWardsSF)
@@ -352,7 +355,7 @@ In a cluster analysis, you should select variables that are:
 
 To make this task easier, we will just select two variables to make our classification from. In a real geodemographic classification, hundreds of variables are often used. 
 
-```{r}
+```{r prac8_cluster}
 LondonWardsDF <- st_set_geometry(LondonWardsSF, NULL)
 
 #display list of variables
@@ -419,13 +422,15 @@ One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd`
 
 3. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon (if you remember we covered this in [Knitting your output])...
 
-HERE
+```{r prac8_knitt,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac8_images/knitt.png') 
+```
 
 4. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)
 
 5. Insert a new code chunk (go back to [RMarkdown] if you need a refresher) and add some code of your choice from either a previous practical or your own work. As it's a new project you'll have to either copy the data into your project folder or set the working directory ```setwd()```. If it's all online data that you've loaded directly from the web into R, this shouldn't be an issue. I'm going to use the interactive map we made in practical 5 (the [Advanced interactive map] section).....Here is the code i've put in my chunk:
 
-```{r, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
+```{r prac8_airbnb_hotel, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
 
 library(sf)
 library(tmap)
@@ -551,7 +556,7 @@ map
 
 6. Add some text at the start of your ```.Rmd``` you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###
 
-```{r warnings=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
+```{r prac8_titles,warnings=FALSE, message=FALSE, cache=TRUE, eval=FALSE}
 # Title
 ## Second sub title
 ### Third sub title
@@ -561,13 +566,13 @@ map
 
 8. Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)
 
-```{r echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
+```{r prac8_publish,echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/publish.png') 
 ```
 
 Now how about adding a few design features...i've changed my header section to...
 
-```{r eval=FALSE}
+```{r prac8_header, eval=FALSE}
 ---
 title: "publishexample"
 output:
@@ -619,13 +624,13 @@ For the site to work you only require (a) and (b)....but that would be a pretty 
 * ```index.Rmd``` 
 
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r prac8_sitegenerator,echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/rsitegenerator.png') 
 ```
 
 12. In the ```_site.yml``` remove all code and add the following
 
-```{r eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r prac8_yml,eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 name: "Hello world"
 output_dir: "."
 navbar:
@@ -653,13 +658,13 @@ So if you already have a RStudio project...like we do...we can link this to GitH
 
 14. Next we need to make a new repository on GitHub. Go to GitHub, login and make a new repository. Make sure that it is **empty** with no README.. you should have something similar to this appear:
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_newrepo,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/gitnewrepo.png') 
 ```
 
 15. Clone the repository by copying the HTTPS 
 
-```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+```{r prac8_HTTPS,echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/HTTPS.png') 
 ```
 
@@ -667,13 +672,13 @@ knitr::include_graphics('prac8_images/HTTPS.png')
 
 17. Now we need to connect our local repository to the GitHub one. So Under the Git tab you'll the new brach button (two purple boxes linked to a white box)...
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r prac8_addremote,echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/addremote.png') 
 ```
 
 18. Click it > Add Remote. Paste in the URL use the remote name origin and the branch name of master --- which you can get from the GitHub Quick setup screen after creating your repo. Check sync the branch with the remote > click create then select overwrite
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r prac8_addremote2,echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/addremote2.png') 
 ```
 
@@ -683,13 +688,13 @@ knitr::include_graphics('prac8_images/addremote2.png')
 
 21. Alternatively you write the following in the console 
 
-```{r eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r prac8_render_site,eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 rmarkdown::render_site()
 ```
 
 If you wanted to just build a page from your site --- say if you have made a rather big site with lots of analysis use:
 
-```{r eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+```{r prac8_rendersite2,eval=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 rmarkdown::render_site("index.Rmd")
 ```
 
@@ -702,13 +707,13 @@ Help:
 
 23. So your 'built' website is up on GitHub, but you need to tell it where to build the site from...Go to your GitHub repo > Settings, scroll down to GitHub pages and select the Source as the master branch
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_githubpages,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/GitHubpages.png') 
 ```
 
 24. Click on the link that is provided where your site is published and you should have a website with two tabs. Here is what mine looks like:
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_markdownsite,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/Markdownsite.png') 
 ```
 
@@ -748,7 +753,7 @@ Now let's make one with our data...
 
 29. The first part is easy and is based on analysis we have already compelted...we need to produce a ```sf``` multipolygon layer containing the number of hotels and airbnbs per London borough through....
 
-```{r eval=TRUE, cache=FALSE, eval=FALSE}
+```{r prac8_shiny,eval=TRUE, cache=FALSE, eval=FALSE}
 # load packages
 library(sf)
 library(tmap)
@@ -845,7 +850,7 @@ There are plenty of options available in Shiny to make cool interactive features
 
 30. Load the packages we'll need here and do some final data manipulation. Just add this right below the code above, i seperate it using a line of ##########################
 
-```{r eval=FALSE, cache=FALSE}
+```{r prac8_shiny2,eval=FALSE, cache=FALSE}
 ################################################## final data manipulation
 library(shiny)
 library(leaflet)
@@ -864,7 +869,7 @@ ti$Airbnb[is.na(ti$Airbnb)] <- 0
 
 31. Ok, first let's set up the user interface or ```ui```. I've commented the code to descrbie what each bit does.
 
-```{r, eval=FALSE, cache=FALSE}
+```{r prac8_shinyUI, eval=FALSE, cache=FALSE}
 ################################################## ui
 
 # we'll use bootstrappage - a UI definition that can be passed to Shiny
@@ -926,7 +931,7 @@ ui <- bootstrapPage(
 
 33. It's a good idea to actuallly see what this produces...at the bottom of the code add an empty server function and then generate the Shiny application **BE SURE TO COPY ALL OF BRACKETS**
 
-```{r, eval=FALSE, cache=TRUE}
+```{r prac8_shiny4, eval=FALSE, cache=TRUE}
 ####################################### server
 server <- function(input, output, session) {
 }
@@ -936,13 +941,13 @@ shinyApp(ui, server)
 
 Click Run App and the following should appear
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_runapp,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/shinyui.png') 
 ```
 
 34. Now we need to add some more code to our server function to let us link the user interface to the data. Change the server function to:
 
-```{r, eval=FALSE, cache=FALSE}
+```{r prac8_server, eval=FALSE, cache=FALSE}
 ####################################### server
 server <- function(input, output, session) {
     
@@ -1020,7 +1025,7 @@ server <- function(input, output, session) {
 
 35. Don't forget to call the Shinyapp at the end 
 
-```{r eval=FALSE, cache=FALSE}
+```{r prac8_call,eval=FALSE, cache=FALSE}
 shinyApp(ui, server)
 ```
 
@@ -1032,19 +1037,19 @@ Now we will publish our Shiny app on the internet. There are a few ways to do th
 
 37. Back in RStudio click on Publish > Publish Application
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r prac8_publishapp, echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/publishapp.png') 
 ```
 
 38. You now need to connect RStudio to the Shinyapps.io account you just made. Follow the instructions provided in this box:
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r prac8_publishapp2, echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/publishapp.png') 
 ```
 
 39. You'll find the tokens under Account > Tokens. Make sure you click show secret then copy the code into the box in the figure above. You can now publish your Shinyapp, this might take a bit of time but you can see progress updates in the Deploy tab. Once completed the application will load...
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_finalapp,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/finalapp.png') 
 ```
 
@@ -1054,20 +1059,20 @@ Mine is here: https://amaclachlan.shinyapps.io/test/
 
 40. To include our Shiny application into our RMarkdown site just add the following code in a code chunk:
 
-```{r fig.align='center', cache=TRUE}
+```{r prac8_inlcudeshiny, fig.align='center', cache=TRUE}
 knitr::include_app("https://amaclachlan.shinyapps.io/Airbnb/",
                    height = "700px")
 ```
 
 Here is mine in the RMarkdown site project --- i've put it in a new ```.Rmd```
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_myshiny,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/Shiny_rmarksite.png') 
 ```
 
 If you copy this make sure you also update the ```_site.yml``` to link it...
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r prac8_shungsiteyml,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/Shiny_rmarksite_yml.png') 
 ```
 
@@ -1081,7 +1086,7 @@ His code can be found [here](https://www.dropbox.com/s/g7cgzg7ep6pz3k4/LondonShi
 
 Notice how Adam separated his code into different files...the latest update of Shiny means we no longer have to do this, we can just use one script like we did. However, if you have a very large and complicated project this is still possible, you can then call other scripts like Adam has using... 
 
-```{r cache=TRUE, eval=FALSE}
+```{r prac8_ADshiny,cache=TRUE, eval=FALSE}
 # change londongrapher.r to the script you are calling
 source("londongrapher.r")
 
@@ -1101,7 +1106,7 @@ For advancements / large scale projects with Shiny explore [Building Big Shiny A
 
 If you play around with the Shiny app, changing the colour scheme, interval style and accomodation count using the slider you'll notice that you can actually almost change what the maps shows. For example, if you wanted to hide the distribution of Airbnb accomodation over London you could select any color scheme, use the full range of accomodation count and then select the pretty interval style to give some like...
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r pac8_liemaps,echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/liewithmap.png') 
 ```
 
@@ -1128,6 +1133,8 @@ Already familiar with RPubs, RMarkdown site generator or Shiny? Try and and prod
 
 * Bookdown: https://bookdown.org/yihui/bookdown/, minimal bookdown example: https://github.com/rstudio/bookdown-demo
 
+https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/
+
 * Flexdashboard: https://rmarkdown.rstudio.com/flexdashboard/
 
 * Blogdown: https://bookdown.org/yihui/blogdown/
@@ -1137,4 +1144,7 @@ Already familiar with RPubs, RMarkdown site generator or Shiny? Try and and prod
 ### Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know [here](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+
+
+
 
