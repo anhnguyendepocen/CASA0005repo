@@ -423,7 +423,6 @@ One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd`
 3. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon (if you remember we covered this in [Knitting your output])...
 
 ```{r prac8_knitt, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
-library(knitr)
 knitr::include_graphics('prac8_images/knitt.png') 
 ```
 
