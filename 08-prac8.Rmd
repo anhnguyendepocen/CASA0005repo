@@ -29,7 +29,7 @@ Bit different from me this week - I'm not all about drum and bass (although I mo
 ### Getting Started
 Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
 
-```{r prac8_load}
+```{r prac8_load, message=FALSE}
 library(highcharter)
 library(tidyverse)
 library(downloader)
