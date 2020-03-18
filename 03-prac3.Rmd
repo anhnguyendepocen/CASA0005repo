@@ -538,6 +538,12 @@ rasmask <- mask(ras, Ausoutline)
 plot(rasmask)
 ```
 
+```{r}
+library(gstat)
+detach("package:gstat", unload=TRUE)
+```
+
+
 IDW is just one method for interpolating data, there are many more, if you are interested check out: https://mgimond.github.io/Spatial/interpolation-in-r.html
 
 ## Auto data download
