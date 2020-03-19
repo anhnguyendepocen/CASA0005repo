@@ -336,7 +336,7 @@ This would specify that the first row of the file contains header information; a
 
 To clean our data as we read it in, we are going to use a package (more about packages later --- for now, just think about it as a lovely gift from the R gods) called ```readr``` which comes bundled as part of the ```tidyverse``` package.
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/tidyverse_celestial.png')
 ```
 
@@ -350,7 +350,7 @@ install.packages("tidyverse")
 
 Now we can use the ```readr``` package... which comes bundled as part of the ```tidyverse``` and allows loads of data manipulation ...for example...
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/parse_number.png')
 ```
 
@@ -563,7 +563,7 @@ R has a very well developed ecosystem of packages for working with Spatial Data.
 
 Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickam and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')
 ```
 

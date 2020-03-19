@@ -428,7 +428,14 @@ knitr::include_graphics('prac8_images/knitt.png')
 
 4. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)
 
-5. Insert a new code chunk (go back to [RMarkdown] if you need a refresher) and add some code of your choice from either a previous practical or your own work. As it's a new project you'll have to either copy the data into your project folder or set the working directory ```setwd()```. If it's all online data that you've loaded directly from the web into R, this shouldn't be an issue. I'm going to use the interactive map we made in practical 5 (the [Advanced interactive map] section).....Here is the code i've put in my chunk:
+5. Insert a new code chunk (go back to [RMarkdown] if you need a refresher)...
+
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/rmarkdown_wizards.png')
+```
+
+...Add add some code of your choice from either a previous practical or your own work. As it's a new project you'll have to either copy the data into your project folder or set the working directory ```setwd()```. If it's all online data that you've loaded directly from the web into R, this shouldn't be an issue. I'm going to use the interactive map we made in practical 5 (the [Advanced interactive map] section).....Here is the code i've put in my chunk:
 
 ```{r prac8_airbnb_hotel, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
 

@@ -555,7 +555,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-types-in-statistics" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> Data types in statistics</h3>
 <p>Before we go any further let’s just quick go over the different types of data you might encounter</p>
-<p>ADD HERE</p>
+<p>Continuous data can be measured on some sort of scale and can have any value on it such as height and weight.</p>
+<p>Discrete data have finite values. It can be numeric such as number of shoes or categorial such as positive or negative.</p>
+<p>Foot length would be continuous data but shoe size would be discrete data.</p>
+<p><img src="allisonhorst_images/continuous_discrete.png" width="450" style="display: block; margin: auto;" /></p>
+<p>Nominal data has labels without any quantitative value such as hair colour or type of animal.</p>
+<p>Oridnal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 — that’s ordinal. Here the order matters, but not the difference between them.</p>
+<p>Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.</p>
+<p><img src="allisonhorst_images/nominal_ordinal_binary.png" width="450pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="important-gis-data-formats" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Important GIS data formats</h3>
@@ -953,6 +960,7 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 <div id="load-data-2" class="section level4">
 <h4><span class="header-section-number">1.4.7.4</span> Load data</h4>
 <p>Load the <code>sf</code> package so we can read our shapefile in — remember to change to filepath to your shapefile.</p>
+<p><img src="allisonhorst_images/sf.png" width="450pt" style="display: block; margin: auto;" /></p>
 <p>For this first practical we’ll just leave the data where it is, next week we’ll show you how to use projects to make calling data much easier.</p>
 <blockquote>
 <p><strong>Note</strong> by default in R, the file path should be defined with <code>/</code> but on a windows file system it is defined with <code>\</code>. Using <code>\\</code> instead allows R to read the path correctly – alternatively, just use <code>/</code></p>

@@ -31,14 +31,24 @@ In the above example the features in the real world (e.g. lake, forest, marsh an
 
 Before we go any further let's just quick go over the different types of data you might encounter
 
-ADD HERE
+Continuous data can be measured on some sort of scale and can have any value on it such as height and weight.
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+Discrete data have finite values. It can be numeric such as number of shoes or categorial such as positive or negative.
+
+Foot length would be continuous data but shoe size would be discrete data.
+
+```{r echo=FALSE, out.width = "450", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 ```
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
-knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
+Nominal data has labels without any quantitative value such as hair colour or type of animal. 
+
+Oridnal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
+
+Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/nominal_ordinal_binary.png')
 ```
 
 ### Important GIS data formats
@@ -543,7 +553,7 @@ If you still have issues the check out the [Mac R issues] section
 
 Load the ```sf``` package so we can read our shapefile in --- remember to change to filepath to your shapefile. 
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/sf.png')
 ```
 

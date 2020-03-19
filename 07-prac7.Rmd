@@ -534,7 +534,7 @@ library(htmlwidgets)
 library(ggplot2)
 ```
 
-35. Transfrom the data to a data.frame to work with ggplot, then plot
+35. Transfrom the data to a data.frame to work with `ggplot`, then plot
 
 ```{r, cache=TRUE}
 #convert to a data frame
@@ -555,6 +555,12 @@ heat<-ggplot(randomdf, aes(x = Urban, y = Temperature))+
 # interactive plot
 ggplotly(heat)
 ```
+
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
+```
+
 
 36. How about plotting the whole dataset rather than a random subset...
 
