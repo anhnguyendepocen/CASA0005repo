@@ -334,7 +334,7 @@ knitr::include_url("https://www.youtube.com/embed/zNzZ1PfUDNk")
 R Markdown is awesome as you can show code, explanations and results within the same document!!!! Often it could be very hard to reproduce results owing to a lack of information in the methodology / userguides or walkthrougts not matching up with the latest version of software. Think back to a time where you had to use software and consult a massive userguide in how to use it...for me it was a very painful experience. R Markdown is a big improvement as it puts all of the information in the same document, which can then be convereted into a range of different formats --- html for webpages, word documents, PDFs, blogs, books --- virtually everything! 
 
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=TRUE, out.width = "300pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/rmarkdown_rockstar.png')
 ```
 

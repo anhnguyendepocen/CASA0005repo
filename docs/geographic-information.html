@@ -175,7 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="geographic-information.html"><a href="geographic-information.html#learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="1.2" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.2</b> Recommended listening</a></li>
 <li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.3</b> The Basics of Geographic Information</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.3.1</b> Important GIS data formats</a></li>
+<li class="chapter" data-level="1.3.1" data-path="geographic-information.html"><a href="geographic-information.html#data-types-in-statistics"><i class="fa fa-check"></i><b>1.3.1</b> Data types in statistics</a></li>
+<li class="chapter" data-level="1.3.2" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.3.2</b> Important GIS data formats</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.4</b> Data</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.4.1</b> File paths</a></li>
@@ -551,11 +552,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. <strong>Vectors</strong> that are composed of points, lines and polygons and <strong>rasters</strong> that are grids of cells with individual values…</p>
 <p><img src="prac1_images/rasvec.jpg" width="300pt" style="display: block; margin: auto;" /></p>
 <p>In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.</p>
+<div id="data-types-in-statistics" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Data types in statistics</h3>
+<p>Before we go any further let’s just quick go over the different types of data you might encounter</p>
+<p>ADD HERE</p>
+</div>
 <div id="important-gis-data-formats" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Important GIS data formats</h3>
+<h3><span class="header-section-number">1.3.2</span> Important GIS data formats</h3>
 <p>There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it’s important to understand what they are, how they represent data and how you can use them.</p>
 <div id="shapefiles" class="section level4">
-<h4><span class="header-section-number">1.3.1.1</span> Shapefiles</h4>
+<h4><span class="header-section-number">1.3.2.1</span> Shapefiles</h4>
 <p>Perhaps the most commonly used GIS data format is the shapefile. Shapefiles were developed by <a href="http://www.esri.com/">ESRI</a>, one of the first and now certainly the largest commercial GIS company in the world. Despite being developed by a commercial company, they are mostly an open format and can be used (read and written) by a host of GIS Software applications.</p>
 <p>A shapefile is actually a collection of files –– at least three of which are needed for the shapefile to be displayed by GIS software. They are:</p>
 <ol style="list-style-type: decimal">
@@ -567,11 +573,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>On Twitter and want to see the love for shapefiles….have a look at <a href="https://twitter.com/shapefiIe">the shapefile account</a></p>
 </div>
 <div id="geojson" class="section level4">
-<h4><span class="header-section-number">1.3.1.2</span> GeoJSON</h4>
+<h4><span class="header-section-number">1.3.2.2</span> GeoJSON</h4>
 <p>GeoJSON <a href="http://geojson.org/">Geospatial Data Interchange format for JavaScript Object Notation</a> is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.</p>
 </div>
 <div id="shapefile-and-geojson" class="section level4">
-<h4><span class="header-section-number">1.3.1.3</span> Shapefile and GeoJSON</h4>
+<h4><span class="header-section-number">1.3.2.3</span> Shapefile and GeoJSON</h4>
 <p>We’re now going to explore a shapefile (<code>.shp</code> ) and GeoJSON (<code>.geojson</code>) in action.</p>
 <p>Go to: <a href="http://geojson.io/#map=16/51.5247/-0.1339" class="uri">http://geojson.io/#map=16/51.5247/-0.1339</a></p>
 <p><img src="prac1_images/JSONwebsite.png" width="500pt" style="display: block; margin: auto;" /></p>
@@ -582,11 +588,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 <div id="raster-data" class="section level4">
-<h4><span class="header-section-number">1.3.1.4</span> Raster data</h4>
+<h4><span class="header-section-number">1.3.2.4</span> Raster data</h4>
 <p>Most raster data is now provided in GeoTIFF (<code>.tiff</code>) format, which stands for Geostarionary Earth Orbit Tagged Image File. The GeoTIFF data format was created by NASA and is a standard public domain format. All necesary information to establish the location of the data on Earth’s surface is embedded into the image. This includes: map projection, coordinate system, ellipsoid and datum type.</p>
 </div>
 <div id="other-data-formats" class="section level4">
-<h4><span class="header-section-number">1.3.1.5</span> Other data formats</h4>
+<h4><span class="header-section-number">1.3.2.5</span> Other data formats</h4>
 <p>Aforementioned data types and formats are likely to be the ones you predominately encounter. However there are several more used within spatial analysis. These include:</p>
 <p><strong>Vector</strong></p>
 <ul>
@@ -601,27 +607,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are normally valid reasons for storing data in one of these other formats. For example, BSQ are raster data with a separate text header file (<code>.hdr</code>) providing geographic spatial reference information. Earth observation data often monitors the electromagnetic spectrum in bands. Humans see in the visible range of the spectrum and our vision is composed of red, green and blue wavelengths. If we wanted to analyse just the red wavelength the BSQ format would let us <em>read in</em> only that data. In comparison a GeoTIFF might come with all the data ‘packaged’ in one file and when doing analysis over thousands of images would significantly slow things down. That said you can now often find GeoTIFFs separated in a similar format to BSQ and it’s fairly straightforward to convert between raster formats.</p>
 </div>
 <div id="geodatabase" class="section level4">
-<h4><span class="header-section-number">1.3.1.6</span> Geodatabase</h4>
+<h4><span class="header-section-number">1.3.2.6</span> Geodatabase</h4>
 <p>A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (<code>.mdb</code>) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.</p>
 <p><img src="prac1_images/geodatabase.png" width="500pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geopackage" class="section level4">
-<h4><span class="header-section-number">1.3.1.7</span> GeoPackage</h4>
+<h4><span class="header-section-number">1.3.2.7</span> GeoPackage</h4>
 <p><img src="prac1_images/geopkg.png" width="100pt" style="display: block; margin: auto;" /></p>
 <p>A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.</p>
 </div>
 <div id="spatialite" class="section level4">
-<h4><span class="header-section-number">1.3.1.8</span> SpatiaLite</h4>
+<h4><span class="header-section-number">1.3.2.8</span> SpatiaLite</h4>
 <p><img src="prac1_images/spatialite.png" width="100pt" style="display: block; margin: auto;" /></p>
 <p>SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn’t have any clear advantage over GeoPackage, however it is unable to support raster data.</p>
 </div>
 <div id="postgis" class="section level4">
-<h4><span class="header-section-number">1.3.1.9</span> PostGIS</h4>
+<h4><span class="header-section-number">1.3.2.9</span> PostGIS</h4>
 <p><img src="prac1_images/postGIS.jpg" width="100pt" style="display: block; margin: auto;" /></p>
 <p>PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In <a href="https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291">this example</a> calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is much harder to share, move or copy.</p>
 </div>
 <div id="what-will-i-use" class="section level4">
-<h4><span class="header-section-number">1.3.1.10</span> What will I use</h4>
+<h4><span class="header-section-number">1.3.2.10</span> What will I use</h4>
 <p>The variety of data formats can see a bit overwhelming. But don’t worry, most of the time you’ll be using shapefiles, GeoPackages or raster data.</p>
 </div>
 </div>
@@ -986,10 +992,10 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 ## </code></pre>
 <p>To have a quick look what the shapefile looks like enter the following:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">plot</span>(shape)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use…</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">plot</span>(sf<span class="op">::</span><span class="kw">st_geometry</span>(shape))</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>From what we did in QGIS and ArcMap this should look familiar.</p>
 <p>We now need to load our <code>.csv</code> file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(tidyverse)</a>
@@ -1081,7 +1087,7 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 <pre><code>## tmap mode set to plotting</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># change the fill to your column name if different</span></a>
 <a class="sourceLine" id="cb20-2" title="2"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 </div>
 </div>
 <div id="export-data-2" class="section level3">

@@ -27,6 +27,20 @@ knitr::include_graphics('prac1_images/rasvec.jpg')
 
 In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.
 
+### Data types in statistics 
+
+Before we go any further let's just quick go over the different types of data you might encounter
+
+ADD HERE
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
+```
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
+```
+
 ### Important GIS data formats
 
 There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it’s important to understand what they are, how they represent data and how you can use them.
