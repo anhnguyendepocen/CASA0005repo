@@ -22,7 +22,7 @@ If you need the practical data you can access it from my [GitHub repository](htt
 
 Practical data is divided into the relevant sessions (e.g. prac1_data), although sometimes i'll refer to a dataset used within a previous week. 
 
-The artwork used within this book has been produced by ["@allison_horst"](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
+The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
 
 ## The world of GIS {-}
 
@@ -108,8 +108,12 @@ Due to the size of the class we will **only reply** to messages **on slack** so 
 
 If you are struggling to use R don't worry...here is some advice from a tweet and  [interview](https://www.r-bloggers.com/advice-to-young-and-old-programmers-a-conversation-with-hadley-wickham/) with Hadley Wickham, chief scientist at RStudio...
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">
-You&#39;re doing it right if you get frustrated: if you&#39;re not frustrated, you&#39;re (probably) not stretching yourself mentally</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/565516733516349441?ref_src=twsrc%5Etfw">11. Februar 2015</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">You&#39;re doing it right if you get frustrated: if you&#39;re not frustrated, you&#39;re (probably) not stretching yourself mentally</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/565516733516349441?ref_src=twsrc%5Etfw">11. Februar 2015</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<br/>
+
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/589068687669243905?ref_src=twsrc%5Etfw">April 17, 2015</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<br/>
 
 > It’s easy when you start out programming to get really frustrated and think, “Oh it’s me, I’m really stupid,” or, “I’m not made out to program.” But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It’s just a natural part of programming. So, it happens to everyone and gets less and less over time. Don’t blame yourself. Just take a break, do something fun, and then come back and try again later.
 
