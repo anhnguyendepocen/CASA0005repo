@@ -946,7 +946,8 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 </div>
 <div id="load-data-2" class="section level4">
 <h4><span class="header-section-number">1.4.7.4</span> Load data</h4>
-<p>Load the <code>sf</code> package so we can read our shapefile in — remember to change to filepath to your shapefile. For this first practical we’ll just leave the data where it is, next week we’ll show you how to use projects to make calling data much easier.</p>
+<p>Load the <code>sf</code> package so we can read our shapefile in — remember to change to filepath to your shapefile.</p>
+<p>For this first practical we’ll just leave the data where it is, next week we’ll show you how to use projects to make calling data much easier.</p>
 <blockquote>
 <p><strong>Note</strong> by default in R, the file path should be defined with <code>/</code> but on a windows file system it is defined with <code>\</code>. Using <code>\\</code> instead allows R to read the path correctly – alternatively, just use <code>/</code></p>
 </blockquote>
@@ -985,10 +986,10 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 ## </code></pre>
 <p>To have a quick look what the shapefile looks like enter the following:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">plot</span>(shape)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use…</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">plot</span>(sf<span class="op">::</span><span class="kw">st_geometry</span>(shape))</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>From what we did in QGIS and ArcMap this should look familiar.</p>
 <p>We now need to load our <code>.csv</code> file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(tidyverse)</a>
@@ -1080,7 +1081,7 @@ ArcGIS (Version 10.6 is the latest at time of writing, but may have already been
 <pre><code>## tmap mode set to plotting</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># change the fill to your column name if different</span></a>
 <a class="sourceLine" id="cb20-2" title="2"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 </div>
 </div>
 <div id="export-data-2" class="section level3">

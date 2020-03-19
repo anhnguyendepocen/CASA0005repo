@@ -20,6 +20,8 @@ If you need the practical data you can access it from my [GitHub repository](htt
 
 Practical data is divided into the relevant sessions (e.g. prac1_data), although sometimes i'll refer to a dataset used within a previous week. 
 
+The artwork used within this book has been produced by [@allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations).
+
 ## The world of GIS {-}
 
 Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familar with online sources of help, such as:

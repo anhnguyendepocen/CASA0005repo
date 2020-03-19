@@ -87,6 +87,10 @@ Other useful tutorials can be found here:
 
 ### Twitter
 
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/welcome_to_rstats_twitter.png')
+```
+
 R package authors regularly tweet with updates and new developments. If twitter is your thing go and follow these people to start with...and anyone else you come across...
 
 * [Hadley Wickham](https://twitter.com/hadleywickham)
@@ -103,6 +107,7 @@ R package authors regularly tweet with updates and new developments. If twitter 
 * [Adam](https://twitter.com/adam_dennett)
 
 I often learn about a lot of new R pacakges / code / isuues from Twitter!
+
 
 ## Data
 

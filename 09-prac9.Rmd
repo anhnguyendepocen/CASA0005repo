@@ -297,7 +297,11 @@ Contrast this with the median house price variable:
 ggplot(LonWardProfiles, aes(x=`Median House Price (£) - 2014`)) + geom_histogram()
 ```
 
-We would describe this as a positively 'skewed' - https://en.wikipedia.org/wiki/Skewness - distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed. 
+We would describe this as a not normal and/or positively 'skewed' - https://en.wikipedia.org/wiki/Skewness - distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/not_normal.png')
+```
 
 If we plot the raw house price variable against GCSE scores, we get the following scatter plot:
 

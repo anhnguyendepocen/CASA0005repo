@@ -527,7 +527,13 @@ If you still have issues the check out the [Mac R issues] section
 
 #### Load data
 
-Load the ```sf``` package so we can read our shapefile in --- remember to change to filepath to your shapefile. For this first practical we'll just leave the data where it is, next week we'll show you how to use projects to make calling data much easier.
+Load the ```sf``` package so we can read our shapefile in --- remember to change to filepath to your shapefile. 
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/sf.png')
+```
+
+For this first practical we'll just leave the data where it is, next week we'll show you how to use projects to make calling data much easier.
 
 > **Note** by default in R, the file path should be defined with ```/``` but on a windows file system it is defined with ```\```. Using ```\\``` instead allows R to read the path correctly – alternatively, just use ```/```
 

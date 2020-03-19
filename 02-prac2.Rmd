@@ -334,7 +334,13 @@ This would specify that the first row of the file contains header information; a
 
 ### New skool cleaning 
 
-To clean our data as we read it in, we are going to use a package (more about packages later --- for now, just think about it as a lovely gift from the R gods) called ```readr``` which comes bundled as part of the ```tidyverse``` package. If you want to find out more about the `tidyverse` (and you really should) then you should start [here](https://www.tidyverse.org/) --- the `tidyverse` package contains almost everything you need to become a kick-ass data scientist. ‘Tidy’ as a concept in data science is well worth reading about and you should start here with Hadley Wickham’s [paper](http://vita.had.co.nz/papers/tidy-data.pdf)
+To clean our data as we read it in, we are going to use a package (more about packages later --- for now, just think about it as a lovely gift from the R gods) called ```readr``` which comes bundled as part of the ```tidyverse``` package.
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/tidyverse_celestial.png')
+```
+
+If you want to find out more about the `tidyverse` (and you really should) then you should start with the [tidyverse website](https://www.tidyverse.org/) --- the `tidyverse` package contains almost everything you need to become a kick-ass data scientist. ‘Tidy’ as a concept in data science is well worth reading about and you should start here with Hadley Wickham’s [paper](http://vita.had.co.nz/papers/tidy-data.pdf)
 
 Anyway, first install the package:
 
@@ -342,7 +348,13 @@ Anyway, first install the package:
 install.packages("tidyverse")
 ```
 
-Now we can use the ```readr``` package which comes bundled as part of the ```tidyverse``` to read in some data (directly from the web this time --- ```read.csv``` can do this too) and clean text characters out from the numeric columns before they cause problems:
+Now we can use the ```readr``` package... which comes bundled as part of the ```tidyverse``` and allows loads of data manipulation ...for example...
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/parse_number.png')
+```
+
+Here we will use it to just read in a `.csv` file (directly from the web this time --- ```read.csv``` can do this too) and clean text characters out from the numeric columns before they cause problems:
 
 ```{r, message=FALSE, cache=FALSE}
 library(tidyverse)
@@ -550,6 +562,10 @@ library(geojsonio)
 R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the ```rgdal``` and ```rgeos``` packages. The  ```maptools``` package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The ```sp``` package (along with  ```spdep```) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like ```raster``` advanced the analysis of gridded spatial data, while packages like ```classInt``` and ```RColorbrewer``` facilitated the binning of data and colouring of choropleth maps.
 
 Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickam and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')
+```
 
 Building on all of these, the new ```tmap``` (Thematic Map) package has changed the game completely and now enables us to read, write and manipulate spatial data and produce visually impressive and interactive maps, very easily. In parallel, the ```sf``` (Simple Features) package is helping us re-think the way that spatial data can be stored and manipulated. It’s exciting times for geographic information / spatial data science!
 
