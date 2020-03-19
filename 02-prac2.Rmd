@@ -562,10 +562,10 @@ As with all plots in R, there are multiple ways we can do this. The basic ```plo
 6. So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file...it might take a few minutes...
 
 ```{r, cache=FALSE}
-EW <- geojsonio::geojson_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_4.geojson", what = "sp")
+EW <- geojsonio::geojson_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson", what = "sp")
 ```
 
-Or you can do a manual download from [here](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2) --- see point 7.
+Or you can do a manual download from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2) via Download > Shapefile --- see point 7.
 
 Pull out London using grep and the regex wildcard for 'start of the string' (^) to to look for the bit of the district code that relates to London (E09) from the 'lad15cd' column in the data slot of our spatial polygons dataframe
 

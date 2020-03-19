@@ -44,7 +44,7 @@ library(pins)
 pinexample<-pin("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip")
 ```
 
-`pins()` also lets you share data easily, [have a look at this blog for more information](https://blog.rstudio.com/2019/09/09/pin-discover-and-share-resources/)
+`pins()` also lets you share data easily, [have a look the RStudio pins blog post](https://blog.rstudio.com/2019/09/09/pin-discover-and-share-resources/) for more information.
 
 2. Take the downloaded data and filter it based on the filename that countains: Borough OR Ward_ AND `.shp` using `grepl()`
 
@@ -53,6 +53,7 @@ pinexample<-pin("https://data.london.gov.uk/download/statistical-gis-boundary-fi
 # change data to pinexample to use result from pins
 t<-grepl("Borough|Ward_", data) & grepl(".shp$", data)
 t
+
 ```
 
 `t` just gives an index of where the values are equal to what we specified. 
@@ -992,7 +993,10 @@ predict(linearmodel, newdata, interval="confidence", level=0.95)
 
 ### Should i write advanced code
 
-It would be great if you could write your analysis in as least possible lines of code as possible...**BUT** you are not marked on how concise or efficient your code is in this course. My advice would be to get something that works and addresses all of the marking criteria. 
+It would be great if you could write your analysis in as least possible lines of code as possible...**BUT** you are not marked on how concise or efficient your code is in this course. My advice would be to get something that works and addresses all of the marking criteria and listen to Hadley Wickham....
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/589068687669243905?ref_src=twsrc%5Etfw">April 17, 2015</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<br/>
 
 ## More resources
 
