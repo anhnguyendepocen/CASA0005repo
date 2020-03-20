@@ -9,6 +9,14 @@ By the end of this practical you should be able to:
 3. Load and undertaken some basic manipulation of spatial data in: ArcMap, QGIS and R 
 4. Evaluate the (dis)advantages of each GIS you have used
 
+::: {.infobox .note data-latex="{note}"}
+**Assignment homework**
+
+This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I'd recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it
+:::
+
+:blue_book:
+
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
@@ -16,16 +24,6 @@ Some of these practicals are long, take regular breaks and have a listen to some
 [Andy](https://www.youtube.com/watch?v=1egwdCGi_dA&list=OLAK5uy_lGype0gR4vyIE0J2hvNYtpifSbNynJTNk&index=1)
 
 [Adam](https://open.spotify.com/album/0XXI8pxXeS9cvpBX9bB3hh)... This week, wrap your ears around this piece of liquid gold from Japan’s finest, Makoto.
-
-::: {.infobox .note data-latex="{note}"}
-**NOTICE!**
-
-Thank you for noticing this **new notice**! Your noticing it has
-been noted, and _will be reported to the authorities_!
-:::
-
-> This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I'd recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it
-
 
 ## The Basics of Geographic Information
 

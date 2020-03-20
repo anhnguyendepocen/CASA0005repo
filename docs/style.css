@@ -1,24 +1,23 @@
 .infobox {
   padding: 1em 1em 1em 4em;
   margin-bottom: 10px;
-  background: lightgray 5px center/3em no-repeat;
-  border: 2px solid orange;
+  background: #f5f5f5 5px center/3em no-repeat;
   border-radius: 10px;
 }
 .caution {
-  background-image: url("../images/caution.png");
+  background-image: url("general_images/caution.png");
 }
 .important {
-  background-image: url("../images/important.png");
+  background-image: url("general_images/important.png");
 }
 .note {
-  background-image: url("../images/note.png");
+  background-image: url("general_images/note.png");
 }
 .tip {
-  background-image: url("../images/tip.png");
+  background-image: url("general_images/tip.png");
 }
 .warning {
-  background-image: url("../images/warning.png");
+  background-image: url("general_images/warning.png");
 }
 p.caption {
   color: #777;
