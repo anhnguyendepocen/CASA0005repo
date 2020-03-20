@@ -105,7 +105,6 @@ If you examine your data file, you will see why. In a number of columns where da
 
 To deal with these errors, we can force `read_csv` to ignore these values by telling it what values to look out for that indicate missing data
 
-
 ```{r}
 #We can use readr to deal with the issues in this dataset - which are to do with text values being stored in columns containing numeric values
 
