@@ -1,18 +1,28 @@
 # GWR and spatially lagged regression
 
-## Recommended listening
+## Learning objectives
 
-Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+CHANGE THESE FOR THIS PRACTICAL
 
-[Andy](https://www.youtube.com/watch?v=z1LLWHroWgA)
+By the end of this practical you should be able to:
 
-[Adam](https://www.bbc.co.uk/sounds/play/m000bvml)This week it's Radio1's DnB 60, recorded live at the Warehouse Project. Die, Bryan G, Jumpin' Jack Frost and it sounds like Dynamite on the mic --- some proper rollers in here!
+1. Explain and execute appropraite pre-proessing steps of raster data
+2. Replicate published methodologies using raster data
+3. Design new R code to undertake further analysis 
 
 ::: {.infobox .note data-latex="{note}"}
 **Assignment homework**
 
 From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
 :::
+
+## Recommended listening
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=z1LLWHroWgA)
+
+[Adam](https://www.bbc.co.uk/sounds/play/m000bvml) This week it's Radio1's DnB 60, recorded live at the Warehouse Project. Die, Bryan G, Jumpin' Jack Frost and it sounds like Dynamite on the mic --- some proper rollers in here!
 
 ## Introduction
 
@@ -30,7 +40,7 @@ If you want to do some more reading around regression, then [Chapter 5 of the Mo
 
 First, let's set up R and read in some data to enable us to carry out our analysis. 
 
-```{r, message = FALSE, cache=TRUE}
+```{r, message = FALSE, cache=FALSE}
 #library a bunch of packages we may (or may not) use - install them first if not installed already. 
 library(tidyverse)
 library(tmap)
@@ -44,18 +54,17 @@ library(sf)
 library(sp)
 library(spdep)
 library(car)
-
-#Set up some spatial data
-getwd()
-
-#read some ward data in
-
+```
+read some ward data in
+```{r, eval=FALSE}
 #download a zip file containing some boundaries we want to use
 download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip", destfile="prac9_data/statistical-gis-boundaries-london.zip")
 
 #unzip it
 unzip("prac9_data/statistical-gis-boundaries-london.zip", exdir="prac9_data")
+```
 
+```{r}
 #look at the subfolders in the directory to work out where we want to get our shapefile from
 list.dirs("prac9_data/statistical-gis-boundaries-london")
 
@@ -262,6 +271,7 @@ In addtion, the two papers by Dunn (1989) and Jones (1984) on Moodle are old, bu
 The standard model output in R is not particularly easy to export for publication, however you can use the `tidy()` function in the `broom` package to save the results out to a dataframe:
 
 ```{r}
+library(broom)
 model1_res <- tidy(model1)
 ```
 
@@ -642,8 +652,7 @@ Comparing the results of the spatial error model with the spatially lagged model
 
 Both the $\lambda$ parameter in the spatial error model and the $\rho$ parameter in the spatially lagged model are larger than their standard errors, so we can conclude that spatial dependence should be borne in mind when interpreteing the results of this regression model. 
 
-### 
-
+### Spatial regression model in R
 
 We will now read in some extra data which we will use shortly
 
@@ -709,7 +718,49 @@ You will notice that the only thing that has changed in the model is that the co
 
 Now it's your turn. You have been shown how you could begin to model average GCSE scores across London, but the models we have built so far have been fairly simple in terms of explanatory variables. 
 
-You should try and build the optimum model of GCSE performance from your data in your LondonWards dataset. Experiment with adding different variables - when building a regression model in this way, you are trying to hit a sweet spot between increasing your R-squared value as much as possible, but with as few explanatory variables as possible. 
+You should try and build the optimum model of GCSE performance from your data in your LondonWards dataset. Experiment with adding different variables - when building a regression model in this way, you are trying to hit a sweet spot between increasing your R-squared value as much as possible, but with as few explanatory variables as possible.
+
+Multiple linear regression can be explained nicely with this example from [allison_horst](https://twitter.com/allison_horst).
+
+Let's meet our Multiple Linear Regression teaching assistants:
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragons.png')
+```
+
+Here my reseach question might be
+
+**What are the factors that might lead to variation in dragon weight?**
+
+We might have both cateogrical predictor variaibles such as if the dragon is spotted then they might weight 0.6 more tons than on average...So if the dragon is not spotted then in the equation bellow 0.6 x (0) --- 0 as it's not spotted, it would be 1 if spotted is 0 so the weight would be 2.4 tonnes.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragon_regression.png')
+```
+
+But we could also have a continuous predictor variable ...here a 1 foot taller dragon would have an addtional 0.3 tonnes on average, as the equation would be 2.4 + 0.3(1)...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
+```
+
+We can use these equations to make predicitons about a new dragon...here the dragon is striped, so spotted equals 0, and it's height is 5.1. So that gives us 2.4 + (0.3*5.1) which equals 3.9 tonnes. 
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
+```
+
+However, we need to check the residuals --- difference between the predicted weight and acutal weight...here it's 0.3 tonnes as the actual weight of the dragon was 4.2 tonnes.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragon_residual.png')
+```
+
+Then for all the dragons we need to make sure these resisuals are normally distributed, but you should also check all the other assumptions (1-5) shown within this practical and give brief evdience in reports that they are all valid.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dragon_residual_distribution.png')
+```
 
 #### A few things to watch out for...
 

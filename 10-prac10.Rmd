@@ -38,7 +38,7 @@ Here we will be using London brough and ward data from practical 1. As we're get
 
 1. Download and unzip the London statistical gis boundaries.
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 # make a temp file to store the .zip in
 library(sf)
 temp <- tempfile()
@@ -61,11 +61,14 @@ pinexample<-pin("https://data.london.gov.uk/download/statistical-gis-boundary-fi
 2. Take the downloaded data and filter it based on the filename that countains: Borough OR Ward_ AND `.shp` using `grepl()`
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
+data <- unzip("prac10_data/statistical-gis-boundaries-london.zip", exdir="prac10_data")
+```
+
+```{r}
 #|= OR
 # change data to pinexample to use result from pins
-t<-grepl("Borough|Ward_", data) & grepl(".shp$", data)
+t<-grepl("*Borough|Ward_", data) & grepl("*.shp$", data)
 t
-
 ```
 
 `t` just gives an index of where the values are equal to what we specified. 

@@ -73,11 +73,19 @@ BoroughMapBNG <- spTransform(BoroughMap,BNG)
 
 Now get the location of all Blue Plaques in the City
 
-```{r cache=FALSE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 ##Now get the location of all Blue Plaques in the City
 BluePlaques <- geojson_read(
   "https://s3.eu-west-2.amazonaws.com/openplaques/open-plaques-london-2018-04-08.geojson",
   what = "sp")
+
+```
+
+```{r}
+BluePlaques <- geojson_read(
+  "prac6_data/open-plaques-london-2018-04-08.geojson",
+  what = "sp")
+
 summary(BluePlaques)
 
 #now set up an EPSG string to help set the projection 

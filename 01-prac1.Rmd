@@ -153,7 +153,7 @@ As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/).
 
 However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adpted from Grolemund and Wickham.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/environmental_data_science_r4ds_general.png')
 ```
 
@@ -176,7 +176,7 @@ Next up is **modelling**. Personally within GIS i'd say a better term is process
 Fianlly you have to **communicate** your study and outputs, it doesn't matter how good your data wrangling, modelling or processing is, if your intended audience can't interpret it, well, it's pretty much useless. 
 
 ::: {.infobox .tip data-latex="{note}"}
-In a few weeks come back and revisit this data flow section to see what you have learnt fits the framework presented. 
+In a few weeks come back and revisit this data flow section to see how what you have learnt fits the framework presented. 
 :::
 
 ## Data 
