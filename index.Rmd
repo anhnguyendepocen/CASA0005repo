@@ -44,6 +44,13 @@ knitr::include_url("https://www.youtube.com/embed/K0qZffiKwak")
 
 One of the issues with GIS is that many of the files we will be working with are quite large. Fortunately in recent years UCL has seriously beefed up the storage available for students. You now get 100GB of free storage, which should be plenty for the work you will be doing this year! The Bartlett faculty has several gigabytes of storage space available on their central servers, so before we get started, we will connect to our N drive to carry out all of our practical work over the coming weeks. 
 
+::: {.infobox .tip data-latex="{note}"}
+The data we use in this practical book is representative of what you will find when conducting independent analysis. Some books and website will give you perfectly 'clean' and 'ready to use' data, we have not done this on purpose as it's very important to master data wrangling (also called data manipulation). In the 'real world' data is messy and it's vital you know how to deal with it. Take this quote from the [New York Times](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html) for example...
+
+*"Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets."*
+
+:::
+
 ## How to dowload data and files from GitHub {-}
 
 In some of the practicals it will say to download the data from my GitHub. To do so you have a few options. Option 1 will download everything i have used to make the practicals and option 2 will let you download just a spceific folder (e.g. the data folders).
@@ -110,7 +117,6 @@ If you are struggling to use R don't worry...here is some advice from a tweet an
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">You&#39;re doing it right if you get frustrated: if you&#39;re not frustrated, you&#39;re (probably) not stretching yourself mentally</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/565516733516349441?ref_src=twsrc%5Etfw">11. Februar 2015</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 <br/>
-
 > It’s easy when you start out programming to get really frustrated and think, “Oh it’s me, I’m really stupid,” or, “I’m not made out to program.” But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It’s just a natural part of programming. So, it happens to everyone and gets less and less over time. Don’t blame yourself. Just take a break, do something fun, and then come back and try again later.
 
 You can also go through other free resources including: 

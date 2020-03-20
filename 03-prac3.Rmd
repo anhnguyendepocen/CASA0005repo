@@ -9,6 +9,12 @@ By the end of this practical you should be able to:
 3. Execute interpolation of points to a raster layer
 4. Construct a methodology for comparing raster datasets
 
+::: {.infobox .note data-latex="{note}"}
+**Assignment homework**
+
+This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any reputable source) --- it's the same as last week!
+:::
+
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.

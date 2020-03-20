@@ -10,6 +10,13 @@ By the end of this practical you should be able to:
 4. Produce interactive maps
 5. Evaluate the benefits of different data manipulation and mapping techniques
 
+::: {.infobox .note data-latex="{note}"}
+**Assignment homework**
+
+This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any
+reputable source).
+:::
+
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.

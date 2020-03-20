@@ -7,6 +7,18 @@
 3. Execute linear, Ridge and LASSO regression to predict values (e.g. future or missing)
 4. Critically evaluate different regression approaches 
 
+::: {.infobox .note data-latex="{note}"}
+**Assignment homework**
+
+From weeks 10 until the assignment deadline, Undertake your analysis, then write up your discussion and conclusion (that includes recommendations)
+:::
+
+::: {.infobox .tip data-latex="{note}"}
+**Before submission**
+
+Before submission, check that your assignment follows the standard model of scientific investigation. You may need to update part 1 based on the analysis you undertook to ensure a seamless narrative throughout. 
+:::
+
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.

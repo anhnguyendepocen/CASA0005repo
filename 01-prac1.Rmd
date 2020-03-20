@@ -12,10 +12,8 @@ By the end of this practical you should be able to:
 ::: {.infobox .note data-latex="{note}"}
 **Assignment homework**
 
-This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I'd recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it
+This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I'd recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it.
 :::
-
-:blue_book:
 
 ## Recommended listening
 
@@ -145,7 +143,41 @@ PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQ
 
 #### What will I use
 
-The variety of data formats can see a bit overwhelming. But don't worry, most of the time you'll be using shapefiles, GeoPackages or raster data.
+The variety of data formats can see a bit overwhelming. I still have to check how to load some of these data formats that I don't use frequently. But don't worry, most of the time you'll be using shapefiles, GeoPackages or raster data. 
+
+## General data flow
+
+As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/)...
+
+>"Data science is a huge field, and there’s no way you can master it by reading a single book."
+
+However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adpted from Grolemund and Wickham.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/environmental_data_science_r4ds_general.png')
+```
+
+To being you have to **import** your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.
+
+Once imported you might need to **tidy** the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it --- as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when "each column is a variable, and each row is an observation", we cover this more in next week in the [Tidying data] section.
+
+When you have (or haven't) tidied data you then will most likely want to **transform** it. Grolemund and Wickham define this is "Transformation includes narrowing in on observations of interest (like all people in one city, or all data from the last year), creating new variables that are functions of existing variables (like computing speed from distance and time), and calculating a set of summary statistics (like counts or means)". However, from a GIS point of view I would also include putting all of your data into a similar projection, covered next week in [Changing projections] and any other basic process you might do before the core analysis. Arguably these processes could include things such as: clipping (cookie cutting your study area), buffering (making areas within a distance of a point) and intersecting (where two datasets overlap).
+
+Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
+```
+
+After you have transformed the data the next best thing to do is **visualise** it --- even with some basic summary statistics. This simple step will often let you look at your data in a different way and select more appropraite analysis. 
+
+Next up is **modelling**. Personally within GIS i'd say a better term is processing as the very data itself is usually a computer model of reality. The modelling or processing section is where you conduct the core analysis (more than the basic analysis already mentioned) and try to provide an answer to your research question.
+
+Fianlly you have to **communicate** your study and outputs, it doesn't matter how good your data wrangling, modelling or processing is, if your intended audience can't interpret it, well, it's pretty much useless. 
+
+::: {.infobox .tip data-latex="{note}"}
+In a few weeks come back and revisit this data flow section to see what you have learnt fits the framework presented. 
+:::
 
 ## Data 
 

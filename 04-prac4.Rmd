@@ -8,6 +8,14 @@ By the end of this practical you should be able to:
 2. Create reproduciable and open R code
 3. Produce RMarkdown documents that explain code and analysis
 
+::: {.infobox .note data-latex="{note}"}
+**Assignment homework**
+
+This week, based on your knowledge of available data and literature compose a research
+question or hypothesis. Review your introduction and literature review to ensure
+you are guiding the reader to understanding the importance of the project
+:::
+
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
