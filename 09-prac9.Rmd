@@ -24,7 +24,7 @@ If you want to do some more reading around regression, then [Chapter 5 of the Mo
 
 First, let's set up R and read in some data to enable us to carry out our analysis. 
 
-```{r, message = FALSE}
+```{r, message = FALSE, cache=TRUE}
 #library a bunch of packages we may (or may not) use - install them first if not installed already. 
 library(tidyverse)
 library(tmap)
