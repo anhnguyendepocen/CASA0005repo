@@ -10,7 +10,7 @@
 ::: {.infobox .note data-latex="{note}"}
 **Assignment homework**
 
-From weeks 10 until the assignment deadline, Undertake your analysis, then write up your discussion and conclusion (that includes recommendations)
+From weeks 10 until the assignment deadline, undertake your analysis, then write up your discussion and conclusion **(that includes recommendations)**.
 :::
 
 ::: {.infobox .tip data-latex="{note}"}
@@ -18,6 +18,15 @@ From weeks 10 until the assignment deadline, Undertake your analysis, then write
 
 Before submission, check that your assignment follows the standard model of scientific investigation. You may need to update part 1 based on the analysis you undertook to ensure a seamless narrative throughout. 
 :::
+
+This week:
+*[Chapter 5 "Control flow"](https://adv-r.hadley.nz/control-flow.html) from 
+
+
+Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+
 
 ## Recommended listening
 
