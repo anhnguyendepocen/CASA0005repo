@@ -29,3 +29,9 @@ There is a lot of information within this practical book and **we do not expect 
 
 This is a 15 credit module, equivalent to 150 hours of study (including the taught sessions). Outside of our lectures and practical sessions (3 hours a week) **you should be spending an extra 12 hours a week on this module**. 
 :::
+
+## License {-}
+
+This practical book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source. 

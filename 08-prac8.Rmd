@@ -18,16 +18,15 @@ From weeks 6-9, learn and practice analysis from the course and identify appropr
 
 **Reading**
 
-This week: [Chapter "Raster operations in R"](https://mgimond.github.io/Spatial/raster-operations-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019) 
+For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
 
-For interative maps re-read [Chapter 8: ]
+For interative maps re-read [Chapter 8: "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.
 
 If you want to learn more about Shiny applications then [Chapter 2  "Your first Shiny app"](https://mastering-shiny.org/basic-app.html#introduction) from Mastering Shiny
 by Wickham.
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
-
 
 ## Recommended listening
 
