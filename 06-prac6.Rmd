@@ -1,3 +1,5 @@
+# (PART) GIS analysis {-}
+
 # Analysing spatial patterns
 
 ## Learning outcomes
@@ -9,12 +11,23 @@ By the end of this practical you should be able to:
 3. Determine the locations of spatial clusters using point pattern analysis methods
 4. Investigate the degree to which values at spatial points are similar (or different) to each other
 
+## Homework 
+
+Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
 ::: {.infobox .note data-latex="{note}"}
-**Assignment homework**
+**Assignment**
 
 From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
 :::
 
+::: {.infobox .note data-latex="{note}"}
+**Reading**
+
+This week: [Chapter 11 "Point Pattern Analysis"](https://mgimond.github.io/Spatial/point-pattern-analysis.html) and [Chapter 13 "Spatial Autocorrelation"](https://mgimond.github.io/Spatial/spatial-autocorrelation.html) from Intro to GIS and Spatial Analysis by Gimond (2019).
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+:::
 ## Recommended listening
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.

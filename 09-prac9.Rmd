@@ -11,7 +11,12 @@ By the end of this practical you should be able to:
 3. Design new R code to undertake further analysis 
 
 ::: {.infobox .note data-latex="{note}"}
-**Assignment homework**
+
+## Homework 
+
+Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
+**Assignment**
 
 From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
 :::
@@ -19,7 +24,7 @@ From weeks 6-9, learn and practice analysis from the course and identify appropr
 ::: {.infobox .note data-latex="{note}"}
 **Reading**
 This week:
-*[Chapter 2 "Linear Regression"](https://bradleyboehmke.github.io/HOML/linear-regression.html#ref-faraway-2016-linear) from Hands-On Machine Learning with R Boehmke & Greenwell (2020).
+*[Chapter 2 "Linear Regression"](https://bradleyboehmke.github.io/HOML/linear-regression.html#ref-faraway-2016-linear) from Hands-On Machine Learning with R by Boehmke & Greenwell (2020).
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
