@@ -51,10 +51,19 @@
 
 
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.12/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -158,6 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgement"><i class="fa fa-check"></i>Acknowledgement</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>Course information</b></span></li>
@@ -174,6 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#noticed-a-mistake"><i class="fa fa-check"></i>Noticed a mistake?</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#assignment-resources"><i class="fa fa-check"></i>Assignment resources</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#reading-list"><i class="fa fa-check"></i>Reading list</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#packages-used-within-this-book"><i class="fa fa-check"></i>Packages used within this book</a></li>
 </ul></li>
 <li class="part"><span><b>I GIS tools</b></span></li>
 <li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a><ul>
@@ -501,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#more-resources"><i class="fa fa-check"></i><b>10.8</b> More resources</a></li>
 <li class="chapter" data-level="10.9" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#extension-3"><i class="fa fa-check"></i><b>10.9</b> Extension</a></li>
-<li class="chapter" data-level="10.10" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#acknowledgement"><i class="fa fa-check"></i><b>10.10</b> Acknowledgement</a></li>
+<li class="chapter" data-level="10.10" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#acknowledgement-1"><i class="fa fa-check"></i><b>10.10</b> Acknowledgement</a></li>
 </ul></li>
 <li class="part"><span><b>Assingment</b></span></li>
 <li class="chapter" data-level="11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html"><i class="fa fa-check"></i><b>11</b> Assignment resources</a><ul>
@@ -529,7 +540,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="test.html"><a href="test.html"><i class="fa fa-check"></i><b>12</b> test</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li><center>
+  <a rel="license" href="./index.html#license">
+    License: CC-BY-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
 
 </ul>
 
@@ -659,6 +677,24 @@ You're doing it right if you get frustrated: if you're not frustrated, you're (p
 <h2>Reading list</h2>
 <p>We link to books and resources throughout each practical and in the <a href="assignment-resources-1.html#assignment-resources-1">Assignment resources</a> pages, but a full reading list for the course is provided <a href="https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&amp;login=1">on the UCL library reading list page for the course</a>, there is also a link to it over on Moodle.</p>
 <p>We’ve tried to mostly recommend open source and free books, any others are available from the library.</p>
+</div>
+<div id="packages-used-within-this-book" class="section level2 unnumbered">
+<h2>Packages used within this book</h2>
+<p>UPDATE HERE</p>
+<p>Along with these packages:</p>
+<pre><code>## Finding R package dependencies ... Done!</code></pre>
+<pre><code>##  setting  value                       
+##  version  R version 3.6.3 (2020-02-29)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  English_United Kingdom.1252 
+##  ctype    English_United Kingdom.1252 
+##  tz       Europe/London               
+##  date     2020-03-24</code></pre>
+<div id="htmlwidget-e4cff006b5abb84ee8fb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e4cff006b5abb84ee8fb">{"x":{"filter":"top","filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["assertthat","backports","base64enc","bookdown","callr","cli","colorspace","crayon","desc","digest","ellipsis","evaluate","fansi","farver","ggplot2","glue","gtable","highr","htmltools","isoband","jsonlite","knitr","labeling","lattice","lifecycle","magrittr","markdown","MASS","Matrix","mgcv","mime","munsell","nlme","pillar","pkgbuild","pkgconfig","pkgload","praise","prettyunits","processx","ps","R6","RColorBrewer","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","scales","stringi","stringr","testthat","tibble","tinytex","utf8","vctrs","viridisLite","withr","xfun","yaml"],["0.2.1","1.1.5",null,"0.18","3.4.2","2.0.2","1.4-1","1.3.4","1.2.0","0.6.25","0.3.0","0.14","0.4.1",null,"3.3.0","1.3.1","0.3.0",null,"0.4.0",null,"1.6.1","1.28",null,"0.20-38","0.2.0","1.5",null,null,null,null,null,"0.5.0","3.1-144","1.4.3","1.0.6","2.0.3","1.0.2",null,"1.1.1","3.4.2","1.3.2","2.4.1",null,"1.0.3","0.4.5","2.1","1.3-2","0.11","1.1.0","1.4.6","1.4.0","2.3.2","2.1.3",null,null,"0.2.4",null,"2.1.2","0.12","2.2.1"],["2019-03-21","2019-10-02","2015-07-28","2020-03-05","2020-02-12","2020-02-28","2019-03-18","2017-09-16","2018-05-01","2020-02-23","2019-09-20","2019-05-28","2020-01-08","2020-01-16","2020-03-05","2019-03-12","2019-03-25","2019-03-20","2019-10-04","2019-04-06","2020-02-02","2020-02-06","2014-08-23","2018-11-04","2020-03-06","2014-11-22","2019-08-07","2019-12-20","2019-11-27","2019-11-09","2020-02-04","2018-06-12","2020-02-06","2019-12-20","2019-10-09","2019-09-22","2018-10-29","2015-08-11","2020-01-24","2020-02-09","2020-02-13","2019-11-12","2014-12-07","2019-11-08","2020-03-01","2020-01-20","2018-01-03","2020-02-07","2019-11-18","2020-02-17","2019-02-10","2020-03-02","2019-06-06","2020-02-25","2018-05-24","2020-03-10","2018-02-01","2018-03-15","2020-01-13","2020-02-01"],["CRAN (R 3.6.0)","CRAN (R 3.6.1)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.0)","CRAN (R 3.6.1)","CRAN (R 3.6.3)","CRAN (R 3.6.1)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.2)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.1)","CRAN (R 3.6.3)","CRAN (R 3.6.1)","CRAN (R 3.6.1)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.3)","CRAN (R 3.6.2)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.0)","CRAN (R 3.6.0)","CRAN (R 3.6.3)","CRAN (R 3.6.2)"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>package<\/th>\n      <th>loadedversion<\/th>\n      <th>date<\/th>\n      <th>source<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":60,"autoWidth":true,"bInfo":false,"paging":false,"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[10,25,50,60,100]}},"evals":[],"jsHooks":[]}</script>
 
 </div>
 </div>
@@ -704,7 +740,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["https://github.com/andrewmaclachlan/CASA0005repo/raw/master/00-course_info.Rmd"],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true

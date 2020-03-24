@@ -24,6 +24,19 @@ Practical data is divided into the relevant sessions (e.g. prac1_data), although
 
 The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
 
+## Acknowledgement {-}
+
+Thanks to the following people who have either contributed directly or who provided code in repositories that have helped me style this book:
+
+* [Jenny Bryan](https://twitter.com/JennyBryan)
+* [STAT 545](https://stat545.com/index.html#other-contributors)
+* [Hadley Wickham](https://twitter.com/hadleywickham)
+* [Alison Presmanes Hill](https://twitter.com/apreshill)
+* [Yihui Xie](https://twitter.com/xieyihui)
+* [Matt Ng](https://twitter.com/mattnkm)
+
+I've certainly learnt a lot from their open code repositories!
+
 ## License {-}
 
 If you use this material for teaching, research or anything else please let me (Andy) know via [Twitter](https://twitter.com/andymaclachlan) or email --- a [dot] maclachlan [at] ucl [dot] ac [dot] uk).

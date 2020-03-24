@@ -52,7 +52,7 @@ If you want to do some more reading around regression, then [Chapter 5 of the Mo
 
 First, let's set up R and read in some data to enable us to carry out our analysis. 
 
-```{r, message = FALSE, cache=FALSE}
+```{r, message = FALSE, cache=FALSE, message=FALSE}
 #library a bunch of packages we may (or may not) use - install them first if not installed already. 
 library(tidyverse)
 library(tmap)
@@ -76,7 +76,7 @@ download.file("https://data.london.gov.uk/download/statistical-gis-boundary-file
 unzip("prac9_data/statistical-gis-boundaries-london.zip", exdir="prac9_data")
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #look at the subfolders in the directory to work out where we want to get our shapefile from
 list.dirs("prac9_data/statistical-gis-boundaries-london")
 
@@ -117,7 +117,7 @@ If you examine your data file, you will see why. In a number of columns where da
 
 To deal with these errors, we can force `read_csv` to ignore these values by telling it what values to look out for that indicate missing data
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #We can use readr to deal with the issues in this dataset - which are to do with text values being stored in columns containing numeric values
 
 #read in some data - couple of things here. Read in specifying a load of likely 'n/a' values, also specify Latin1 as encoding as there is a pound sign (£) in one of the column headers - just to make things fun!
@@ -132,7 +132,7 @@ str(LondonWardProfiles)
 
 Now you have read in both your boundary data and your attribute data, you need to merge the two together using a common ID. In this case, we can use the ward codes to achieve the join
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #merge boundaries and data
 LonWardProfiles <- left_join(LondonWardsssSFBNG, LondonWardProfiles, by = c("GSS_CODE" = "New code"))
 
@@ -148,7 +148,7 @@ qtm(LonWardProfiles, fill = "Average GCSE capped point scores - 2014", borders =
 ```
 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #qtm(LonWardProfiles, fill = "Unauthorised Absence in All Schools (%) - 2013", borders = NULL, fill.palette = "Blues")
 ```
 
@@ -159,7 +159,7 @@ In addition to our main datasets, it might also be useful to add some contextual
 
 Let's add some schools data as well.
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #might be a good idea to see where the secondary schools are in London too
 london_schools <- read_csv("https://data.london.gov.uk/download/london-schools-atlas/57046151-39a0-45d9-8dc0-27ea7fd02de8/all_schools_xy_2016.csv")
 
@@ -197,7 +197,7 @@ For those of you who know a bit about regression, you might want to skip down to
 
 The linear relationship in a regression model is probably most easily explained using a scatter plot:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
 
 #plot with a regression line - note, I've added some jitter here as the x-scale is rounded
@@ -231,7 +231,7 @@ $\epsilon_i$ is a random error term (positive or negative) that should sum to 0 
 
 Any value of $y$ along the blue line can be modelled using the corresponding value of $x$ and these parameter values. Examining the graph above we would expect the average GCSE point score for a student living in a Ward where 0.5% of school days per year were missed, to equal around 350, but we can confirm this by plugging the $\beta$ parameter values and the value of $x$ into equation (1):
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 370 + (-40*0.5) + 0
 ```
 
@@ -241,7 +241,7 @@ In the graph above, I used a method called 'lm' in the `stat_smooth` function in
 
 Below is the code that could be used to draw the blue line in our scatter plot. Note, the tilde `~` symbol means "is modelled by"
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #run the linear regression model and store its outputs in an object called model1
 model1 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, data = LonWardProfiles)
 
@@ -281,7 +281,7 @@ In addtion, the two papers by Dunn (1989) and Jones (1984) on Moodle are old, bu
 
 The standard model output in R is not particularly easy to export for publication, however you can use the `tidy()` function in the `broom` package to save the results out to a dataframe:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 library(broom)
 model1_res <- tidy(model1)
 ```
@@ -312,7 +312,7 @@ ggplot(LonWardProfiles, aes(x=`Average GCSE capped point scores - 2014`)) + geom
 ```
 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 ggplot(LonWardProfiles, aes(x=`Unauthorised Absence in All Schools (%) - 2013`)) + geom_histogram(aes(y = ..density..),binwidth = 0.1) + geom_density(colour="red", size=1, adjust=1)
 ```
 
@@ -320,19 +320,19 @@ We would describe both of these distribution as being relatively 'normally' or g
 
 Contrast this with the median house price variable:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 ggplot(LonWardProfiles, aes(x=`Median House Price (£) - 2014`)) + geom_histogram()
 ```
 
 We would describe this as a not normal and/or positively 'skewed' - https://en.wikipedia.org/wiki/Skewness - distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, message=FALSE, results=FALSE}
 knitr::include_graphics('allisonhorst_images/not_normal.png')
 ```
 
 If we plot the raw house price variable against GCSE scores, we get the following scatter plot:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 qplot(x = `Median House Price (£) - 2014`, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
 ```
 
@@ -350,7 +350,7 @@ You might be asking how we could go about transforming our variables. In 1977, T
 
 In regression analysis, you analysts will frequently take the log of a variable to change its distribution, but this is a little crude and may not result in a completely normal distribution. For example, we can take the log of the house price variable:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 ggplot(LonWardProfiles, aes(x=log(`Median House Price (£) - 2014`))) + geom_histogram()
 ```
 
@@ -358,23 +358,23 @@ This looks a little more like a normal distribution, but it is still a little sk
 
 Fortunately in R, we can use the `symbox()` function in the `car` package to try a range of transfomations along Tukey's ladder: 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 symbox(~`Median House Price (£) - 2014`, LonWardProfiles, na.rm=T, powers=seq(-3,3,by=.5))
 ```
 
 Observing the plot above, it appears that raising our house price variable to the power of -1 should lead to a more normal distribution:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 ggplot(LonWardProfiles, aes(x=(`Median House Price (£) - 2014`)^-1)) + geom_histogram()
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 qplot(x = (`Median House Price (£) - 2014`)^-1, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
 ```
 
 Compare this with the logged transformation:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 qplot(x = log(`Median House Price (£) - 2014`), y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
 ```
 
@@ -386,7 +386,7 @@ The decision is down to you as the modeller - it might be that a transformation 
 
 This assumption is easy to check. When we ran our Model1 earlier, one of the outputs stored in our Model 1 object is the residual value for each case (Ward) in your dataset. We can plot these as a histogram and see if there is a normal distribution:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #save the residuals into your dataframe
 LonWardProfiles$model1_resids <- model1$residuals
 
@@ -402,7 +402,7 @@ Now, the regression model we have be experimenting with so far is a simple bivar
 
 As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect GSCE scores. Let's try the log or ^-1 transformed house price variable from earlier (the rationalle being that higher house prices indicate more affluence and therefore, potentially, more engagement with education):
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles)
 
 #show the summary of those outputs
@@ -420,7 +420,7 @@ But do our two explanatory variables satisfy the no-multicoliniarity assumption?
 
 To check this, we can compute the Pearson correlation coefficient between the variables. In an ideal world, we would be looking for something less than a 0.8 correlation
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 library(corrplot)
 
 #first drop the geometry column from the dataframe as it will cause problems
@@ -447,7 +447,7 @@ Looking at either the correlation matrix or the correlation plot of that matrix,
 
 Another way that we can check for Multicolinearity is to examine the VIF for the model. If we have VIF values for any variable exceeding 10, then we may need to worry and perhaps remove that variable from the analysis:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 vif(model2)
 ```
 
@@ -455,7 +455,7 @@ Both the correlation plots and examination of VIF indicate that our multiple reg
 
 If we wanted to add more variables into our model, it would be useful to check for multicollinearity amongst every variable we want to include, we can do this by computing a correlation matrix for the whole dataset or checking the VIF after running the model:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tempdf <- st_set_geometry(LonWardProfiles,NULL)
 
 cormat <- cor(tempdf[,10:74], use="complete.obs", method="pearson")
@@ -474,7 +474,7 @@ Homoscedasticity means that the errors/residuals in the model exhibit constant /
 
 The best way to check for homo/hetroscedasticity is to plot the residuals in the model against the predicted values. We are looking for a cloud of points with no apparent patterning to them. 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #print some model diagnositcs. 
 plot(model2)
 ```
@@ -493,7 +493,7 @@ This tests whether residuals are correlated and produces a summary statistic tha
 
 In his excellent text book - https://www.discoveringstatistics.com/books/discovering-statistics-using-r/ - Andy Field suggests that you should be concerned with Durbin-Watson test statistics <1 or >3. So let's see:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #run durbin-watson test
 durbinWatsonTest(model2)
 ```
@@ -506,7 +506,7 @@ We are using spatially referenced data and as such we should check for *spatial*
 
 The first test we should carry out is to map the residuals to see if there are any apparent obvious patterns:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 
 #now plot the residuals
 tmap_mode("view")
@@ -525,7 +525,7 @@ Yes - and some of you will remember this from the practical two weeks ago. We ca
 
 Let's do that now.
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 
 #####
 
@@ -594,14 +594,14 @@ For more details on running a spatially lagged regression model and interpreting
 Let's run the original model again to remind ourselves of the paramters:
 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #Original Model
 model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles)
 
 summary(model2)
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 library(spatialreg)
 
 #run a spatially-lagged regression model with a queen's case weights matrix
@@ -613,7 +613,7 @@ summary(slag_dv_model2_queen)
 
 Running the spatially-lagged model with a Queen's case spatial weights matrix reveals that in this example, there is an insignificant and small effect associated with the spatially lagged dependent variable. However, a different conception of neighbours we might get a different outcome
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #run a spatially-lagged regression model
 slag_dv_model2_knn4 <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
 
@@ -627,7 +627,7 @@ Effectively, by ignoring the effects of spatial autocorrelation in the original 
 
 We can also now check that the residuals from the spatially lagged model are now no-longer exhibiting spatial autocorrelation:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #write out the residuals
 LonWardProfilesSP@data$slag_dv_model2_knn_resids <- slag_dv_model2_knn4$residuals
 
@@ -653,7 +653,7 @@ For more detail on the spatial error model, see Ward and Gleditsch (2008) -  htt
 
 We can run a spatial error model on the same data below:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 sem_model1 <- errorsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
 
 summary(sem_model1)
@@ -667,7 +667,7 @@ Both the $\lambda$ parameter in the spatial error model and the $\rho$ parameter
 
 We will now read in some extra data which we will use shortly
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 extradata <- read_csv("https://www.dropbox.com/s/qay9q1jwpffxcqj/LondonAdditionalDataFixed.csv?raw=1")
 
 #add the extra data too
@@ -682,7 +682,7 @@ What if instead of fitting one line to our cloud of points, we could fit several
 
 If we colour the points representing Wards for Inner and Outer London differently, we can start to see that there might be something interesting going on. Using 2011 data (as there are not the rounding errors that there are in the more recent data), there seems to be a stronger relationship between absence and GCSE scores in Outer London than Inner London. We can test for this in a standard linear regression model.  
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 p <- ggplot(LonWardProfiles, aes(x=`UnauthAbsenceSchools11`, y=`AvgGCSE2011`))
 p + geom_point(aes(colour = InnerOuter)) 
 ```
@@ -691,7 +691,7 @@ Dummy variables are always **categorical** data (inner or outer London, or red /
 
 Let's try it!
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #first, let's make sure R is reading our InnerOuter variable as a factor
 LonWardProfiles$InnerOuter <- as.factor(LonWardProfiles$InnerOuter)
 
@@ -709,13 +709,13 @@ You will notice that despite there being two values in our dummy variable (Inner
 
 The order in which the dummy comparisons are made is determined by what is known as a 'contrast matrix'. This determines the treatment group (1) and the control (reference) group (0). We can view the contrast matrix using the `contrasts()` function:  
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 contrasts(LonWardProfiles$InnerOuter)
 ```
 
 If we want to change the reference group, there are various ways of doing this. We can use the `contrasts()` function, or we can use the `relevel()` function. Let's try it:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 LonWardProfiles$InnerOuter <- relevel(LonWardProfiles$InnerOuter, ref="Outer")
 
 model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter`, data = LonWardProfiles)
@@ -735,7 +735,7 @@ Multiple linear regression can be explained nicely with this example from [allis
 
 Let's meet our Multiple Linear Regression teaching assistants:
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragons.png')
 ```
 
@@ -745,31 +745,31 @@ Here my reseach question might be
 
 We might have both cateogrical predictor variaibles such as if the dragon is spotted then they might weight 0.6 more tons than on average...So if the dragon is not spotted then in the equation bellow 0.6 x (0) --- 0 as it's not spotted, it would be 1 if spotted is 0 so the weight would be 2.4 tonnes.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragon_regression.png')
 ```
 
 But we could also have a continuous predictor variable ...here a 1 foot taller dragon would have an addtional 0.3 tonnes on average, as the equation would be 2.4 + 0.3(1)...
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
 ```
 
 We can use these equations to make predicitons about a new dragon...here the dragon is striped, so spotted equals 0, and it's height is 5.1. So that gives us 2.4 + (0.3*5.1) which equals 3.9 tonnes. 
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
 ```
 
 However, we need to check the residuals --- difference between the predicted weight and acutal weight...here it's 0.3 tonnes as the actual weight of the dragon was 4.2 tonnes.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragon_residual.png')
 ```
 
 Then for all the dragons we need to make sure these resisuals are normally distributed, but you should also check all the other assumptions (1-5) shown within this practical and give brief evdience in reports that they are all valid.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('allisonhorst_images/dragon_residual_distribution.png')
 ```
 
@@ -786,7 +786,7 @@ For example, let's try adding the rate of drugs related crime (logged as it is a
 
 Here's my final model from the last section:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #select some variables from the data file
 myvars <- c("Average GCSE capped point scores - 2014","Unauthorised Absence in All Schools (%) - 2013","Median House Price (£) - 2014","Rate of JobSeekers Allowance (JSA) Claimants - 2015", "% with Level 4 qualifications and above - 2011")
 
@@ -804,7 +804,7 @@ LonWardProfiles$model_final_res <- model_final$residuals
 plot(model_final)
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 qtm(LonWardProfiles, fill = "model_final_res")
 
 LonWardProfilesSP <- as(LonWardProfiles,"Spatial")
@@ -822,7 +822,7 @@ There are various packages which will carry out GWR in R, for this pracical we w
 
 I should also acknowledge the guide on GWR (accessible here: http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf) produced by the University of Bristol, which was a great help when producing this exercise.
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 library(spgwr)
 
 #calculate kernel bandwidth
@@ -842,7 +842,7 @@ You will notice that the R-Squared value has improved - this is not uncommon for
 Coefficient ranges can also be seen for the other variables and they suggest some interesting spatial patterning. To explore this we can plot the GWR coefficients for different variables. Firstly we can attach the coefficients to our original dataframe - this can be achieved simply as the coefficients for each ward appear in the same order in our spatial points dataframe as they do in the original dataframe.
 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 results<-as.data.frame(gwr.model$SDF)
 names(results)
 #attach coefficients to original dataframe
@@ -853,22 +853,22 @@ LonWardProfilesSP@data$coefLev4Qual<-results$X...with.Level.4.qualifications.and
 ```
 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefUnauthAbs", palette = "RdBu", alpha = 0.5)
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefHousePrice", palette = "RdBu")
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefJSA", palette = "PuOr")
 ```
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefLev4Qual", palette = "PRGn")
 ```
@@ -880,7 +880,7 @@ Of course, these results may not be statistically significant across the whole o
 
 To calculate standard errors, for each variable you can use a formula similar to this:
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 #**NOTE** when you run the code below, it's likely that column headers with `column_names` labelled with lots of quotations - as happens when using read_csv, errors will be caused when trying to reference these in gwr.model. To get over these errors, rename your columns as something simple and run the regression again. 
 
 #run the significance test
@@ -894,7 +894,7 @@ If this is greater than zero (i.e. the estimate is more than two standard errors
 
 You should now calculate these for each variable in your GWR model and See if you can plot them on a map, for example: 
 
-```{r}
+```{r, message=FALSE, cache=TRUE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "GWRUnauthSig", palette = "RdYlBu")
 ```
