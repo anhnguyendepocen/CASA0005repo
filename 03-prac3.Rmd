@@ -19,6 +19,7 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any reputable source) --- it's the same as last week!
 :::
 
+::: {.infobox .note data-latex="{note}"}
 **Reading**
 
 This week: [Chapter 5 "Descriptive statistics"](https://learningstatisticswithr.com/book/descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019) and [Appendix "Interpolation in R"](https://mgimond.github.io/Spatial/interpolation-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019).

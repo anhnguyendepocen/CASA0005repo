@@ -2,17 +2,16 @@
 
 ## Learning objectives
 
-CHANGE THESE FOR THIS PRACTICAL
-
 By the end of this practical you should be able to:
 
-1. Explain and execute appropraite pre-proessing steps of raster data
-2. Replicate published methodologies using raster data
-3. Design new R code to undertake further analysis 
-
-::: {.infobox .note data-latex="{note}"}
+1. Explain hypothesis testing
+2. Execute regression in R
+3. Descrbie the assumptions associated with regression models 
+4. Explain steps to deal with spatially autocorrelated (spatial similarlity of nearby observations) residuals.  
 
 ## Homework 
+
+::: {.infobox .note data-latex="{note}"}
 
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 

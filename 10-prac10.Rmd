@@ -25,7 +25,7 @@ Before submission, check that your assignment follows the standard model of scie
 
 ::: {.infobox .note data-latex="{note}"}
 **Reading**
-This week
+This week:
 
 For advanced R coding [Chapter 5 "Control flow"](https://adv-r.hadley.nz/control-flow.html) from Advacned R by Hadley Wickham.
 

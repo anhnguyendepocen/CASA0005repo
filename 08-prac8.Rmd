@@ -16,6 +16,7 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
 :::
 
+::: {.infobox .note data-latex="{note}"}
 **Reading**
 
 For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
@@ -42,11 +43,13 @@ Bit different from me this week - I'm not all about drum and bass (although I mo
 
 ### Learning objectives
 
-1. You will learn how to make descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data
-2. You will understand how you can use R to write custom functions to process your data
-3. You produce a location quotient map to highlight interesting (above and below average) patterns in your data
-4. You will see an example of how you can write a function in R to produce a range of different maps based on user inputs
-5. You will learn how to perform a very basic cluster analysis and output the results of a basic geodemographic classification
+By the end of this practical you should be able to:
+
+1. Create descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data
+2. Write custom functions to process your data
+3. Produce a location quotient map to highlight interesting (above and below average) patterns in your data
+4. Write a function in R to produce a range of different maps based on user inputs
+5. Perform a very basic cluster analysis and output the results of a basic geodemographic classification
 
 ### Getting Started
 Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
