@@ -1,6 +1,6 @@
 # (PART\*) Course information {-}
 
-# The world of GIS {-}
+# Hello GIS {-}
 
 Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familar with online sources of help, such as:
 
@@ -15,6 +15,16 @@ Want to see what you can do with spatial analysis...check out this 'What's Next'
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
 knitr::include_url("https://www.youtube.com/embed/K0qZffiKwak")
 ```
+
+::: {.infobox .tip data-latex="{note}"}
+There is a lot of information within this practical book and **we do not expect you to read everything we link to**. You should attend each lecture, go through every practical and do some associated reading. 
+
+This is a 15 credit module, equivalent to 150 hours of study (including the taught sessions). Outside of our lectures and practical sessions (3 hours a week) **you should be spending an extra 12 hours a week on this module**. 
+:::
+
+## How to use this book {-}
+
+
 
 ## Getting started {-}
 
