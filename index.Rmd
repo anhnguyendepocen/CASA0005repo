@@ -33,6 +33,7 @@ Thanks to the following people who have either contributed directly or who provi
 * [Hadley Wickham](https://twitter.com/hadleywickham)
 * [Alison Presmanes Hill](https://twitter.com/apreshill)
 * [Yihui Xie](https://twitter.com/xieyihui)
+* [Robin Lovelace](https://twitter.com/robinlovelace)
 * [Matt Ng](https://twitter.com/mattnkm)
 
 I've certainly learnt a lot from their open code repositories!
