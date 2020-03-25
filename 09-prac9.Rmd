@@ -858,17 +858,19 @@ tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefUnauthAbs", palette = "RdBu", alpha = 0.5)
 ```
 
-```{r, message=FALSE, cache=TRUE}
+Now how would you plot the House price coeffeicent, Job seekers allowance and level 4 qualification coefficient?
+
+```{r, message=FALSE, cache=TRUE, include=FALSE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefHousePrice", palette = "RdBu")
 ```
 
-```{r, message=FALSE, cache=TRUE}
+```{r, message=FALSE, cache=TRUE, include=FALSE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefJSA", palette = "PuOr")
 ```
 
-```{r, message=FALSE, cache=TRUE}
+```{r, message=FALSE, cache=TRUE, include=FALSE}
 tm_shape(LonWardProfilesSP) +
   tm_polygons(col = "coefLev4Qual", palette = "PRGn")
 ```
