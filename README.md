@@ -2,6 +2,10 @@
 
 <img src="general_images/casa_logo.jpg" width="100" >
 
+  <!-- badges: start -->
+  [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/andrewmaclachlan/CASA0005repo/master?urlpath=rstudio)
+  <!-- badges: end -->
+
 ## Description
 This GitHub repository generates the CASA0005 Geographic Information Systems and Science student practical handbook which can be found at: https://andrewmaclachlan.github.io/CASA0005repo/
 
