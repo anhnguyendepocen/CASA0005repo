@@ -19,9 +19,9 @@ From weeks 6-9, learn and practice analysis from the course and identify appropr
 ::: {.infobox .note data-latex="{note}"}
 **Reading**
 
-For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
+* For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
 
-For interative maps re-read [Chapter 8: "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.
+* For interative maps re-read [Chapter 8: "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.
 
 If you want to learn more about Shiny applications then [Chapter 2  "Your first Shiny app"](https://mastering-shiny.org/basic-app.html#introduction) from Mastering Shiny
 by Wickham.
@@ -433,9 +433,19 @@ By the end of this practical you should be able to:
 
 ### Introduction 
 
-In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year.  However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.
+In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year.  However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. This has been recently reflected in the [Housing Research Note 2020/04: Short-term and holiday letting in London](https://www.london.gov.uk/sites/default/files/housing_research_note_4-_short-term_and_holiday_letting_in_london.pdf) by the Greater London Authority (GLA):
+
+>"there are signs that short-term letting platforms are becoming increasingly commercialised and there are concerns that removing housing supply from the market to offer it for short-term letting could be exacerbating London’s housing shortage."
+
+The author, Georgie Cosh, was also kind enough to share some of the code used for this report. Guess what! They used R! Have a look at their code in the R file called GLA_airbnb_analysis in the prac8_data folder.
+
+Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.
 
 We will now explore several ways to do this...
+
+::: {.infobox .tip data-latex="{note}"}
+The report by Cosh (2020) goes a bit further than this and implements an occupancy model (based on a number of assumptions) to estimate the number of nights a Air bnb is rented out for, so check it out, perhaps an idea for your final project.
+:::
 
 ### RPubs
 

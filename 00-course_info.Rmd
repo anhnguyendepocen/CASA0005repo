@@ -140,33 +140,3 @@ We link to books and resources throughout each practical and in the [Assignment 
 
 We've tried to mostly recommend open source and free books, any others are available from the library.
 
-## Packages used within this book {-}
-
-UPDATE HERE
-
-Along with these packages:
-
-```{r message = FALSE, warning = FALSE, echo = FALSE}
-library(tidyverse)
-library(devtools)
-library(DT)
-# needed because new_session is set to true in _bookdown.yml
-all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>% 
-  pull(Package) 
-session <- devtools::session_info(pkgs = all_pkgs)
-session$platform
-```
-
-```{r message = FALSE, warning = FALSE, echo = FALSE}
-
-
-session$packages %>% 
-  select(package, loadedversion, date, source) %>% 
-  DT::datatable(rownames = FALSE,
-                class = 'cell-border stripe',
-                filter = list(position = 'top'),
-                options = list(pageLength = nrow(session$packages), 
-                           autoWidth = TRUE,
-                           bInfo = FALSE,
-                           paging = FALSE))
-```
