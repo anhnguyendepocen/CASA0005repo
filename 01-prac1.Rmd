@@ -282,48 +282,19 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/ArcGISvsQGIS.png')
 ```
-
 ### ArcGIS
 
-#### Basics
-
-ArcGIS should be installed as a standard programme in the UCL desktop and you can navigate to it from the Windows start button. 
-
-##### Installing ArcGIS on your own computer
-As a UCL student, you can install ArcGIS on your own computer. This is easy if you have a PC, but if you have a Mac this can be trickier as Arc will only run in a PC environment. If you have a Mac, the options open to you are either to:
-
-a)	Run ArcGIS through the Desktop@UCL application --- http://www.ucl.ac.uk/isd/services/computers/remote-access/desktop 
-b)	Duel boot your machine using bootcamp, install Windows (7 or 8 is fine) and then install Arc onto the Windows partition. 
-c)	Install some kind of virtualisation software such as [Parallels](http://www.parallels.com/ca/products/desktop/) or [VMware](http://www.vmware.com/products/fusion/), and run Arc on a virtual windows machine
-
-If you can, it is preferable to run Arc on Bootcamp as virtualisation software can be slow, but the Desktop@UCL facility should suffice for this course.
-ArcGIS (Version 10.6 is the latest at time of writing, but may have already been superseded) can be downloaded from the [UCL Software Database](https://swdb.ucl.ac.uk/) for free
-
-**Make sure** you read the instructions provided by the [UCL Software Database on how to activate ArcGIS](https://www.ucl.ac.uk/isd/how-to/how-to-activate-arcgis) fully if installing onto your own machine as you have to set the license correctly. 
-
-##### Getting Help
-
-ArcGIS is a huge and complex piece of software, but thankfully is has an excellent help system –-- depending on the version you are using (they are all quite similar anyway) you can access the online help system here:
+ArcGIS is a huge and complex suite of software, see [ArcGIS suite] for more information. Thankfully it has an excellent help system –-- depending on the version you are using (they are all quite similar anyway) you can access the online help system here:
 
 * http://resources.arcgis.com/en/help/main/10.2/
 
 * http://resources.arcgis.com/en/help/main/10.1/
 
-##### ArcGIS
-
-ArcGIS is actually a whole suite of software built and maintained by ESRI (http://www.esri.com/software/arcgis).Within the ArcGIS for Desktop suite you will find the following programmes:
+Here will we just be using:
 
 * **ArcCatalog --- Similar to Windows Explorer, ArcCatalog allows you to manage your GIS files, folders and geodatabases**
 
-* ArcGIS Administrator --- This programme us used to manage licences for the various elements of ArcGIS
- 
-* ArcGlobe --- ArcGlobe allows you to view and analyse your data in 3D –-- this interface looks very similar to Google Earth and is part of the 3D analyst extension
-
 * **ArcMap --- This is the programme you will use most often –-- it is the main mapping and spatial analysis element of ArcGIS**
-
-* ArcScene --- ArcScene is a 3D viewer which allows you to navigate and interact with your 3D raster and feature data
-
-ArcCatalog and ArcMap are in bold as these are the only programmes we will be using explicitly in this course. By all means experiment with the others if you have any spare time! 
 
 #### ArcCatalog
 
@@ -445,11 +416,7 @@ Save and then close your ArcMap document. We're now going to replicate this task
 
 #### Introduction
 
-QGIS is very similar to ArcMap except that as it is open-source and free there are many add on packages that (or plugins) that provide additional functionality to the software.  
-
-To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/download.html
-
-I install the OSGeo4W version. The nature of open-source means that several programs will rely on each other for features. OSGeo4W tracks all the shared requirements and does not install any duplicates. 
+QGIS is very similar to ArcMap except that as it is open-source and free there are many add on packages that (or plugins) that provide additional functionality to the software.
 
 #### Load data
 
@@ -537,32 +504,6 @@ You can change the CRS by going File > Properties and selecting CRS in the left 
 R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
 
 The purpose of this practical is just to demonstrate data loading and manipulation in different software. The next practical will provide much more detail on R, so don't worry.
-
-#### Setup 1
-
-Search for and open RStudio.
-
-You can install R Studio on your own machine from: https://www.rstudio.com/products/rstudio/download/#download
-
-R studio requires R which you can download from: https://cran.rstudio.com/
-
-RStudio is a free and open-source integrated development environment for R --- it makes R much easier to use.
-
-If you are using a Mac and run into issues, firstly follow the instructions below then check out the [Mac R issues] section if the problem persists. 
-
-#### Setup 2
-
-If you RStudio insn't installed on your practical room PC...fear not...the good people over at RStudio have created a [cloud version](https://rstudio.cloud/)...you have to sign up but can use it the same as the desktop version. It even works with Git and GitHub which we will cover later on in the course. The only real limitation is the upload file size --- if you have any kind of 'big data' then you will reach the allowed limit. That won't be a problem for the majority of this course except [Advanced raster analysis]...that said you can now link R to googledrive and access any data stored on it with the ```googledrive()``` [function](https://googledrive.tidyverse.org/) that is part of the ```tidyverse``` package. You could possibly do this one OneDrive too, but it's not as intuitive, have a look [here](https://stackoverflow.com/questions/29579782/reading-onedrive-files-to-r). But for now, don't worry about this, just note it for future reference. 
-
-RStudio cloud is really useful for sharing code and working collaboratively as you can add different users to the project.
-
-I'd recommend using RStudio locally (following [Setup 1]) to start with. If you are using RStudio cloud you'll need to make a new workspace and upload the files we are using here with the upload button....
-
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac1_images/upload.png') 
-```
-
-If you upload a shapefile you will need to incldue all the relevant files and upload them to RStudio cloud as a ```.zip```
 
 In RStudio go:
 
