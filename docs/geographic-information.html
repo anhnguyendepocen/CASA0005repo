@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-03-27" />
+<meta name="date" content="2020-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1026,10 +1026,10 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 ## </code></pre>
 <p>To have a quick look what the shapefile looks like enter the following:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">plot</span>(shape)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use…</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">plot</span>(sf<span class="op">::</span><span class="kw">st_geometry</span>(shape))</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>From what we did in QGIS and ArcMap this should look familiar.</p>
 <p>We now need to load our <code>.csv</code> file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(tidyverse)</a>
@@ -1121,7 +1121,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <pre><code>## tmap mode set to plotting</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># change the fill to your column name if different</span></a>
 <a class="sourceLine" id="cb20-2" title="2"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 </div>
 </div>
 <div id="export-data-2" class="section level3">

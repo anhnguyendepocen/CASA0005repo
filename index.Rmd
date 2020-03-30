@@ -44,4 +44,8 @@ If you use this material for teaching, research or anything else please let me (
 
 This practical book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source. 
+The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
+
+## Version
+
+This is version 2.0 of the practical book
