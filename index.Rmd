@@ -46,6 +46,6 @@ This practical book is licensed under a [Creative Commons Attribution-NonCommerc
 
 The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
 
-## Version
+## Version {-}
 
 This is version 2.0 of the practical book

@@ -151,11 +151,11 @@ This is by no means an extensive data list, but summarises data used within some
 
 Awesome public datasets have a wide range all data (some geographic, some not): https://github.com/awesomedata/awesome-public-datasets
 
-Robin Wilson has authored one of the most extensive data lists that i've come across: https://freegisdata.rtwilson.com/
+[Robin Wilson](https://twitter.com/sciremotesense) has authored one of the most extensive data lists that i've come across: https://freegisdata.rtwilson.com/
 
 ## Reading and writing critically
 
-Hugh Kerans from Flinders Unversity, Adelaide has developed a range of materials to assist graduate students in producing effective reports and publications...check out his website and resouces here: https://www.ithinkwell.com.au/
+[Hugh Kerans](https://twitter.com/ithinkwellhugh?lang=en) from Flinders Unversity, Adelaide has developed a range of materials to assist graduate students in producing effective reports and publications...check out his website and resouces here: https://www.ithinkwell.com.au/
 
 The most useful templates for the assignments are the critical reading one:
 
@@ -171,15 +171,11 @@ include_graphics('assignment/QuestionsToAskAsYouWriteAPaper.pdf', auto_pdf = get
 )
 ```
 
-You can download these from this website directly, my GitHub or Hugh's website.
+You can download these from this website directly, my GitHub or [Hugh's website](https://www.ithinkwell.com.au/).
 
-Sven Åke Bjørke from the University of Agder also produced a few Youtube videos on academic writing and critical thinking that might be useful...
+The UCL Institute for Education (IOE) Writing Centre Online have produced this very short (< 2 minutes read) [critical writing guide](https://www.ucl.ac.uk/ioe-writing-centre/critical-reading-and-writing/writing-critically) giving an example of how to change writing from largely descriptive to critical. 
 
-```{r echo=FALSE, fig.align='center', cache=TRUE}
-knitr::include_url("https://www.youtube.com/embed/1NGMoW51jmA")
-```
-
-...And the paper ['How to write a paper for publicaiton'](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1444-2892.2000.00031.x)
+...And of coruse the paper ['How to write a paper for publicaiton'](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000)
 
 ## Free flow diagram tools
 

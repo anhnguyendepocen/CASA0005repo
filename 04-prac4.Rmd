@@ -30,6 +30,8 @@ This week:
 
 * [Chapter 2 "Why RMarkdown"](https://rmd4sci.njtierney.com/why-rmarkdown.html#reproducibility-is-a-problem) from RMarkdown for Scientists by Tierney (2020).  
 
+* [The paper "Packaging Data Analytical Work Reproducibly Using R (and Friends)"](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375986?scroll=top&needAccess=true) by Marwick, Boettiger & Mullen (2018).
+
 * [Chapter 9 "Hypothesis testing"](https://moderndive.com/9-hypothesis-testing.html) from Modern Dive by Ismay and Kim (2019) --- also see [Analysing spatial patterns]
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
@@ -635,17 +637,58 @@ This practical book is build using RStudio, but as i update the packages and con
 
 ## Binder
 
-[Binder](https://mybinder.org/) is a free platform that makes it possible to share code very easily. I've only just come across it, so i haven't personally tried it yet. But basically you can take your RProject (that is stored on GitHub) and add a bit of extra code to it that will provide a link button (called a bage), if clicked it will then take you to an RStudio cloud workspace with all your code and data loaded, meaning someone could run your analysis with one click anywhere on any device. Fore more information have a look at:
+[Binder](https://mybinder.org/) is a free platform that makes it possible to share code very easily. It lets you take your RProject (that is stored on GitHub) and add a bit of extra code to it that will provide a link button (called a bage), if clicked it will the user to an online workspace with all your code and data loaded, meaning someone could run your analysis with one click anywhere on any device. COOL!
 
-* [R binder blog post](https://kbroman.org/blog/2019/02/18/omg_binder/)
+Here is the binder 'badge' for the example R project i used to demonstrate Git and GitHub within this practical. 
 
-* [YouTube walkthrough](https://www.youtube.com/watch?v=wSkheV-Uqq4)
+  <!-- badges: start -->
+  [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/andrewmaclachlan/example/master?urlpath=rstudio)
+  <!-- badges: end -->
 
-* [R Studio conference talk on reproducible research](https://resources.rstudio.com/rstudio-conf-2019/a-guide-to-modern-reproducible-data-science-with-r)
+This was really easy to make and if you have pushed your R project to GitHub then you are almost there!
+
+First you need to install the `holepunch` package by [Karthik Ram](https://twitter.com/_inundata). This isn't on the Comprehensive R Archive Network (CRAN), which is central distribution system for R packages whereby each package is reviewed --- these packages can just be installed with `install.packages()`. So instead will can install it from GitHub, be we do need the remotes package --- so install that if you don't have it.
+
+```{r eval=FALSE, cache=TRUE}
+library(remotes)
+remotes::install_github("karthik/holepunch")
+```
+
+Next, we have four simple steps
+
+1. Write a compendium --- a standard and recognisable way of organising files
+
+2. Write a docker file --- contains commands to create an image of the GitHub repository
+
+3. Create a bage, like mine above and copy the code to a file (e.g. the README.md or a .Rmd). Note, you don't nee to have this in a code chunk.
+
+4. Push to GitHub, then click the bagde!
+
+So let's do it! Change the "Your compendium name" or anything with "Your" with what you want to call it,
+
+```{r eval=FALSE, cache=TRUE}
+write_compendium_description(package = "Your compendium name", 
+                             description = "Your compendium description")
+
+write_dockerfile(maintainer = "your_name") 
+
+generate_badge() 
+
+# copy and paste the code generate_badge produces 
+#into the file (e.g. README.md / a .Rmd) of your choice.
+```
+
+Commit, then push to GitHub.
+
+Be careful! Binder is free but if you have a large project then it might take a while to create (as it gives you between 1 and 2GB of RAM) or time out. For example, I tried to create a binder for this book, it did run eventually but took several hours. The binder will also be deleted after around 10 minutes. That said, it's really great for instantly demonstrating your code to your audience. 
+
+For more information on this, see Karthik's great `holepunch` [package user guide](https://karthik.github.io/holepunch/index.html), which is where i got this code from.
+
+And also Karthik's short [R Studio conference talk on reproducible research](https://resources.rstudio.com/rstudio-conf-2019/a-guide-to-modern-reproducible-data-science-with-r)
 
 ## Further reading
 
-Since starting this little guide, I have come across this amazing [book](http://happygitwithr.com/) on using R and GitHub, by Jenny Bryan and Jim Hester. It’s brilliant --- get involved! 
+Since starting this little guide, I have come across the book [Happy Git and GitHub for the useR](http://happygitwithr.com/) on, well, using R and GitHub by Jenny Bryan and Jim Hester. It’s brilliant --- get involved! 
 
 ...Also the [GitHub guide](https://guides.github.com/activities/hello-world/)
 

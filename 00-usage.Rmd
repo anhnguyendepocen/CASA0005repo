@@ -1,0 +1,37 @@
+# External usage {-}
+
+## Statement of need {-}
+
+## Packages {-}
+
+This bookdown document was built with:
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+library(tidyverse)
+library(devtools)
+library(DT)
+
+# needed because new_session is set to true in _bookdown.yml
+all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>% 
+  pull(Package) 
+
+session <- devtools::session_info(pkgs = all_pkgs)
+
+session$platform
+```
+
+And makes use of the following packacges throughout. Thanks to [STAT 545](https://stat545.com/index.html#other-contributors) for this code.
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+session$packages %>% 
+  select(package, loadedversion, date, source) %>% 
+  DT::datatable(rownames = FALSE,
+                class = 'cell-border stripe',
+                filter = list(position = 'top'),
+                options = list(pageLength = nrow(session$packages), 
+                           autoWidth = TRUE,
+                           bInfo = FALSE,
+                           paging = FALSE))
+```
+
+## How to adapt this course {-}
