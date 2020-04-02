@@ -58,6 +58,8 @@ The data we use in this practical book is representative of what you will find w
 
 ## How to dowload data and files from GitHub {-}
 
+Practical data is divided into the relevant sessions (e.g. prac1_data), although sometimes i'll refer to a dataset used within a previous week. 
+
 In some of the practicals it will say to download the data from my GitHub. To do so you have a few options. Option 1 will download everything i have used to make the practicals and option 2 will let you download just a spceific folder (e.g. the data folders).
 
 ### Option 1 {-}

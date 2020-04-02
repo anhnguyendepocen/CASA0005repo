@@ -1,6 +1,27 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
 # External usage {-}
 
 ## Statement of need {-}
+
+## How to adapt this course {-}
+
+## License {-}
+
+If you use this material for teaching, research or anything else please let me (Andy) know via [Twitter](https://twitter.com/andymaclachlan) or email --- a [dot] maclachlan [at] ucl [dot] ac [dot] uk).
+
+This practical book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
+
+## Version {-}
+
+This is version 2.0 of the practical book
+
 
 ## Packages {-}
 
@@ -33,5 +54,3 @@ session$packages %>%
                            bInfo = FALSE,
                            paging = FALSE))
 ```
-
-## How to adapt this course {-}

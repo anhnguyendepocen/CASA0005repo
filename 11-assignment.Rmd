@@ -44,26 +44,24 @@ New packages and functions that i've recently come across that are worth explori
 
 There are a lot of free online books for geospatial analysis, especially using R, check out:
 
-* https://socviz.co/index.html#preface
-* https://bookdown.org/rdpeng/rprogdatascience/
-* https://edav.info/index.html
-* https://whattheyforgot.org/
-* https://rmd4sci.njtierney.com/
-* https://www.rstudio.com/resources/training/books/
-* https://r-graphics.org/
-* http://hadley.nz/
-* https://geocompr.robinlovelace.net/
-* https://happygitwithr.com/
-* https://bookdown.org/
-* https://plotly-r.com/index.html
-* https://bookdown.org/ndphillips/YaRrr/
-* https://thinkr-open.github.io/building-shiny-apps-workflow/
-* http://www.paulamoraga.com/book-geospatial/index.html
-* https://moderndive.com/
-* https://serialmentor.com/dataviz/index.html
-*[21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
-
-Complied list of R books: https://bookdown.org/
+* [Data Visualization A practical introduction https://socviz.co/index.html#preface](https://socviz.co/index.html#preface)
+* [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)
+* [Everything you need for Exploratory Data Analysis & Visualization](https://edav.info/index.html)
+* [What They Forgot to Teach You About R](https://whattheyforgot.org/)
+* [RMarkdown for Scientists](https://rmd4sci.njtierney.com/ )
+* [RStudio recommended books](https://www.rstudio.com/resources/training/books/)
+* [R Graphics Cookbook](https://r-graphics.org/)
+* [Hadley Wickham's website](http://hadley.nz/)
+* [Geocomputation with R ](https://geocompr.robinlovelace.net/)
+* [Happy Git and GitHub for the useR](https://happygitwithr.com/)
+* [Bookdown information pages](https://bookdown.org/)
+* [Interactive web-based data visualization with R, plotly, and shiny https://plotly-r.com/index.html](https://plotly-r.com/index.html)
+* [YaRrr! The Pirate’s Guide to R](https://bookdown.org/ndphillips/YaRrr/)
+* [Engineering Production-Grade Shiny Apps](https://thinkr-open.github.io/building-shiny-apps-workflow/)
+* [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](http://www.paulamoraga.com/book-geospatial/index.html)
+* [Statistical Inference via Data Science](https://moderndive.com/)
+* [Fundamentals of Data Visualization]([https://serialmentor.com/dataviz/index.html])
+* [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
 
 If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.
 

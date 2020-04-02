@@ -16,17 +16,11 @@ description: "CASA"
 
 <a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" width="150" alt="CASA0005 course" align="right" style="margin: 0 1em 0 1em" /></a>
 
-Welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns.  
-
-If you need the practical data you can access it from my [GitHub repository](https://github.com/andrewmaclachlan/CASA0005repo), this is explained in [Hello GIS]. 
-
-Practical data is divided into the relevant sessions (e.g. prac1_data), although sometimes i'll refer to a dataset used within a previous week. 
-
-The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
+Welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns. How to access this data is explained in [Hello GIS].
 
 ## Acknowledgement {-}
 
-Thanks to the following people who have either contributed directly or who provided code in repositories that have helped me style this book:
+Thanks to the following people who have either contributed directly or provided code in repositories that have helped me style this book:
 
 * [Jenny Bryan](https://twitter.com/JennyBryan)
 * [STAT 545](https://stat545.com/index.html#other-contributors)
@@ -34,18 +28,9 @@ Thanks to the following people who have either contributed directly or who provi
 * [Alison Presmanes Hill](https://twitter.com/apreshill)
 * [Yihui Xie](https://twitter.com/xieyihui)
 * [Robin Lovelace](https://twitter.com/robinlovelace)
+* [Twitter for R programmers](https://www.t4rstats.com/index.html)
 * [Matt Ng](https://twitter.com/mattnkm)
 
+The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
+
 I've certainly learnt a lot from their open code repositories!
-
-## License {-}
-
-If you use this material for teaching, research or anything else please let me (Andy) know via [Twitter](https://twitter.com/andymaclachlan) or email --- a [dot] maclachlan [at] ucl [dot] ac [dot] uk).
-
-This practical book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
-
-## Version {-}
-
-This is version 2.0 of the practical book
