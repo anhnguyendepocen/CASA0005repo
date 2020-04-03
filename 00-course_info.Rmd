@@ -15,7 +15,7 @@ Want to see what you can do with spatial analysis...check out this 'What's Next'
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
 knitr::include_url("https://www.youtube.com/embed/K0qZffiKwak")
 ```
-## Intended course learning outcomes 
+## Intended course learning outcomes {-}
 
 After having taking this module, you should be able to:
 
