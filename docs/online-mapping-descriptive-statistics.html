@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-04-02" />
+<meta name="date" content="2020-04-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,6 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="part"><span><b>Course information</b></span></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a><ul>
+<li class="chapter" data-level="0.1" data-path="hello-gis.html"><a href="hello-gis.html#intended-course-learning-outcomes"><i class="fa fa-check"></i><b>0.1</b> Intended course learning outcomes</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-use-this-book"><i class="fa fa-check"></i>How to use this book</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#getting-started"><i class="fa fa-check"></i>Getting started</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-dowload-data-and-files-from-github"><i class="fa fa-check"></i>How to dowload data and files from GitHub</a><ul>
@@ -1054,8 +1055,8 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <a class="sourceLine" id="cb478-6" title="6">centroid</a></code></pre></div>
 <pre><code>##   Group.1 PctOwned20 PctNoEngli
 ## 1       1   72.36387   6.379581
-## 2       2   27.49037  17.034225
-## 3       3   48.92551  14.697571</code></pre>
+## 2       2   48.92551  14.697571
+## 3       3   27.49037  17.034225</code></pre>
 <div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
 <a class="sourceLine" id="cb480-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))</a>
 <a class="sourceLine" id="cb480-3" title="3">p<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
