@@ -42,6 +42,15 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 Within this practical we are going to be using data from the Landsat satellite series provided for free by the United States Geological Survey (USGS) to replicate published methods. Landsat imagery is the longest free temporal image repository of consistent medium resolution data. It collects data at each point on Earth each every 16 days (temporal resolution) in a raster grid composed of 30 by 30 m cells (spatial resolution). Geographical analysis and concepts are becoming ever more entwined with remote sensing and Earth observation. Back when I was an undergraduate there was specific software for undertaking certain analysis, now you can basically use any GIS. I see remote sensing as the science behind collecting the data with spatial data analysis then taking that data and providing meaning. So whilst i'll give a background to Landsat data and remote sensing, this practical will focus on more advanced methods for analysing and extracting meaning from raster data.
 
+## .gitignore
+
+If you are using Git with your project and have large data it's best to set up a `.gitignore` file. This file tells git to ignore certain files so they aren't in your local repository that is then pushed to GitHub. If you try and push large files to GitHub you will get an error and could run into lots of problems, trust me, i've been there. Look at [my .gitignore for this repository](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/.gitignore) and you will notice:
+
+`/prac7_data/Lsatdata/*`
+`/prac7_data/exampleGoogleDrivedata/*`
+
+This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
+
 ### Remote sensing background (required)
 
 * Landsat is raster data
