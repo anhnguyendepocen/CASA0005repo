@@ -6,6 +6,7 @@ _book
 _bookdown_files
 rsconnect
 /prac7_data/Lsatdata/*
+/prac7_data/exampleGoogleDrive/*
 /PUBLISHEXAMPLE/*
 /GITEXAMPLE/*
 packrat/lib*/
