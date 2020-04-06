@@ -76,6 +76,54 @@ To download the data:
 4. Click results, there should be one image, download it..it might take a while
 5. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear.
 
+#### Alternative raster data
+
+Occasionally the earth explorer website can go down for maintenance or during government shutdowns. If possible I strongly advise you to learn how to use it’s interface as multiple other data providers have similar interfaces. GitHub also place a strict size limit on files of 100MB. However, in order to account for situations like this I’ve placed the zipped file on GoogleDrive and will demonstrate how to access this from R using the new `googledrive` package. 
+
+This could be a great option for you to gain reproducibility points if you have large files that you can't upload to GitHub.
+
+In GoogleDrive you need to ensure your file is shareable with others --- right click on it > Share > then copy the link. I have done this for my file in the example below, but if you try and replicate this, make sure you've done it otherwise it might not work when other people try and run your code, as they won't have access to the file on your GoogleDrive.
+
+Depending on your internet speed this example might take some time...
+
+Be sure to change the path to your practical 7 folder but make sure you include the filename within it and set overwrite to T (or TRUE) if you are going to run this again.
+```{r, cache=TRUE, eval=F}
+library("googledrive")
+
+o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR0NWXy",
+                  path="prac7_data/exampleGoogleDrive/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
+                  overwrite=T)
+```
+
+Next we need to uncompress and unzip the file with `untar()`, first list the files that end in the extension `.gz` then pass that to `untar` with the pipe `%>%` remember this basically means after this function... then...do this other function with that data
+
+```{r, eval=F, cache=T}
+listgoogledriveGZ <- list.files("prac7_data/exampleGoogleDrive",pattern="\\.gz$",
+                          ignore.case=TRUE, full.names=TRUE) %>%
+  untar(exdir="prac7_data/exampleGoogleDrive")
+```
+
+Alternatively instead of the pipe you could write...
+
+```{r, eval=F, cache=T}
+listgoogledriveGZ <- list.files("prac7_data/exampleGoogleDrive",pattern="\\.gz$",
+                          ignore.case=TRUE, full.names=TRUE) 
+
+untar(listgoogledriveGZ, exdir="prac7_data/exampleGoogleDrive")
+```
+
+The only difference is that our list of files (or just one file) has been passed to `untar` manually as i've used the `untar()` function like this...
+
+```{r, cache=T, eval=F}
+untar(tarfile, exdir = ".")
+```
+
+Where:
+
+`tarfile` is pathname of the `.tar` file and 
+
+`exdir` is the directory to extract files to
+
 ## Processing raster data
 
 ### Loading
