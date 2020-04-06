@@ -91,7 +91,7 @@ Be sure to change the path to your practical 7 folder but make sure you include 
 library("googledrive")
 
 o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR0NWXy",
-                  path="prac7_data/exampleGoogleDrive/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
+                  path="prac7_data/exampleGoogleDrivedata/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
                   overwrite=T)
 ```
 
@@ -100,7 +100,7 @@ Next we need to uncompress and unzip the file with `untar()`, first list the fil
 ```{r, eval=F, cache=T}
 listgoogledriveGZ <- list.files("prac7_data/exampleGoogleDrive",pattern="\\.gz$",
                           ignore.case=TRUE, full.names=TRUE) %>%
-  untar(exdir="prac7_data/exampleGoogleDrive")
+  untar(exdir="prac7_data/exampleGoogleDrivedata")
 ```
 
 Alternatively instead of the pipe you could write...
