@@ -47,6 +47,7 @@ Within this practical we are going to be using data from the Landsat satellite s
 If you are using Git with your project and have large data it's best to set up a `.gitignore` file. This file tells git to ignore certain files so they aren't in your local repository that is then pushed to GitHub. If you try and push large files to GitHub you will get an error and could run into lots of problems, trust me, i've been there. Look at [my .gitignore for this repository](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/.gitignore) and you will notice:
 
 `/prac7_data/Lsatdata/*`
+
 `/prac7_data/exampleGoogleDrivedata/*`
 
 This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
