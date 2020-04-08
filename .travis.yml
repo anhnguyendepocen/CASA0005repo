@@ -18,6 +18,7 @@ addons:
       - tesseract-ocr-eng
       - r-cran-rgdal
       - r-cran-maptools
+      - r-cran-raster
       - libfftw3-dev
       - cargo
 
