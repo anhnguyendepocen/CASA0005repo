@@ -6,21 +6,26 @@ addons:
   apt:
     update: true
     sources:
-      - sourceline: 'ppa:opencpu/imagemagick'
-      - sourceline: 'ppa:ubuntugis/ppa'
+      - sourceline: 'ppa:opencpu/jq'
+      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
-      - libmagick++-dev
-      - librsvg2-dev
-      - libwebp-dev
-      - libpoppler-cpp-dev
-      - libtesseract-dev
-      - libleptonica-dev
-      - tesseract-ocr-eng
-      - r-cran-rgdal
-      - r-cran-maptools
-      - r-cran-raster
-      - libfftw3-dev
-      - cargo
+     - ccache
+     - libprotobuf-dev
+     - protobuf-compiler
+     - libv8-dev
+     - libjq-dev
+     - libudunits2-dev
+     - libproj-dev
+     - libgeos-dev
+     - libgdal-dev
+     - libnetcdf-dev
+     - netcdf-bin
+
+install:
+  - R -e "install.packages('remotes')"
+  - R -e "install.packages('tinytex')"
+  - R -e "tinytex::install_tinytex()"
+  - R -e 'install.packages("rgdal", repos="http://R-Forge.R-project.org")'
 
 before_script:
   - chmod +x ./_build.sh
