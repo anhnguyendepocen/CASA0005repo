@@ -1,6 +1,9 @@
 language: r
 cache: packages
-pandoc_version: 1.19.2.1
+latex: false
+dist: xenial
+sudo: required
+warnings_are_errors: false
 
 addons:
   apt:
