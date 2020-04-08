@@ -1,6 +1,6 @@
 # (PART\*) Course information {-}
 
-# Hello GIS {-}
+# Hello GIS! {-}
 
 Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familar with online sources of help, such as:
 
