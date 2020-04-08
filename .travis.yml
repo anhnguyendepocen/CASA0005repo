@@ -12,18 +12,18 @@ addons:
       - sourceline: 'ppa:opencpu/jq'
       - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
-     - ccache
-     - libprotobuf-dev
-     - protobuf-compiler
-     - libv8-dev
-     - libjq-dev
-     - libudunits2-dev
-     - libproj-dev
-     - libgeos-dev
-     - libgdal-dev
-     - libnetcdf-dev
-     - netcdf-bin
-
+      - libmagick++-dev
+      - librsvg2-dev
+      - libwebp-dev
+      - libpoppler-cpp-dev
+      - libtesseract-dev
+      - libleptonica-dev
+      - tesseract-ocr-eng
+      - r-cran-rgdal
+      - r-cran-maptools
+      - r-cran-raster
+      - libfftw3-dev
+      - cargo
 install:
   - R -e "install.packages('remotes')"
   - R -e "install.packages('tinytex')"
