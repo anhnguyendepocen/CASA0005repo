@@ -28,6 +28,7 @@ addons:
       - r-cran-maptools
       - r-cran-raster
       - r-cran-rgeos
+      - r-cran-remotes
       - libfftw3-dev
       - cargo
       
