@@ -4,6 +4,11 @@ dist: xenial
 latex: false
 warnings_are_errors: false
 
+r:
+- release
+- oldrelease
+- devel
+
 addons:
   apt:
     update: true
