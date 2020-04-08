@@ -17,6 +17,7 @@ addons:
       - libleptonica-dev
       - tesseract-ocr-eng
       - r-cran-rgdal
+      - r-cran-maptools
       - libfftw3-dev
       - cargo
 
