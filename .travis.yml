@@ -11,6 +11,7 @@ addons:
       - sourceline: 'ppa:opencpu/jq'
       - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
+      - libudunits2-dev
       - libmagick++-dev
       - librsvg2-dev
       - libwebp-dev
