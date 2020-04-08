@@ -1,5 +1,6 @@
 language: r
 cache: packages
+dist: xenial
 latex: false
 warnings_are_errors: false
 
@@ -26,7 +27,6 @@ install:
   - R -e "install.packages('remotes')"
   - R -e "install.packages('tinytex')"
   - R -e "tinytex::install_tinytex()"
-  - R -e 'install.packages("rgdal", repos="http://R-Forge.R-project.org")'
 
 before_script:
   - chmod +x ./_build.sh
