@@ -30,6 +30,7 @@ addons:
       - libprotobuf-dev
       - protobuf-compiler
       - libjq-dev
+      - libv8-dev
       
 before_script:
   - chmod +x ./_build.sh
