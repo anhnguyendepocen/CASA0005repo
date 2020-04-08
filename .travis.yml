@@ -27,6 +27,7 @@ addons:
       - libfftw3-dev
       - cargo
       - libgdal-dev
+      - libprotobuf-dev
       
 before_script:
   - chmod +x ./_build.sh
