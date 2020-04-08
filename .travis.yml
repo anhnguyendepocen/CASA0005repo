@@ -29,6 +29,7 @@ addons:
       - libgdal-dev
       - libprotobuf-dev
       - protobuf-compiler
+      - libjq-dev
       
 before_script:
   - chmod +x ./_build.sh
