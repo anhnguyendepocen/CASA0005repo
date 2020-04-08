@@ -23,10 +23,10 @@ addons:
       - r-cran-maptools
       - r-cran-raster
       - r-cran-rgeos
-      - r-cran-GISTools
+      - r-cran-MASS
       - libfftw3-dev
       - cargo
-
+      
 before_script:
   - chmod +x ./_build.sh
   - chmod +x ./_deploy.sh
