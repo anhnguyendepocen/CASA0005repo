@@ -6,8 +6,6 @@ warnings_are_errors: false
 
 r:
 - release
-- oldrelease
-- devel
 
 addons:
   apt:
@@ -18,6 +16,7 @@ addons:
       - protobuf-compiler
       - libjq-dev
       - libv8-dev
+      - libudunits2-dev
       
 before_script:
   - chmod +x ./_build.sh
