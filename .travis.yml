@@ -23,6 +23,7 @@ addons:
       - r-cran-maptools
       - r-cran-raster
       - r-cran-rgeos
+      - r-cran-GISTools
       - libfftw3-dev
       - cargo
 
