@@ -2,3 +2,7 @@
 ^renv\.lock$
 ^packrat/
 ^\.Rprofile$
+^\.ccache$
+^\.github$
+^clang-.*
+^tic\.R$

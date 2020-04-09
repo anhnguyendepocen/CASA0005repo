@@ -1,5 +1,9 @@
 # CASA0005 Geographic Information Systems and Science
 
+<!-- badges: start -->
+[![R CMD Check via {tic}](https://github.com/andrewmaclachlan/CASA0005repo/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/andrewmaclachlan/CASA0005repo/actions)
+<!-- badges: end -->
+
 <img src="general_images/casa_logo.jpg" width="100" >
 
   <!-- badges: start -->
