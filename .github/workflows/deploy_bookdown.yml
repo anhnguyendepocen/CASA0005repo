@@ -15,80 +15,25 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown",
-        "bookdown",
-        "renv",
-        "DT",
-        "devtools"
-        "BAMMtools",
-        "broom",
-        "car",
-        "caret",
-        "citr",
-        "classInt",
-        "corrplot",
-        "crosstalk",
-        "downloader",
-        "dplyr",
-        "equatiomatic",
-        "extrafont",
-        "fpc",
-        "fs",
-        "geofacet",
-        "geojson",
-        "geojsonio",
-        "GGally",
-        "ggmap",
-        "ggplot2",
-        "ggthemes",
-        "GISTools",
-        "glmnet",
-        "graphics",
-        "grid",
-        "gstat",
-        "highcharter",
-        "htmlTable",
-        "htmltools",
-        "htmlwidgets",
-        "knitr",
-        "leaflet",
-        "leafpop",
-        "lubridate",
-        "magrittr",
-        "maptools",
-        "mapview",
-        "methods",
-        "OpenStreetMap",
-        "pins",
-        "plotly",
-        "plyr",
-        "raster",
-        "rasterVis",
-        "RColorBrewer",
-        "readr",
-        "readxl",
-        "remotes",
-        "reshape2",
-        "rgdal",
-        "rgeos",
-        "rmapshaper",
-        "RSQLite",
-        "RStoolbox",
-        "scales",
-        "sf",
-        "sfc",
-        "sp",
-        "spatialreg",
-        "spatstat",
-        "spdep",
-        "spgwr",
-        "tidyverse",
-        "tmap",
-        "tmaptools",
-        "viridis",
-        "weathermetrics"))'
-        
-        
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "renv", "DT")'
+        run: Rscript -e 'install.packages(c("devtools", "BAMMtools", "broom", "car")'
+        run: Rscript -e 'install.packages(c("caret", "citr", "classInt", "corrplot")'
+        run: Rscript -e 'install.packages(c("crosstalk", "downloader", "dplyr", "corrplot", "remotes")'
+        run: Rscript -e "remotes::install_github('datalorax/equatiomatic')"
+        run: Rscript -e 'install.packages(c("extrafont", "fpc", "fs", "geofacet")'
+        run: Rscript -e 'install.packages(c("geojson", "geojsonio", "GGally", "ggmap")'
+        run: Rscript -e 'install.packages(c("ggplot2", "ggthemes", "GISTools", "glmnet")'
+        run: Rscript -e 'install.packages(c("graphics", "grid", "gstat", "highcharter")'
+        run: Rscript -e 'install.packages(c("htmlTable", "htmltools", "htmlwidgets", "knitr")'
+        run: Rscript -e 'install.packages(c("leaflet", "leafpop", "lubridate", "magrittr")'
+        run: Rscript -e 'install.packages(c("maptools", "mapview", "methods", "OpenStreetMap")'
+        run: Rscript -e 'install.packages(c("pins", "plotly", "plyr", "raster")'
+        run: Rscript -e 'install.packages(c("rasterVis", "RColorBrewer", "readr", "readxl")'
+        run: Rscript -e 'install.packages(c("reshape2", "rgdal", "rgeos", "rmapshaper")'
+        run: Rscript -e 'install.packages(c("RSQLite", "RStoolbox", "scales", "sf")'
+        run: Rscript -e 'install.packages(c("sfc", "sp", "spatialreg", "spatstat")'
+        run: Rscript -e 'install.packages(c("spdep", "spgwr", "tidyverse", "tmap")'
+        run: Rscript -e 'install.packages(c("tmaptools", "viridis", "weathermetrics")'
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
       - uses: actions/upload-artifact@v1
