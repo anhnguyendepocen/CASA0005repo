@@ -23,7 +23,7 @@ jobs:
       - name: Install packages3
         run: Rscript -e 'install.packages(c("crosstalk", "downloader", "dplyr", "corrplot", "remotes"))'
       - name: Install packages4
-        run: Rscript -e "remotes::install_github('datalorax/equatiomatic'))"
+        run: Rscript -e "remotes::install_github('datalorax/equatiomatic')"
       - name: Install packages5
         run: Rscript -e 'install.packages(c("extrafont", "fpc", "fs", "geofacet"))'
       - name: Install packages6
