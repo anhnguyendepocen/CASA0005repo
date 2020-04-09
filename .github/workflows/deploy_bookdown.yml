@@ -16,23 +16,41 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "renv", "DT")'
+      - name: Install packages1
         run: Rscript -e 'install.packages(c("devtools", "BAMMtools", "broom", "car")'
+      - name: Install packages2
         run: Rscript -e 'install.packages(c("caret", "citr", "classInt", "corrplot")'
+      - name: Install packages3
         run: Rscript -e 'install.packages(c("crosstalk", "downloader", "dplyr", "corrplot", "remotes")'
+      - name: Install packages4
         run: Rscript -e "remotes::install_github('datalorax/equatiomatic')"
+      - name: Install packages5
         run: Rscript -e 'install.packages(c("extrafont", "fpc", "fs", "geofacet")'
+      - name: Install packages6
         run: Rscript -e 'install.packages(c("geojson", "geojsonio", "GGally", "ggmap")'
+      - name: Install packages7
         run: Rscript -e 'install.packages(c("ggplot2", "ggthemes", "GISTools", "glmnet")'
+      - name: Install packages8
         run: Rscript -e 'install.packages(c("graphics", "grid", "gstat", "highcharter")'
+      - name: Install packages9
         run: Rscript -e 'install.packages(c("htmlTable", "htmltools", "htmlwidgets", "knitr")'
+      - name: Install packages10
         run: Rscript -e 'install.packages(c("leaflet", "leafpop", "lubridate", "magrittr")'
+      - name: Install packages11
         run: Rscript -e 'install.packages(c("maptools", "mapview", "methods", "OpenStreetMap")'
+      - name: Install packages12
         run: Rscript -e 'install.packages(c("pins", "plotly", "plyr", "raster")'
+      - name: Install packages13
         run: Rscript -e 'install.packages(c("rasterVis", "RColorBrewer", "readr", "readxl")'
+      - name: Install packages14
         run: Rscript -e 'install.packages(c("reshape2", "rgdal", "rgeos", "rmapshaper")'
+      - name: Install packages15
         run: Rscript -e 'install.packages(c("RSQLite", "RStoolbox", "scales", "sf")'
+      - name: Install packages16
         run: Rscript -e 'install.packages(c("sfc", "sp", "spatialreg", "spatstat")'
+      - name: Install packages17
         run: Rscript -e 'install.packages(c("spdep", "spgwr", "tidyverse", "tmap")'
+      - name: Install packages18
         run: Rscript -e 'install.packages(c("tmaptools", "viridis", "weathermetrics")'
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
