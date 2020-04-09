@@ -1,6 +1,6 @@
 Type: Compendium
-Package: CASA 0005
-Title: What the Package Does (One Line, Title Case)
+Package: AMacLachlan
+Title: AMacLachlan
 Version: 0.0.1
 Authors@R: 
     person(given = "Andrew",
@@ -8,9 +8,13 @@ Authors@R:
            role = c("aut", "cre"),
            email = "a.maclachlan@ucl.ac.uk",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: CASA 0005 binder
+Description: AMacLachlan
 License: What license it uses
 Depends: 
+    R (>= 3.2.0)
+Imports:
+    DT,
+    devtools,
     BAMMtools,
     bookdown,
     broom,
