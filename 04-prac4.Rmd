@@ -543,6 +543,21 @@ knitr::include_graphics('prac4_images/knitword.png')
 * https://rmarkdown.rstudio.com/lesson-1.html 
 * https://rmarkdown.rstudio.com/lesson-3.html (for code chunk options)
 
+## Shortcuts
+
+This [Twitter thread started by We are R-Ladies](https://twitter.com/WeAreRLadies/status/1250310603970732036) is one of the best resiurces i've found for shortcuts using RMarkdown. Favourties that will help you are:
+
+**New code chunk**
+CTRL + ALT + i
+
+**New comment in code**
+CTRL + SHIFT + c
+
+**Align code consistently**
+CTRL+i
+
+**Fromant ugly code to nice looking code**
+CTRL + ALT + A 
 
 ## Adding references
 

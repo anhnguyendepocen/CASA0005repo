@@ -530,7 +530,11 @@ Packages we've installed:
 * ```tmaptools```: set of tools for reading and processing spatial data
 * ```RSQLite```: embeds the SQLite database engine in R
 
-Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using ```library()``` function.
+Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using ```library()``` function. Thanks to [Dianne Cook](https://twitter.com/visnut) for this image...
+
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac1_images/install_library.jfif') 
+```
 
 If you are **using a Mac** you might also need `rgdal`... this is because a lot of packages are dependent on it and it might not properly install...
 
