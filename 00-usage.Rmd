@@ -5,7 +5,7 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 # External usage {-}
 
 ## Statement of need {-}
-xx
+
 ## How to adapt this course {-}
 
 ## License {-}

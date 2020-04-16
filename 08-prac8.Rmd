@@ -366,7 +366,13 @@ Clearly there are lots of things that can be done to improve this function, it's
 
 ### Task 4 – Creating a Basic Geodemographic Classification
 
-As we saw in the lecture, geodemographic classifications are widely used to classify areas according to the characteristics of the population that inhabits them. All geodemographic classifications are created using cluster analysis algorithms. Many of these algorithms exist, but one of the most commonly used is k-means. One of the pitfalls of these algorithms is that they will always find a solution, whether the variables have been selected appropriately or standardised correctly. This means that it’s very easy to create a classification which is misleading. 
+As we saw in the lecture, geodemographic classifications are widely used to classify areas according to the characteristics of the population that inhabits them. All geodemographic classifications are created using cluster analysis algorithms. Many of these algorithms exist, but one of the most commonly used is k-means.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_1.jpg')
+```
+
+One of the pitfalls of these algorithms is that they will always find a solution, whether the variables have been selected appropriately or standardised correctly. This means that it’s very easy to create a classification which is misleading. 
 
 All of that said, it is useful to see how straightforward it is to create a classification yourself to describe some spatial data you have. 
 
@@ -394,9 +400,57 @@ histplot <- ggplot(data=mydata, aes(x=PctOwned20))
 histplot +geom_histogram()
 histplot <- ggplot(data=mydata, aes(x= PctNoEngli))
 histplot +geom_histogram()
+```
 
-# run a k-means to find 3 clusters – use 25 iterations
+Let's make our k-means find 3 clusters with 25 iterations. The graphics below by [Allison Horst](https://twitter.com/allison_horst) will help explain the process...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_2.jpg')
+```
+
+```{r}
 fit <- kmeans(mydata, 3, nstart=25) # 3 cluster solution
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_3.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_4.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_5.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_6.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_7.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_8.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_9.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_10.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_11.jpg')
+```
+
+Now let's get out cluster means, plot them and then add them to our London wards...
+
+```{r}
 # get cluster means
 centroid<-aggregate(mydata,by=list(fit$cluster),FUN=mean)
 #print the results of the cluster groupings
@@ -415,6 +469,10 @@ LondonWardsSF$cluster<-mydata$cluster
 #now map our geodeomographic classification
 map <- ggplot(LondonWardsSF) + geom_sf(mapping = aes(fill=cluster))+scale_fill_continuous(breaks=c(1,2,3))
 map
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_12.jpg')
 ```
 
 Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try. 
@@ -455,7 +513,7 @@ One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd`
 
 2. Create a new project in RStudio and open a new R Markdown file (File > New File > R Markdown)
 
-3. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon (if you remember we covered this in [Knitting your output])...
+3. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon ...
 
 ```{r prac8_knitt, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac8_images/knitt.png') 

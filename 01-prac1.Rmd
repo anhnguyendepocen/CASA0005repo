@@ -11,7 +11,7 @@ By the end of this practical you should be able to:
 3. Load and undertaken some basic manipulation of spatial data in: ArcMap, QGIS and R 
 4. Evaluate the (dis)advantages of each GIS you have used
 
-## Homework 
+## Homework
 
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
