@@ -59,7 +59,9 @@ The tools you will use are:
 
 * GitHub is an online repository that allows anyone to view the code you have produced (in whatever language you choose to program in) and use/scrutinise/contribute to/comment on it.
 
-## The three ways
+## Git and GitHub 
+
+### The three ways
 
 There are three ways to make your RStudio project work with GitHub
 
@@ -71,7 +73,7 @@ I will show you all three, you should be able to do way 1, then way 2 using the 
 
 My advice is to read the Git and GitHub parts of the practical before you start (until the [RMarkdown] section).
 
-## Set up your GitHub
+### Set up your GitHub
 
 1. If you are working on your own computer, you will first need to install Git --- https://git-scm.com/ --- if you are working on the UCL Remote Desktop, you won’t need to do this as it is already installed for you.
 
@@ -83,7 +85,7 @@ knitr::include_graphics('prac4_images/github.png')
 
 3. Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md markdown file has also been created. This can be edited to tell people what they are likely to find in this repository.
 
-## Using RStudio with Git
+### Using RStudio with Git
 
 Now, as I’ve mentioned before, RStudio is totally bad-ass. Not only does it make R fun to use, but the lovely people who created it also built in support for things like git!
 
@@ -95,7 +97,7 @@ At the time of writing git integration *should* work within RStudio. If it doesn
 
 The next part of the practical is going run through the three ways of using Git and GitHub with RStudio as I laid out in [The three ways]
 
-## Using the Git GUI - way 1
+### Using the Git GUI - way 1
 
 4. Now you have created your repo online, you need to ‘clone’ it so that there is an identical copy of it in a local folder on your computer.
 
@@ -127,7 +129,7 @@ knitr::include_graphics('prac4_images/existing.png')
 
 >Note for later, when we try to push to GitHub from RStudio the push button might be geyed out..this is most likely due to your local Git branch not tracking (following) the GitHub branch!  Ishow you how to fix this in the greyed out push button section.
 
-## Create a new version control in RStudio - way 2
+### Create a new version control in RStudio - way 2
 
 There is an easier way to set up Git and GitHub with your project, but this assumes you are starting fresh (with no code in an RProject)!
 
@@ -141,7 +143,7 @@ There is an easier way to set up Git and GitHub with your project, but this assu
 knitr::include_graphics('prac4_images/easyway.png') 
 ```
 
-## If have have an existing project - way 3
+### If have have an existing project - way 3
 
 > Start with a fesh GitHub repository, we're assuming here that you have some code and then want to share it. DO NOT SELECT a README.md file...it should be an empty GitHub repo...
 
@@ -155,7 +157,7 @@ knitr::include_graphics('prac4_images/makeafile.png')
 
 Now you will be able to use Git and GitHub as per the following instructions...you can also refer to practical 8 [GitHub last] to avoid using the shell (as i did in the lecture) and just use RStudio GUI.
 
-## Commiting to Git
+### Commiting to Git
 
 18. As well as saving (as you normally do with any file), which saves a copy to our local directory, we will also ‘commit’ or create a save point for our work on git. 
 
@@ -179,7 +181,7 @@ knitr::include_graphics('prac4_images/commit2.png')
 knitr::include_graphics('prac4_images/commit3.png') 
 ```
 
-## Using Git outside RStudio
+### Using Git outside RStudio
 
 Sometimes RStudio Git can be a bit temperamental. For example, when staging the files they can take some time to appear with the ticked box (I think this is because we are working from the Network). Normally in RStudio you click the commit button, select to stage all the files, wait a few seconds then close the review changes box and commit from the buttons in the Git tab in the environment quadrant. 
 
@@ -196,7 +198,7 @@ b. stage them ready for committing
 c. commit the changes
 d. push the changes to your GitHub repo
 
-## Push to Github
+### Push to Github
 
 Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (envrionment quadrant), or from the review changes box (opens when you click commit).
 
@@ -204,7 +206,7 @@ Now we can push our changes to GitHub using the up arrow either in the RStudio G
 
 But....if the push button is greyed out go to the section [Greyed out push button]
 
-## Pull from GitHub
+### Pull from GitHub
 
 26. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
 
@@ -217,9 +219,9 @@ knitr::include_graphics('prac4_images/pullexample.png')
 28. Now in RStudio click the down arrow (Pull) request. Your file should update in RStudio. 
 If you were to update your file on GitHub and your local one in RStudio seperately you would receive an error message in RStudio when you attempted to commit. 
 
-## Troubleshooting
+### Troubleshooting
 
-### Were you challenged for your password?
+#### Were you challenged for your password?
 
 As of January 2019 it is possible that Git will use a credential helper provided by the operating system. So you should be asked for your GitHub username and password only once. As I am already logged into mine and I started using GitHub a while ago i'm not exactly sure when you will be asked for you details.  
 
@@ -233,7 +235,7 @@ git config --global user.email 'name@provider.com'
 ```
 These only need to be set once.
 
-### Greyed out push button
+#### Greyed out push button
 
 Is your push button greyed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] ... Fear not....
 
@@ -284,7 +286,52 @@ git remote set-url origin [enter your cloned URL from GitHUB here]```
 
 For more trouble shooting on Git and GitHub have a look at the book [Happy Git and GitHub for the useR](https://happygitwithr.com/rstudio-git-github.html)
 
-## Fork a repository 
+#### reprex
+
+If you recall from the introduction to R practical we've already talked a bit about a minimal working (or not working) example (MWE). However, now we know a more about R, Git and GitHub there is a way to easily create a **repr**oducible **ex**ample (repex) that other people can copy and help you to troubleshoot!
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/reprex.png')
+```
+
+Firstly install and load the package
+
+```{r, eval=FALSE, cache=TRUE}
+install.packages("reprex")
+```
+
+```{r, cache=TRUE}
+library(reprex)
+```
+
+Then simply copy some code to the clipboard (just control+c or cmd+c if you have a Mac)...try copying this to your clipboard
+
+```{r, cache=TRUE}
+A <- 1
+B <- 2
+C <- A+B
+C
+```
+
+The all you do is run...
+
+```{r, cache=TRUE, eval=FALSE}
+reprex()
+```
+
+The rendered code will be copied on to your clipboard so you can paste it to wherever needed, perhaps a GitHub issues tab, [like the one for this practical book](https://github.com/andrewmaclachlan/CASA0005repo/issues). If you wanted to pass it to stackoverflow or slack then you just need to change the venue argument (default is for GitHub)...
+
+```{r, cache=TRUE, eval=FALSE}
+#stackoverflow
+reprex(venue="so")
+```
+
+```{r, cache=TRUE, eval=FALSE}
+#slack
+reprex(venue="r")
+```
+
+### Fork a repository 
 
 A *Fork* in GitHub is a copy of someone elses repository. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then *pull* your changes to their repository. 
 
@@ -292,7 +339,7 @@ A *Fork* in GitHub is a copy of someone elses repository. You could use it as a 
 
 Once you fork it, you should see it in your repositories 
 
-## Branches
+### Branches
 
 Each repository you make in git has a default branch but you can create new branches to isolate development of specific areas of work without affecting other branches --- like a test envrionment. 
 
@@ -332,17 +379,17 @@ knitr::include_graphics('prac4_images/branchcompare.png')
 
 We will show you how to publish RMarkdown documents online in a later practical.
 
-## Back in time
+### Back in time
 
 You can go back in time with Git and revert to previous versions of files that you committed. This is a bit more invovled, so have a look [at this website](https://ohi-science.org/news/github-going-back-in-time) for more information.
 
-## Health warning 
+### Health warning 
 
 To avoid merge conflicts be careful with your commits, pushes and pulls. Think about what you are doing each time. GitHub help pages are quite comprehensive... https://help.github.com/en/articles/resolving-a-merge-conflict-on-github
 
 ## RMarkdown
 
-OK, so now you have set everything up so that you can become a reproducable research ninja! All that remains is to do some reproducable research!
+OK, so now you have set everything up so that you can become a reproducible research ninja! All that remains is to do some reproducible research!
 
 For the definitive guide on R Markdown, please read [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) --- obviously! It will tell you everything you need to know, far beyond what I am telling you here.
 
@@ -361,7 +408,6 @@ knitr::include_url("https://www.youtube.com/embed/zNzZ1PfUDNk")
 ```
 
 R Markdown is awesome as you can show code, explanations and results within the same document!!!! Often it could be very hard to reproduce results owing to a lack of information in the methodology / userguides or walkthrougts not matching up with the latest version of software. Think back to a time where you had to use software and consult a massive userguide in how to use it...for me it was a very painful experience. R Markdown is a big improvement as it puts all of the information in the same document, which can then be convereted into a range of different formats --- html for webpages, word documents, PDFs, blogs, books --- virtually everything! 
-
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/rmarkdown_rockstar.png')
@@ -549,7 +595,7 @@ knitr::include_graphics('prac4_images/knitword.png')
 * https://rmarkdown.rstudio.com/lesson-1.html 
 * https://rmarkdown.rstudio.com/lesson-3.html (for code chunk options)
 
-## Shortcuts
+### Shortcuts
 
 This [Twitter thread started by We are R-Ladies](https://twitter.com/WeAreRLadies/status/1250310603970732036) is one of the best resiurces i've found for shortcuts using RMarkdown. Favourties that will help you are:
 
@@ -565,11 +611,11 @@ CTRL+i
 **Fromant ugly code to nice looking code**
 CTRL + ALT + A 
 
-## Adding references
+### Adding references
 
 This practical will focus on Mendeley, but there are guides online if you use other reference managers.
 
-### Set up Mendeley
+#### Set up Mendeley
 
 You need to download Mendeley (it's free) to produce a BibTeX file. Open Mendeley (from the desktop icon) and populate it with some research papers..you should just be able to download a few `.pdfs` and drag them into Mendeley. Make sure the metadata (or document details) are correct by clicking this button...
 
@@ -591,7 +637,7 @@ This method will auto sync your references to the BibTex file, which you can the
 
 If you use Zotero then follow Adam's guide in [section 4.1 here](https://rpubs.com/adam_dennett/430188)
 
-### Add refereces into R
+#### Add refereces into R
 
 48. In your document add the following to the YAML header (this is what we call the top of any RMarkdown header, enclosed by ---). I beleive it stands for Yet Another Markup Language.
 
@@ -624,7 +670,7 @@ bibliography: library.bib
 
 50. The complete bibliography will be placed in the last section, to add a new section to the markdown document just use # and then a space (e.g. # Last section).
 
-### References using ```citr```
+#### References using ```citr```
 
 If you don't want to type the code above you can also add references to R using ```citr``` package...
 
@@ -638,7 +684,7 @@ library(citr)
 knitr::include_graphics('prac4_images/citr.png')
 ```
 
-### YAML options
+#### YAML options
 
 Information to help format your knitted file is contained in the YAML header at the top. In here, you can add things like tables of contents, apply specific themes, etc.
 
@@ -646,7 +692,7 @@ For a selection of nice themes, see go [here](http://www.datadreaming.org/post/r
 
 For things like adding Tables of Contents, tabbed sections (in HTML), figure and table parameters look [here](https://bookdown.org/yihui/rmarkdown/html-document.html)
 
-### Packrat
+#### Packrat
 
 Packrat is useful as it let's you store all of your loaded packages in a folder within your project, if you were then to move or share your project someone else could load the packages you have used (and the appopraite version) permitting them to run your code with no isses and no inflence their main R package library. You can access Packrat through the icon under the Packages tab...or Tools > Project Options..
 

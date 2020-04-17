@@ -128,6 +128,12 @@ mycsv <- read_csv("fly_tipping_borough_edit.csv")
 
 You can run this in the Console area now or within a script which we will now go over...
 
+I'd strongly recommend you think about how you will store data within your project. Is it sensible to just dump all your data into the project folder or perahps create a new folder (either in R) or how you would normally do so in Windows / OS X and keep your raw data in that folder...like i have done...Here you can see that i'm in my project folder (red box on the right) and i've made new folders for all my data (each practical here) and images that are shown throuhgout....nice and organised!
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/file_storage.png') 
+```
+
 ### Basics 
 
 1. R has a very steep learning curve, but hopefully it won’t take long to get your head around the basics. For example, at its most simple R can be used as a calculator. In the console window (bottom left), just type the following and press enter:
@@ -347,12 +353,45 @@ LondonDataOSK<- read.csv("ward-profiles-excel-version.csv", sep=",")
 If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see that we can actually include many more parameters when reading in a .csv file. For example, we could read in the same file as follows:
 
 ```{r, cache=FALSE}
-# by default in R, the file path should be defined with / but on a #windows file system it is defined with \. Using \\ instead allows R #to read the path correctly – alternatively, just use /
+# by default in R, the file path should be defined with / 
+#but on a windows file system it is defined with \. 
+#Using \\ instead allows R 
+#to read the path correctly – alternatively, just use /
 LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", 
                          header = TRUE, sep = ",", encoding = "latin1")
 ```
 
 This would specify that the first row of the file contains header information; and the values in the file are separated with commas (not ; or : as can be the case sometimes).
+
+### Here
+
+However, this is also another more straightforward way to read in files that was devloped in 2017 to make it more intuitive to find and load files using the `here` package. You need to install and load it:
+
+```{r, cache=TRUE, eval=FALSE}
+install.packages("here")
+```
+
+```{r, cache=TRUE}
+library(here)
+```
+
+Think of here as a command that is just poitning to a file path, to find out where is pointing use...
+
+```{r, cache=TRUE}
+here::here()
+```
+
+This is my working directory for my book project! Now i can use this to load my data that is in my practical 2 folder just like this....
+
+```{r, cache=TRUE}
+LondonDataOSK<- read.csv(here("prac2_data","ward-profiles-excel-version.csv"), header = TRUE, sep = ",",  encoding = "latin1")
+```
+
+This just removes any need for ever using a `/` or `\\` in your file path. As with everything in code, there is no right way, use what suits you.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/here.png')
+```
 
 ### New skool cleaning 
 
