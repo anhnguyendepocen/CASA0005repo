@@ -1,222 +1,150 @@
-# (PART\*) Assingment {-}
+# (PART\*) Assignment {-}
 
-# Assignment resources
+# Assignment requirements
 
 ```{r echo=FALSE}
 library(knitr)
 ```
 
-Listed below are some helpful website, books, datasets and tools you might find useful when completing your assignments.
+## Requirements
 
-## Timeline
+**Deadline:** Monday 13th January 2020, 5pm. There are no opportunities to submit a second version after this deadline, this means it's a one time only submission.
 
-There is a suggested timeline of work for your assignment provided in the GIS coursework requirements PDF on Moodle. 
+**Submission:** PDF via Moodle. If anything other than a .pdf is submitted it will not be marked. 
 
-## Markscheme
+**Weighting:** This assessment makes up 100% of the marks for this module but is divided into two parts (worth 50% each) that must be submitted together in a single PDF document.
 
-The markscheme can be found on Moodle with a break down of how much percent is given to each criteron. Read it closely **and often** when writing your assignment.
+**Assessment outline:**
 
-## Examples of previous work
+For the assessment of this course you will combine the cartographic and GIScience skills you have learned over the last 10 weeks to showcase your abilities as a fully rounded spatial analyst. Your task is to carry out a mini research project which answers a pertinent or topical geo-spatial question/hypothesis/issue in a logical, scientific and reproducible manner. Your project can be located anywhere on Earth and at any spatial scale (e.g. local, national, international) but must involve analysis of some appropriate spatial data (raster, vector or both) that you have sourced yourself. You must not reuse the data we provided in the practical sessions. You will submit only one document, but the assessment process will be divided into 2 parts detailed below, each worth 50% of the final grade and around 1500 words. The final total (of both parts combined) should not exceed 3000 words excluding references. The reference list should be provided on a new page within your PDF document.
 
-Closer to the assignment deadline we will release examples of good student projects from previous years as a tab on Moodle. **Note** that the requirements / markscheme have been altered this year.
+**Part 1**
 
-## Events / meet other spatial data professionals
+In part 1 of the assessment you are required to construct a relevant spatial problem founded upon relevant and pertinent literature (e.g. academic and policy) and propose a methodology to test your hypothesis. In this section we expect to see an: introduction, research question (or hypothesis), literature review and methodology.
 
-The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) is normally free to go to and whilst (in my opinion) it's mostly just ESRI marketing their latest products it is good to go along and see how industry are using spatial software. It might also be useful for dissertation ideas / networking. Next year it's scheduled for the 19/5/2020.
+**Part 2**
 
-[Missing maps](http://www.missingmaps.org/events/)
+In part 2 of the assessment you must then test the research question or hypothesis you developed in part 1 with appropriate and reproducible geographic data analysis as specified in your methodology. In this section we expect to see a results section (that includes descriptive and further analysis), discussion and conclusion (that includes recommendations). Start part 2 on a new page.
+Visualisation of the assessment
 
-[LondonR group](https://www.londonr.org/#content)
+The graphic below provides a visual representation of division of the assessment between these two parts, but make sure you include everything that is requested in the Part 1 and Part 2 sections on this page.
 
-## Cool stuff to explore
-
-New packages and functions that i've recently come across that are worth exploring..
-
-* RStudio cloud: https://rstudio.cloud/ --- like RStudio but online, great for collaborating
-* Animating plots: https://rpubs.com/jgleeson/ripple-effect
-* Bivariate maps: https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/
-* Rayshader: https://www.rayshader.com/
-* Cartography package: http://riatelab.github.io/cartography/docs/
-* Data is beautiful reddit: https://www.reddit.com/r/dataisbeautiful/
-* Network visualisation: https://kateto.net/network-visualization
-
-## Books/reading resources
-
-There are a lot of free online books for geospatial analysis, especially using R, check out:
-
-* [Data Visualization A practical introduction https://socviz.co/index.html#preface](https://socviz.co/index.html#preface)
-* [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)
-* [Everything you need for Exploratory Data Analysis & Visualization](https://edav.info/index.html)
-* [What They Forgot to Teach You About R](https://whattheyforgot.org/)
-* [RMarkdown for Scientists](https://rmd4sci.njtierney.com/ )
-* [RStudio recommended books](https://www.rstudio.com/resources/training/books/)
-* [R Graphics Cookbook](https://r-graphics.org/)
-* [Hadley Wickham's website](http://hadley.nz/)
-* [Geocomputation with R ](https://geocompr.robinlovelace.net/)
-* [Happy Git and GitHub for the useR](https://happygitwithr.com/)
-* [Bookdown information pages](https://bookdown.org/)
-* [Interactive web-based data visualization with R, plotly, and shiny https://plotly-r.com/index.html](https://plotly-r.com/index.html)
-* [YaRrr! The Pirate’s Guide to R](https://bookdown.org/ndphillips/YaRrr/)
-* [Engineering Production-Grade Shiny Apps](https://thinkr-open.github.io/building-shiny-apps-workflow/)
-* [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](http://www.paulamoraga.com/book-geospatial/index.html)
-* [Statistical Inference via Data Science](https://moderndive.com/)
-* [Fundamentals of Data Visualization]([https://serialmentor.com/dataviz/index.html])
-* [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
-
-If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.
-
-...that's a lot of books, should we read all of them? No, be selective, a lot of the same material will be covered in each book. Follow your interests, read widely and think about how you could apply these ideas / concepts to different topics or disciplines!
-
-## New developments
-
-Every year there is a useR conference that provides a load to tutorials on the latest developments and research...check them out here: 
-
-* LOOK AT THIS WEBSITE for data viz and code: https://www.data-to-viz.com/
-* ALSO this website for data viz: https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/
-* Make graphics like the BBC: https://github.com/bbc/bbplot/blob/master/chart_examples/bbplot_example_plots.png
-* http://www.user2019.fr/tutorials/
-* https://github.com/sowla/useR2019-materials
-
-Other useful tutorials can be found here:
-
-* https://rweekly.org/
-* http://rpubs.com/chrisbrunsdon/
-* http://rpubs.com/alexsingleton/
-* https://mgimond.github.io/megug2017/#cropping-a-raster-interactively
-* https://simplystatistics.org/
-
-### Twitter
-
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
-knitr::include_graphics('allisonhorst_images/welcome_to_rstats_twitter.png')
+```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('assignment/process.png')
 ```
 
-R package authors regularly tweet with updates and new developments. If twitter is your thing go and follow these people to start with...and anyone else you come across...
+## Marking scheme
 
-* [Hadley Wickham](https://twitter.com/hadleywickham)
-* [Mara Averick](https://twitter.com/dataandme)
-* [Carl Howe](https://twitter.com/cdhowe)
-* [Alison Hill](https://twitter.com/apreshill)
-* [Robin Lovelace](https://twitter.com/robinlovelace)
-* [Yihui Xie](https://twitter.com/xieyihui)
-* [Hannah Frick](https://twitter.com/hfcfrick)
-* [Jakub Nowosad](https://twitter.com/jakub_nowosad)
-* [Nick Tierney](https://twitter.com/nj_tierney)
-* [#rstats](https://twitter.com/search?q=%23rstats&src=typed_query)
-* [Andy](https://twitter.com/andymaclachlan)
-* [Adam](https://twitter.com/adam_dennett)
-
-I often learn about a lot of new R pacakges / code / isuues from Twitter!
-
-
-## Data
-
-This is by no means an extensive data list, but summarises data used within some of the practicals alongside a few additions that you might want to explore when sourcing data for your assignments. You are **not limited** to these data sets for you assessment.
-
-* US City Open Data Census: http://us-cities.survey.okfn.org/
-* nomis: https://www.nomisweb.co.uk/
-* ONS geoportal: https://geoportal.statistics.gov.uk/
-* UK data service: https://census.edina.ac.uk/
-* ONS: https://www.ons.gov.uk/
-* Edina (e.g. OS mastermap): https://digimap.edina.ac.uk/
-* Open Topography: https://opentopography.org/
-* USGS Earth Explorer: https://earthexplorer.usgs.gov/
-* Geofabrik (OSM data): https://www.geofabrik.de/
-* Global weather data (points): https://rp5.ru/Weather_in_the_world
-* London data store: https://data.london.gov.uk/
-* Air b n b data: http://insideairbnb.com/get-the-data.html
-* NASA SocioEconomic Data and Applications Center (SEDAC): https://sedac.ciesin.columbia.edu/
-* UN environmental data explorer: http://geodata.grid.unep.ch/
-* World pop: https://www.worldpop.org/
-* World pop github: https://github.com/wpgp
-* DIVA-GIS: https://www.diva-gis.org/
-* DEFRA: https://environment.data.gov.uk/
-* US Cesus data: https://www.census.gov/data.html
-* TFL open data: https://tfl.gov.uk/info-for/open-data-users/our-open-data?intcmp=3671#on-this-page-2
-* TFL cycling data: https://cycling.data.tfl.gov.uk/
-* EU tourism data: https://ec.europa.eu/eurostat/statistics-explained/index.php/Tourism_statistics
-* NASA EARTHDATA: https://earthdata.nasa.gov/
-* Camden air action: https://camdenairaction.wordpress.com/2017/02/20/schools-monitoring-project-spring-2017/
-* Kings data on air pollution: https://www.londonair.org.uk/LondonAir/Default.aspx
-* Uber travel time data: https://movement.uber.com/?lang=en-GB
-* Eurostat: https://ec.europa.eu/eurostat
-* Animal tracking: https://www.movebank.org/
-* London Tube PM2.5 levels: https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d
-
-* Correct statistical tests: https://stats.idre.ucla.edu/other/mult-pkg/whatstat/
-
-## Data lists
-
-Awesome public datasets have a wide range all data (some geographic, some not): https://github.com/awesomedata/awesome-public-datasets
-
-[Robin Wilson](https://twitter.com/sciremotesense) has authored one of the most extensive data lists that i've come across: https://freegisdata.rtwilson.com/
-
-## Reading and writing critically
-
-[Hugh Kerans](https://twitter.com/ithinkwellhugh?lang=en) from Flinders Unversity, Adelaide has developed a range of materials to assist graduate students in producing effective reports and publications...check out his website and resouces here: https://www.ithinkwell.com.au/
-
-The most useful templates for the assignments are the critical reading one:
+The mark scheme is what the markers will use to grade your work. Read it regularly (at least once a week) and reflect on how you are meeting each criterion. 
 
 ```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
-include_graphics('assignment/CriticalReading.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
+include_graphics('assignment/GIS-MarkScheme-2019.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
 )
 ```
 
-and questions to ask as you write a paper (or assignment):
+You can also download this [mark scheme from my GitHub]()
 
-```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
-include_graphics('assignment/QuestionsToAskAsYouWriteAPaper.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
-)
+## Expected timeline
+
+The table below is simply complied from the recommeded homework assignments provided within each practical.
+
+```{r, cache=T, echo=FALSE, message=FALSE}
+library(readxl)
+library(kableExtra)
+timeline <- read_excel('general_data/timeline.xlsx')
+
+kable(timeline, align=(c('c', 'l')), valign="middle") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+    row_spec(0, align = "c") %>%
+    column_spec(1, bold = T, border_right = T) %>%
+    collapse_rows(columns = 0:2)
 ```
 
-You can download these from this website directly, my GitHub or [Hugh's website](https://www.ithinkwell.com.au/).
+## Penalities 
 
-The UCL Institute for Education (IOE) Writing Centre Online have produced this very short (< 2 minutes read) [critical writing guide](https://www.ucl.ac.uk/ioe-writing-centre/critical-reading-and-writing/writing-critically) giving an example of how to change writing from largely descriptive to critical. 
+Late submission  of the assessment will be subject to the [standard penalties according to the UCL regulations](https://www.ucl.ac.uk/academic-manual/chapters/chapter-4-assessment-framework-taught-programmes/section-3-module-assessment#3.12)
 
-...And of coruse the paper ['How to write a paper for publicaiton'](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000)
+Similarly any academic misconduct will follow the [UCL adjudication and penalty guidance](https://www.ucl.ac.uk/academic-manual/sites/academic-manual/files/student_academic_misconduct_adjudication_and_penalties.pdf)
 
-## Free flow diagram tools
+## Frequently Asked Questions
 
-* PowerPoint (from UCL software site)
-* Draw.io: https://www.draw.io/ 
-* Lucidchart: https://www.lucidchart.com/pages/examples/flowchart-maker
-* R Package `DiagrammeR`: https://rich-iannone.github.io/DiagrammeR/
+**What criteria will you mark our work on**
 
-Free at the time of writing
+We will follow the mark scheme for this course available on Moodle.
 
-## Basics
+**Can I use multiple datasets**
 
-Here are some tips based on common marker comments of how to write a decent assingment...
+Yes, you can use as many as you like as long as they are appropriate for the research question/hypothesis.
 
-* Don't cut and paste maps / figures / formulas / tables, export them properly or remake them nicely and credit a source somewhere such as the figure caption (e.g. source Smith et al. 2009 or adapted from Smith et al. 2009).
-* Make maps and figures the right way --- don't just leave layer names (e.g. osm_points_road) in a legend, rename them to something with meaning!
-* If you use a formula write it properly --- don't cut and paste, fully explain all the symbols / variables too.
-* Make sure you write a sufficient caption for figures / maps / flow diagrams / tables. The reader should be able to understand them without any other information. In other words, if you gave someone a figure with just the caption they should be able to tell you what it shows.
-* Don't bullet point methods, summarise with sentances and use a flow diagram if appropraite.
+**Can I use more words in part 1 / part 2 than recommended**
 
-Here is a quick guide to writing a report...
+You can but as each part is worth 50% we’d recommend using 1,500 per section. The whole document must not exceed 3,000 words (excluding references).
 
-### Introduction
+**How will you determine part 1 and part 2**
 
-Make sure you say why your mini investiation is important near the start--- why should we care! Try to answer the so what question. The introduction should set the scene and introduce the reader to issue (what is the background to it), its importance (so what?) and lead onto outlining the research question of the study.
+Part 1 will be everything before the results section, part 2 will be everything after.
 
-### Literature review
+**Can I do my analysis using a range of different software**
 
-The literature review should evaluate exisiting research, demonstrate contrasting and/or similar views whilst highlight research gaps (that hopefully your research will contribute to / address). This could also include policy documents or documents from reputable soruces (e.g. UN / EU / authoritative bodies). Wikepedia is not a valid academic source and please don't just list what authors have done in the past (e.g. Smith 2009 did x but Jones 2008 did y then Frank 2010 did x). Synthesise previous work / policy documents and provide a narrative through it whilst trying to show where the research gap is / where you question fits in. Try to end the literature review with a concluding paragraph that concisely summarises everything within it and states what your work is going to contribute or address. Think of this section as providing a story to what everyone else has done (whilst also showing issues / reseach gaps) then at then end BAMMM... this is what you are going to do.
+Yes. You may wish to run your analysis in R and produce a map in QGIS or vice versa with an interactive map. But make sure your analysis remains reproducible as per the mark scheme for the course.
 
-### Methodology
+**What must be included in the report and do I submit as a single document**
 
-Methodology is what you did (analysis, data processing, data cleaning, etc), a reader should be able to replicate your analysis but you don't need excessive detail --- you do not need to list every tool you used. For example, data was loaded uisng `read_csv()` and then reprojected using `st_transform()` is too much information for the assignment (you could include this type of information in the comments of your code / RMarkdown document). 
+We recommend that you follow the format of a traditional scientific detailed above. Yes, you will submit the document as a single PDF.
 
-### Results
+**What do you mean by ‘You must not reuse the data we provided in the practical sessions’**
 
-Results is what you found --- be selective about figures you include and provide. To do so ask yourself what does this contribute to my research / aim / objective to see if you need it. Please provide a narrative that guides the reader through your findings, don't just present result after result after result after result.
+Any data we have used in the practical session must not appear in your final assessment. However, if you wanted to use data collected from the same source but of a different study area that would be acceptable. For example, Landsat data over Paris or Airbnb data from Berlin are fine, but do not just replicate the practical analysis in a different area.
 
-### Discussion
+**So where do I get the data from**
 
-Discussion should have lots of critical reflection...by that i mean... how do your results fit in with and then advance the ideas presented by others either in academic or policy literature. Really say why this is important with appropriate referencing. 
+Checkout the [Assignment resources] pages for help. You can use any of this data listed on this page as long as we haven’t directly used it within the practical sessions. This list is just for guidance and you are not restricted to it. Go and explore!
 
-### Conclusion
+**Can I use methods not covered in the course and can I use another piece of software (e.g. Python)**
 
-Your conclusion should restate what you set out to investigate, summarise how you acheived it, what your results showed, why it is important and in this case specify recommendations (e.g. what should be changed or altered to fix the issue / question you explored). Do not add any new material in this section (e.g. talk about new ideas or add new references). Whilst it seems like i've listed a lot of things to inlcude it short be relatively short --- a concise summary. 
+Yes and no. Make sure you select only appropriate methods for your proposed analysis and as the course focuses on R, ArcMap and QGIS we expect the analysis to be completed within them.
+
+**Can I just use methods covered in the course **
+
+Yes, you can and if you have provided a decent write up it is likely you will pass. However, we strongly encourage you to explore other methods.
+
+**How should I display my results**
+
+However you deem appropriate for your data and analysis. A reader should be able to understand any figure you have produced using only the figure and the caption. Check out the practical on {Map making] for cartography advice and guidance. 
+
+**Can I use interactive maps**
+
+Yes, but only where appropriate for your data and analysis. You can recreate any of the online mapping tools we demonstrated and link this into the PDF document you submit. For example, you could display a static map in your submitted work that is hyperlinked to an RPubs, RMarkdown site or Shiny. 
+
+**How can I show my code / Arc or QGIS tool within the assignment**
+
+If you want to provide reproducible code for your analysis then follow the relevant practical within the practical book. You can then provide a hyperlink to the url/repository within your PDF report. If you have made ArcMap or QGIS model you should still be able to upload it to GitHub, GoogleDirve, Dropbox or OneDrive and provide a hyperlink. However, make sure that whatever you choose to do, it is reproducible with appropriate documentation
+
+**Does my code / associated Readme file / documentation / online site count towards the word limit**
+
+No, but any documentation with the code should only succinctly describe what the code does and provide no interpretation of analysis, results, methods, discussion or the conclusion. You can make an online document / website that explains what each part of the code does, as we did in the practical sessions, but absolutely no interpretation of results.
+
+**What is included in the word count** 
+
+The maximum length for the whole document is 3,000 words. This should be divided into around 1,500 for part 1 and 2 – remember each part is worth 50%. This count includes everything above the reference list. The reference list should be the last section provided on a separate page.
+
+**Do I need to use references**
+
+Yes, we are expecting your project to use a variety of credible sources (e.g. academic literature and policy documents) following the Harvard referencing system.
+
+**What’s a credible reference**
+
+Something that is unbiased and can be supported with evidence. Generally, this would include academic journals, reviews and books alongside evidenced based policy documents. It would exclude online sources such as Wikipedia.
+
+**Can I use flowcharts**
+
+Yes, and we strongly encourage them, but make sure they are relevant and fit for purpose.
+
+**Can I use private data**
+
+Private data would entail something that is not publicly accessible or open. For example, if you work for a company and they have given you access to a private dataset that they have complied. You can use private data, but there are no extra marks for doing so. That said if you aren’t able to publish the data in a repository (because it’s private) you won’t lose any marks in terms of reproducibility, but we’d recommend making up a mock dataset so we can see your code/toolbox/analysis actually works. This data wouldn’t need to show the same result as your original private dataset, most likely it shouldn’t as it could risk identifying the original data. Please make sure you fully acknowledge the source of any private data, as with all data. If this applies to you and you wish to use private data throughout your MSc make sure other module coordinators also agree.
+
+**Can I scrape data from the web**
+
+Yes as long as you follow the terms and conditions from where you sourced the data and clearly state this along with how you have adhered to them in your final report and also any repository / reproducible material. Comments in your code should just say where the data is from, adherence should be in the report and any reproducibility online document you create (e.g. RPubs / similar). You probably won’t be able to store the original data in a personal online repository so it might be useful to have a random mock dataset (probably a smaller dataset) to show it runs.
 

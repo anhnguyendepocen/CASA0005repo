@@ -36,6 +36,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [Twitter for R programmers](https://www.t4rstats.com/index.html)
 * [Matt Ng](https://twitter.com/mattnkm)
 * [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
+* [Julia Silge](https://twitter.com/juliasilge)
 
 The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
 

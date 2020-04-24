@@ -384,7 +384,7 @@ here::here()
 This is my working directory for my book project! Now i can use this to load my data that is in my practical 2 folder just like this....
 
 ```{r, cache=TRUE}
-LondonDataOSK<- read.csv(here("prac2_data","ward-profiles-excel-version.csv"), header = TRUE, sep = ",",  encoding = "latin1")
+LondonDataOSK<- read.csv(here::here("prac2_data","ward-profiles-excel-version.csv"), header = TRUE, sep = ",",  encoding = "latin1")
 ```
 
 This just removes any need for ever using a `/` or `\\` in your file path. As with everything in code, there is no right way, use what suits you.

@@ -270,32 +270,222 @@ In `r` the codes `***, **, **, .` are used to indicate significance. We generall
 
 **R-Squared** - This can be thought of as an indication of how good your model is - a measure of 'goodness-of-fit' (of which there are a number of others). $r^2$ is quite an intuitite measure of fit as it ranges between 0 and 1 and can be thought of as the % of variation in the dependent variable (in our case GCSE score) explained by variation in the independent variable(s). In our example, an $r^2$ value of 0.42 indicates that around 42% of the variation in GCSE scores can be explained by variation in unathorised absence from school. In other words, this is quite a good model. The $r^2$ value will increase as more independent explanatory variables are added into the model, so where this might be an issue, the adjusted r-squared value can be used to account for this affect
 
-#### Further information
+#### broom
 
-There are other features of the model outputs (residual degrees of freedom, standard error etc.) that I won't go into here - for more detail about interpreting the model outputs, try this resource:
+The output from the linear regression model is messy and like all things R mess can be tidied, in this case with a broom! Or the package `broom` which is also party of the [package `tidymodels`](https://www.tidymodels.org/).
 
-http://blog.yhat.com/posts/r-lm-summary.html 
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, message=FALSE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/broom_package.png')
+```
 
-In addtion, the two papers by Dunn (1989) and Jones (1984) on Moodle are old, but very good!
-
-#### Saving your model outputs
-
-The standard model output in R is not particularly easy to export for publication, however you can use the `tidy()` function in the `broom` package to save the results out to a dataframe:
+Here let's load `broom` and tidy our output...you will need to either install `tidymodels` or `broom`
 
 ```{r, message=FALSE, cache=TRUE}
 library(broom)
-model1_res <- tidy(model1)
+tidy(model1)
 ```
 
-#### Provisional conclusions from the first model
+We can also use `glance()` from `broom` to get a bit more information, such as $r^2$ and the adjusted r-squared value. 
 
-From Model 1 above, I am provisionally able to conclude that there is a moderate negative association between GSCE exam scores and the level of unauthorised absence in Wards across London. This relationship is significant at the 99% level of confidence that the relationship observed is not random chance. I can also say that around 43% of the variation in GCSE point scores can be attributed to variation in school absence. 
+```{r, message=FALSE, cache=TRUE}
+glance(model1)
+```
 
-**However!**
+### Bootstrap resampling
 
-The conclusion above is currently only provisional as I have not checked that the model I have built meets a series of important assumptions. If not met, breaking any of these assumptions will throw the conclusions that I draw into doubt. 
+Fitting once, how can we get confidence about that estiamte. Bootstrap resample is where we take the original dataset and select random data points from within it but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement.
 
-Therefore, these will be checked in turn.
+So here we will first get rid of all the coloumns we aren't using in this model using the package `dplyr` which is part of the `tidyverse` as they will just slow us down. At the moment we only care about average GCSE scores and unauthorised absecne in schools. 
+
+```{r, message=FALSE, cache=FALSE}
+library(rsample)
+library(dplyr)
+
+LonWardProfilesGCSE <- LonWardProfiles %>% 
+  dplyr::select(`Average GCSE capped point scores - 2014`, 
+         `Unauthorised Absence in All Schools (%) - 2013`)
+
+```
+
+Next we are going to create our samples using the function `bootstraps()`. First we set the seed (to any number), which just means are results will be the same if we are to re-run this analysis, if we don't then as we are randomly replacing data the next time we do run the code the results could change. 
+
+Here we have created 1000 versions of our original data (times=1000). Apparent means we are using our entire dataset and the full dataset will be kept in our `GSCE_boot` variable.
+
+```{r, message=FALSE, cache=FALSE}
+
+set.seed(99)
+GCSE_boot <-st_drop_geometry(LonWardProfilesGCSE) %>%
+  bootstraps(times = 1000, apparent = TRUE)
+GCSE_boot
+```
+So when we look in GSCE_boot we have 100 rows 
+
+Here we are now going to run the linear regression model for each of our bootstrap resampled instances. To do this we are going to use the `map()` function from the `purrr` package that is part of the `tidyverse`. This lets us apply a function (so our regression formula) to a list (so our splits that we calculated from bootstrap resampling)
+
+We need to map over and then given the function to what we are mapping over. So we are mapping (or changing) our splits (from the bootstrap resampled) then apply our regression formula to each split. To make sure we can save the output we will create a new column called model with the `mutate()` function from the `dplyr` package that is also part of the `tidyverse`. Mutate just lets us add a column to an existing table.
+
+`dplyr` is possibly one of the most useful packages i've ever come across. It's described as the grammar of data manipulation with a set of functions (here also called verbs) that will let you transform your data into almost any format. Let's first finish our example with bootstrap resampling then we can have some fun with `dplyr`.
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, message=FALSE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
+```
+
+```{r, message=FALSE, cache=FALSE}
+
+GCSE_models <- GCSE_boot %>%
+  mutate(
+    model = map(splits, ~ lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, 
+                             data = .)))
+
+# let's look at the first model results
+GCSE_models$model[[1]]
+
+#if you wanted all of them it's
+#GCSE_models$model
+
+```
+
+
+However, this is a very ugly output and pretty hard to understand. Now remember when we just went through the magic of [broom]? You might have thought that it didn't do very much! This is where it can really be of use. We want to tidy up our models results so we can actually use them. Firstly let's add a new coloumn with mutate (coef_info) then take our model coloumn and using the `map()` function again tidy the outputs (saving the result into that new coef_info column).
+
+```{r, message=FALSE, cache=FALSE}
+
+GCSE_models_tidy <- GCSE_models %>%
+  mutate(
+    coef_info = map(model, tidy))
+```
+
+So this has just added the information about our coefficents to a new column in the original table, but what if we actually want to extract this information, well we can just use `unnest()` from the `tidyr` package (also part of the `tidyverse`) that takes a list-column and makes each element its own row. I know it's a list column as if you just explore `GCSE_models_tidy` (just run that in the console) you will see that under `coef_info` column title it says list.
+
+```{r, message=FALSE, cache=FALSE}
+GCSE_coef <- GCSE_models_tidy %>%
+  unnest(coef_info)
+GCSE_coef
+```
+
+If you look in the tibble GCSE_coef you will notice under the column heading term that we have intercept and unathorised absence values, here we just want to see the variance of coefficients for unauthorised absence, so let's filter it, again this uses `dplyr`.
+
+```{r, message=FALSE, cache=FALSE}
+coef <- GCSE_coef %>% filter(term == "`Unauthorised Absence in All Schools (%) - 2013`")
+coef
+```
+
+
+Now let'd have a look at the histogram of our coefficients to see the distribution....
+```{r}
+coef %>%
+  ggplot(aes(x=estimate)) +
+  geom_histogram(position="identity", alpha=0.5, bins=15, fill="lightblue2", col="lightblue3")+
+  geom_vline(aes(xintercept=mean(estimate)),
+                 color="blue",
+             linetype="dashed")+
+  labs(title="Bootstrap resample estimates",
+       x="Coefficient estimates",
+       y="Frequency")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5))
+``` 
+
+Now, wouldn't it be useful to get some confidence intervals based on our bootstrap resample. Well! we can using the `int_pctl()` from the `rsample` package, which forms part of `tidymodels`.
+
+Here, we give the function our models (GCSE_models_tidy), tell it what column the statstics are in (coef_info), specify the level of significance (alpha). Now if you recall we set the apparent argument to true earlier on and this is because this is a requirement of `int_pctl()`
+
+```{r}
+library(rsample)
+int_pctl(GCSE_models_tidy, coef_info, alpha = 0.05)
+```
+
+A change in 1% of unathorised absence reduces the average GCSE point score between between 41.2 and 45.2 points (this is our confidence interval) with a 95% confidence level.
+
+we can also change alpha to 0.01, which would be the 99% confidence level, but you'd expect the confidence interval range to be greater.
+
+Here our confidence level means that if we ran the same regression model again with different sample data we could be 95% sure that those values would be within our range here.
+
+**Confidence interval** = the range of values that a future estimate will be betweeen
+
+**Confidence level** = the perctange certainty that a future value will be between our confidence interval values
+
+Now lets add our predictions to our original data for a visual comparison, we will do this using the `augment()` function from the package `broom`, again we will need to use `unnest()` too. 
+
+```{r}
+GCSE_aug <- GCSE_models_tidy %>%
+  #sample_n(5) %>%
+  mutate(augmented = map(model, augment))%>%
+  unnest(augmented)
+```
+
+There are so many rows in this tibble as the statistics are produced for each point within our original dataset and then added as an additional row. However, note that the statistics are the same within each bootstrap, we will have a quick look into this now.
+
+So we know from our London Ward Profiles layer that we have 626 data points, check this with:
+
+```{r, cache=FALSE}
+length(LonWardProfiles$`Average GCSE capped point scores - 2014`)
+```
+
+Now, let's have a look at our first bootstrap using `filter()` from `dplyr`
+
+```{r}
+firstboot<-filter(GCSE_aug,id=="Bootstrap0001")
+length(firstboot$Average.GCSE.capped.point.scores...2014)
+```
+
+Ok, so how do we know that our coefficient is the same for all 626 points within our first bootstrap? Well we can check all of them, but this would just print the coefficent info for all 262....
+
+```{r, eval=FALSE, cache=FALSE}
+firstboot$coef_info
+```
+
+Another way is just to ask what are the unique values within our coefficient info?
+
+```{r, cache=FALSE}
+unique(firstboot$coef_info)
+```
+
+Right, now it would be really useful if we could plot our original data, but instead of fitting a line of best fit between it we use all the lines from the bootstrap resamples to show the possible variance. 
+
+However, it really annoys me that sometimes column names get crazy, for example `GCSE_aug$Average.GCSE.capped.point.scores...2014` just look at all those ......!!!! 
+
+Wound't it be good if there was a way to just standardise all names? Well we can with the help from `Janitor`
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, message=FALSE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
+```
+
+So let's clean up our names then use them in our plot.
+
+```{r, message=FALSE, cache=FALSE}
+library(janitor)
+
+GCSE_aug <- janitor::clean_names(GCSE_aug)
+
+ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_2013,
+                  average_gcse_capped_point_scores_2014))+
+  # we want our lines to be from the fitted column grouped by our bootstrap id
+  geom_line(aes(y = fitted, group = id), alpha = .2, col = "cyan3") +  
+  # remember out apparent data is the original within the bootstrap
+  geom_point(data=filter(GCSE_aug,id=="Apparent"))+
+  #add some labels to x and y
+  labs(x="unauthorised absence in all schools 2013 (%)",
+       y="Average GCSE capped point scores 2014")
+
+ggsave("mtcars.png")
+
+```
+You'll notice that this plot is slightly different to the one we first produced in [Regression Basics] as we've used `geom_point()` not `geom_jitter()` the latter adds a small amount of random variation to the points (not the data). If change in to `geom_point()` you will get the same plot as we just produced (apart from the bootstrap fitted lines obviously). We will use `qplot()` again, it is from the packaged `quickplot` and lets us make quick plots with similar code to `ggplot`, but avoid if when you have large amounts of data --- use `ggplot()`.
+
+```{r, cache=FALSE, message=FALSE, eval=FALSE}
+q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, 
+           y = `Average GCSE capped point scores - 2014`, 
+           data=LonWardProfiles)
+
+#plot with a regression line - note, I've added some jitter here as the x-scale is rounded
+q + stat_smooth(method="lm", 
+                se=FALSE, 
+                size=1) + 
+  geom_point()
+
+q
+```
 
 ### Assumptions Underpinning Linear Regression
 
@@ -308,13 +498,17 @@ For example, look at the frequency distributions of our two variables earlier:
 ```{r }
 
 #let's check the distribution of these variables first
-ggplot(LonWardProfiles, aes(x=`Average GCSE capped point scores - 2014`)) + geom_histogram(aes(y = ..density..),binwidth = 5) + geom_density(colour="red", size=1, adjust=1)
+ggplot(LonWardProfiles, aes(x=`Average GCSE capped point scores - 2014`)) + 
+  geom_histogram(aes(y = ..density..),binwidth = 5) + 
+  geom_density(colour="red", size=1, adjust=1)
 
 ```
 
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=`Unauthorised Absence in All Schools (%) - 2013`)) + geom_histogram(aes(y = ..density..),binwidth = 0.1) + geom_density(colour="red", size=1, adjust=1)
+ggplot(LonWardProfiles, aes(x=`Unauthorised Absence in All Schools (%) - 2013`)) +
+  geom_histogram(aes(y = ..density..),binwidth = 0.1) + 
+  geom_density(colour="red", size=1, adjust=1)
 ```
 
 We would describe both of these distribution as being relatively 'normally' or gaussian disributed - https://en.wikipedia.org/wiki/Normal_distribution - and thus more likely to have a linear correlation (if they are indeed associated).
@@ -322,7 +516,8 @@ We would describe both of these distribution as being relatively 'normally' or g
 Contrast this with the median house price variable:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=`Median House Price (£) - 2014`)) + geom_histogram()
+ggplot(LonWardProfiles, aes(x=`Median House Price (£) - 2014`)) + 
+  geom_histogram()
 ```
 
 We would describe this as a not normal and/or positively 'skewed' - https://en.wikipedia.org/wiki/Skewness - distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
@@ -334,7 +529,9 @@ knitr::include_graphics('allisonhorst_images/not_normal.png')
 If we plot the raw house price variable against GCSE scores, we get the following scatter plot:
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = `Median House Price (£) - 2014`, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
+qplot(x = `Median House Price (£) - 2014`, 
+      y = `Average GCSE capped point scores - 2014`, 
+      data=LonWardProfiles)
 ```
 
 This indicates that we do not have a linear relationship, indeed it suggests that this might be a curvilinear relationship.
@@ -352,7 +549,8 @@ You might be asking how we could go about transforming our variables. In 1977, T
 In regression analysis, you analysts will frequently take the log of a variable to change its distribution, but this is a little crude and may not result in a completely normal distribution. For example, we can take the log of the house price variable:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=log(`Median House Price (£) - 2014`))) + geom_histogram()
+ggplot(LonWardProfiles, aes(x=log(`Median House Price (£) - 2014`))) + 
+  geom_histogram()
 ```
 
 This looks a little more like a normal distribution, but it is still a little skewed. 
@@ -360,23 +558,29 @@ This looks a little more like a normal distribution, but it is still a little sk
 Fortunately in R, we can use the `symbox()` function in the `car` package to try a range of transfomations along Tukey's ladder: 
 
 ```{r, message=FALSE, cache=TRUE}
-symbox(~`Median House Price (£) - 2014`, LonWardProfiles, na.rm=T, powers=seq(-3,3,by=.5))
+symbox(~`Median House Price (£) - 2014`, LonWardProfiles, 
+       na.rm=T, powers=seq(-3,3,by=.5))
 ```
 
 Observing the plot above, it appears that raising our house price variable to the power of -1 should lead to a more normal distribution:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=(`Median House Price (£) - 2014`)^-1)) + geom_histogram()
+ggplot(LonWardProfiles, aes(x=(`Median House Price (£) - 2014`)^-1)) + 
+  geom_histogram()
 ```
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = (`Median House Price (£) - 2014`)^-1, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
+qplot(x = (`Median House Price (£) - 2014`)^-1, 
+      y = `Average GCSE capped point scores - 2014`,
+      data=LonWardProfiles)
 ```
 
 Compare this with the logged transformation:
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = log(`Median House Price (£) - 2014`), y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
+qplot(x = log(`Median House Price (£) - 2014`), 
+      y = `Average GCSE capped point scores - 2014`, 
+      data=LonWardProfiles)
 ```
 
 #### Should I transform my variables?
@@ -391,7 +595,8 @@ This assumption is easy to check. When we ran our Model1 earlier, one of the out
 #save the residuals into your dataframe
 LonWardProfiles$model1_resids <- model1$residuals
 
-qplot(model1$residuals) + geom_histogram() 
+qplot(model1$residuals) + 
+  geom_histogram() 
 
 ```
 
@@ -404,7 +609,8 @@ Now, the regression model we have be experimenting with so far is a simple bivar
 As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect GSCE scores. Let's try the log or ^-1 transformed house price variable from earlier (the rationalle being that higher house prices indicate more affluence and therefore, potentially, more engagement with education):
 
 ```{r, message=FALSE, cache=TRUE}
-model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles)
+model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+               log(`Median House Price (£) - 2014`), data = LonWardProfiles)
 
 #show the summary of those outputs
 summary(model2)
@@ -509,7 +715,6 @@ str(tempdf)
 corrplot(cormat, type = "lower", tl.cex = 0.5)
 
 ```
-
 
 ### Assumption 4 - Homoscedasticity
 
@@ -639,7 +844,8 @@ Let's run the original model again to remind ourselves of the paramters:
 
 ```{r, message=FALSE, cache=TRUE}
 #Original Model
-model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles)
+model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+               log(`Median House Price (£) - 2014`), data = LonWardProfiles)
 
 summary(model2)
 ```
@@ -648,7 +854,8 @@ summary(model2)
 library(spatialreg)
 
 #run a spatially-lagged regression model with a queen's case weights matrix
-slag_dv_model2_queen <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_nb, style="C"), method = "eigen")
+slag_dv_model2_queen <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+                                   log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_nb, style="C"), method = "eigen")
 
 #what do the outputs show?
 summary(slag_dv_model2_queen)
@@ -658,7 +865,8 @@ Running the spatially-lagged model with a Queen's case spatial weights matrix re
 
 ```{r, message=FALSE, cache=TRUE}
 #run a spatially-lagged regression model
-slag_dv_model2_knn4 <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
+slag_dv_model2_knn4 <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+                                  log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
 
 #what do the outputs show?
 summary(slag_dv_model2_knn4)
@@ -697,7 +905,8 @@ For more detail on the spatial error model, see Ward and Gleditsch (2008) -  htt
 We can run a spatial error model on the same data below:
 
 ```{r, message=FALSE, cache=TRUE}
-sem_model1 <- errorsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
+sem_model1 <- errorsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+                           log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
 
 summary(sem_model1)
 ```
@@ -739,7 +948,9 @@ Let's try it!
 LonWardProfiles$InnerOuter <- as.factor(LonWardProfiles$InnerOuter)
 
 #now run the model
-model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter`, data = LonWardProfiles)
+model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+               log(`Median House Price (£) - 2014`) + 
+               `InnerOuter`, data = LonWardProfiles)
 
 summary(model3)
 ```
@@ -761,7 +972,9 @@ If we want to change the reference group, there are various ways of doing this. 
 ```{r, message=FALSE, cache=TRUE}
 LonWardProfiles$InnerOuter <- relevel(LonWardProfiles$InnerOuter, ref="Outer")
 
-model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter`, data = LonWardProfiles)
+model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+               log(`Median House Price (£) - 2014`) + 
+               `InnerOuter`, data = LonWardProfiles)
 
 summary(model3)
 ```
@@ -795,7 +1008,8 @@ myvars <- c("Average GCSE capped point scores - 2014","Unauthorised Absence in A
 cormat <- cor(tempdf[myvars], use="complete.obs", method="pearson")
 
 #run a final OLS model
-model_final <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter` + `Rate of JobSeekers Allowance (JSA) Claimants - 2015` + `% with Level 4 qualifications and above - 2011`, data = LonWardProfiles)
+model_final <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
+                    log(`Median House Price (£) - 2014`) + `InnerOuter` + `Rate of JobSeekers Allowance (JSA) Claimants - 2015` + `% with Level 4 qualifications and above - 2011`, data = LonWardProfiles)
 
 summary(model_final)
 
