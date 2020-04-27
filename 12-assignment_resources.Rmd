@@ -58,7 +58,7 @@ There are a lot of free online books for geospatial analysis, especially using R
 * [Engineering Production-Grade Shiny Apps](https://thinkr-open.github.io/building-shiny-apps-workflow/)
 * [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](http://www.paulamoraga.com/book-geospatial/index.html)
 * [Statistical Inference via Data Science](https://moderndive.com/)
-* [Fundamentals of Data Visualization]([https://serialmentor.com/dataviz/index.html])
+* [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/index.html)
 * [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
 
 If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.

@@ -636,6 +636,7 @@ heat<-ggplot(randomdf, aes(x = Urban, y = Temperature))+
 ggplotly(heat)
 ```
 
+It's a masterpiece!
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
