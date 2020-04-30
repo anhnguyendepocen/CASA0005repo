@@ -42,7 +42,7 @@ New packages and functions that i've recently come across that are worth explori
 
 There are a lot of free online books for geospatial analysis, especially using R, check out:
 
-* [Data Visualization A practical introduction https://socviz.co/index.html#preface](https://socviz.co/index.html#preface)
+* [Data Visualization A practical introduction](https://socviz.co/index.html#preface)
 * [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)
 * [Everything you need for Exploratory Data Analysis & Visualization](https://edav.info/index.html)
 * [What They Forgot to Teach You About R](https://whattheyforgot.org/)
