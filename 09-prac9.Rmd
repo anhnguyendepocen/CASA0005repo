@@ -447,7 +447,7 @@ However, it really annoys me that sometimes column names get crazy, for example 
 
 Wound't it be good if there was a way to just standardise all names? Well we can with the help from `Janitor`
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
 ```
 
