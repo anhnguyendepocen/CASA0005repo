@@ -4,9 +4,25 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 # External usage {-}
 
-## Statement of need {-}
+## How to adopt this course {-}
 
-## How to adapt this course {-}
+All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to it's size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
+
+There are two main options to adpot this course:
+
+1. Adpot the course in it's entirety by forking the repository on GitHub and Pulling to your local machine or simply download a `.zip` file containing the entire course
+
+2. Adpot a single practical by downloading the `.rmd` file and associated data. 
+
+Instructions can be found in the section [How to download data and files from GitHub]
+
+## Issues / contributions {-}
+
+To raise an issue simply log it on the [GitHub issues tab for the repository](https://github.com/andrewmaclachlan/CASA0005repo/issues).
+
+To propose an edit click on the edit symbol in the top tool bar (see [How to use this book]) and submit it for review.
+
+If you wish to contribute material or data then please contact the course convenor Andy MacLachlan (details below).
 
 ## License {-}
 
@@ -33,7 +49,6 @@ The code within this pracical book is available under the [MIT license](https://
 ## Version {-}
 
 This is version 2.0 of the practical book
-
 
 ## Packages {-}
 

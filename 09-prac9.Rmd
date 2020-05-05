@@ -481,7 +481,8 @@ ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_2013,
   labs(x="unauthorised absence in all schools 2013 (%)",
        y="Average GCSE capped point scores 2014")
 
-ggsave("mtcars.png")
+#save the file if you need to
+#ggsave("insert_filepath and name")
 
 ```
 You'll notice that this plot is slightly different to the one we first produced in [Regression Basics] as we've used `geom_point()` not `geom_jitter()` the latter adds a small amount of random variation to the points (not the data). If change in to `geom_point()` you will get the same plot as we just produced (apart from the bootstrap fitted lines obviously). We will use `qplot()` again, it is from the packaged `quickplot` and lets us make quick plots with similar code to `ggplot`, but avoid if when you have large amounts of data --- use `ggplot()`.
