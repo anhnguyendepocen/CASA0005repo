@@ -12,6 +12,8 @@ library(knitr)
 
 **Submission:** PDF via Moodle. If anything other than a .pdf is submitted it will not be marked. 
 
+**Coversheet:** You must have a coversheet at the start of your assignment (included within the single PDF) that includes your title, department, GitHub repository URL and any online website / instructions you have created (e.g. RPubs). 
+
 **Weighting:** This assessment makes up 100% of the marks for this module but is divided into two parts (worth 50% each) that must be submitted together in a single PDF document.
 
 **Assessment outline:**
@@ -42,7 +44,7 @@ include_graphics('assignment/GIS-MarkScheme-2019.pdf', auto_pdf = getOption("kni
 )
 ```
 
-You can also download this [mark scheme from my GitHub]()
+You can also download this [mark scheme from my GitHub](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/assignment/GIS-MarkScheme-2019.pdf)
 
 ## Expected timeline
 
@@ -72,6 +74,10 @@ Similarly any academic misconduct will follow the [UCL adjudication and penalty 
 
 We will follow the mark scheme for this course available on Moodle.
 
+**What spatial scale should i use**
+
+Data is key to the assignment, i would avoid anything at the Borough level or coarser (or equivalent in other global city). Find decent data first then develop your question.
+
 **Can I use multiple datasets**
 
 Yes, you can use as many as you like as long as they are appropriate for the research question/hypothesis.
@@ -94,7 +100,7 @@ We recommend that you follow the format of a traditional scientific detailed abo
 
 **What do you mean by ‘You must not reuse the data we provided in the practical sessions’**
 
-Any data we have used in the practical session must not appear in your final assessment. However, if you wanted to use data collected from the same source but of a different study area that would be acceptable. For example, Landsat data over Paris or Airbnb data from Berlin are fine, but do not just replicate the practical analysis in a different area.
+Any data we have used in the practical session must not appear in your final assessment. However, if you wanted to use data collected from the same source but of a different study area that would be acceptable. For example, Landsat data over Paris or Airbnb data from Berlin are fine. You can use code and ideas from the practicals, but do not just directly copy it with the data we have given you. For example, you could explore the relationship between two varaibles and combine methods from across the practicals, perhaps bootstrap resampling and cross validation?
 
 **So where do I get the data from**
 
@@ -119,6 +125,10 @@ Yes, but only where appropriate for your data and analysis. You can recreate any
 **How can I show my code / Arc or QGIS tool within the assignment**
 
 If you want to provide reproducible code for your analysis then follow the relevant practical within the practical book. You can then provide a hyperlink to the url/repository within your PDF report. If you have made ArcMap or QGIS model you should still be able to upload it to GitHub, GoogleDirve, Dropbox or OneDrive and provide a hyperlink. However, make sure that whatever you choose to do, it is reproducible with appropriate documentation
+
+**I've used a large dataset do i need to provide all of it**
+
+No, please do not upload a large file (e.g. 10GB). If you have made use of a large dataset (e.g. perhaps earth observation data) then either just share the data for the study area or include  details of the data you used so someone else could find it and replicate the analysis. 
 
 **Does my code / associated Readme file / documentation / online site count towards the word limit**
 

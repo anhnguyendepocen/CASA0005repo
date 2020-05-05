@@ -106,12 +106,11 @@ R package authors regularly tweet with updates and new developments. If twitter 
 
 I often learn about a lot of new R pacakges / code / isuues from Twitter!
 
-
 ## Data
 
 This is by no means an extensive data list, but summarises data used within some of the practicals alongside a few additions that you might want to explore when sourcing data for your assignments. You are **not limited** to these data sets for you assessment.
 
-* Google datas search: https://datasetsearch.research.google.com/
+* Google dataset search: https://datasetsearch.research.google.com/
 * Tesco store data (London): https://www.nature.com/articles/s41597-020-0397-7
 * NHS data (ready for R): https://nhs-r-community.github.io/NHSRdatasets/
 * US City Open Data Census: http://us-cities.survey.okfn.org/
@@ -143,6 +142,7 @@ This is by no means an extensive data list, but summarises data used within some
 * Eurostat: https://ec.europa.eu/eurostat
 * Animal tracking: https://www.movebank.org/
 * London Tube PM2.5 levels: https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d
+* Bike docking data in an R package: https://docs.ropensci.org/bikedata/
 
 * Correct statistical tests: https://stats.idre.ucla.edu/other/mult-pkg/whatstat/
 

@@ -71,10 +71,12 @@ library(car)
 read some ward data in
 ```{r, eval=FALSE}
 #download a zip file containing some boundaries we want to use
-download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip", destfile="prac9_data/statistical-gis-boundaries-london.zip")
+download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip", 
+              destfile="prac9_data/statistical-gis-boundaries-london.zip")
 
 #unzip it
-unzip("prac9_data/statistical-gis-boundaries-london.zip", exdir="prac9_data")
+unzip("prac9_data/statistical-gis-boundaries-london.zip", 
+      exdir="prac9_data")
 ```
 
 ```{r, message=FALSE, cache=TRUE}
@@ -82,7 +84,8 @@ unzip("prac9_data/statistical-gis-boundaries-london.zip", exdir="prac9_data")
 list.dirs("prac9_data/statistical-gis-boundaries-london")
 
 #read in the boundaries from the file you have just unzipped into your working directory
-LondonWardsss <- readOGR("prac9_data/statistical-gis-boundaries-london/ESRI/London_Ward_CityMerged.shp", layer="London_Ward_CityMerged")
+LondonWardsss <- readOGR("prac9_data/statistical-gis-boundaries-london/ESRI/London_Ward_CityMerged.shp", 
+                         layer="London_Ward_CityMerged")
 
 #convert it to a simple features object
 LondonWardsssSF <- st_as_sf(LondonWardsss)
@@ -135,11 +138,15 @@ Now you have read in both your boundary data and your attribute data, you need t
 
 ```{r, message=FALSE, cache=TRUE}
 #merge boundaries and data
-LonWardProfiles <- left_join(LondonWardsssSFBNG, LondonWardProfiles, by = c("GSS_CODE" = "New code"))
+LonWardProfiles <- left_join(LondonWardsssSFBNG,
+                             LondonWardProfiles, 
+                             by = c("GSS_CODE" = "New code"))
 
 #let's map our dependent variable to see if the join has worked:
 tmap_mode("view")
-qtm(LonWardProfiles, fill = "Average GCSE capped point scores - 2014", borders = NULL)
+qtm(LonWardProfiles, 
+    fill = "Average GCSE capped point scores - 2014", 
+    borders = NULL)
 
 #we could even use plotly
 #plot_ly(
@@ -165,7 +172,9 @@ Let's add some schools data as well.
 london_schools <- read_csv("https://data.london.gov.uk/download/london-schools-atlas/57046151-39a0-45d9-8dc0-27ea7fd02de8/all_schools_xy_2016.csv")
 
 #from the coordinate values stored in the x and y columns, which look like they are latitude and longitude values, create a new points dataset
-lon_schools_sf <- st_as_sf(london_schools, coords = c("x","y"), crs = 4326)
+lon_schools_sf <- st_as_sf(london_schools, 
+                           coords = c("x","y"), 
+                           crs = 4326)
 
 #now pull out the secondary schools
 #these are the same - one uses grep() and one uses the stringr() package
@@ -199,10 +208,13 @@ For those of you who know a bit about regression, you might want to skip down to
 The linear relationship in a regression model is probably most easily explained using a scatter plot:
 
 ```{r, message=FALSE, cache=TRUE}
-q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, y = `Average GCSE capped point scores - 2014`, data=LonWardProfiles)
+q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, 
+           y = `Average GCSE capped point scores - 2014`, 
+           data=LonWardProfiles)
 
 #plot with a regression line - note, I've added some jitter here as the x-scale is rounded
-q + stat_smooth(method="lm", se=FALSE, size=1) + geom_jitter()
+q + stat_smooth(method="lm", se=FALSE, size=1) + 
+  geom_jitter()
 
 ```
 
@@ -244,7 +256,8 @@ Below is the code that could be used to draw the blue line in our scatter plot. 
 
 ```{r, message=FALSE, cache=TRUE}
 #run the linear regression model and store its outputs in an object called model1
-model1 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, data = LonWardProfiles)
+model1 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, 
+             data = LonWardProfiles)
 
 #show the summary of those outputs
 summary(model1)
