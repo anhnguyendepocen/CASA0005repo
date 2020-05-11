@@ -1,3 +1,12 @@
+title: "CASA0005 Geographic Information Systems and Science"
+author: "Andrew MacLachlan and Adam Dennett"
+description: "This book introduces the ABC theory, and ..."
+url: "https://andrewmaclachlan.github.io/CASA0005repo/"
+github-repo: "andrewmaclachlan/CASA0005repo"
+cover-image: "general_images/casa_logo.png"
+apple-touch-icon: "touch-icon.png"
+apple-touch-icon-size: 120
+favicon: "favicon.ico"
 bookdown::gitbook:
   includes:
     in_header: [google_analytics.html]
