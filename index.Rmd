@@ -36,6 +36,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [rstudio4edu](https://rstudio4edu.github.io/rstudio4edu-book/)
 * [Hadley Wickham](https://twitter.com/hadleywickham)
 * [Alison Presmanes Hill](https://twitter.com/apreshill)
+* [Desirée De Leon](https://twitter.com/dcossyle)
 * [Yihui Xie](https://twitter.com/xieyihui)
 * [Robin Lovelace](https://twitter.com/robinlovelace)
 * [Twitter for R programmers](https://www.t4rstats.com/index.html)
