@@ -49,17 +49,17 @@ knitr::include_graphics('general_images/Book_controls.png')
 
 From left to right these buttons will let you:
 
-* Control the side bar
+* <i class="fa fa-bars"></i> control the side bar
 
-* Search the entire book for a specific word
+* <i class="fa fa-search"></i> search the entire book for a specific word
 
-* Change the text size, font, colour
+* <i class ="fa fa-font settings"></i> change the text size, font, colour
 
-* Propose an edit if you see a mistake that I can review
+* <i class ="fa fa-edit"></i> propose an edit if you see a mistake that I can review
 
-* View the webpage in the 'raw' RMarkdown format, we cover RMarkdown in the course 
+* <i class="fa fa-download"></i> view the webpage in the 'raw' RMarkdown format, we cover RMarkdown in the course 
 
-* Gives information about shortcuts for this book and most others like it
+* <i class="fa fa-info"></i> gives information about shortcuts for this book and most others like it
 
 ## Getting started {-}
 

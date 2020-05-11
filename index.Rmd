@@ -9,8 +9,13 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: andrewmaclachlan/CASA0005repo
-description: "CASA"
+description: "The CASA0005 Geographic Information Systems and Science practical book"
 twitter-handle: andymaclachlan
+url: "https://andrewmaclachlan.github.io/CASA0005repo/"
+cover-image: "general_images/casa_logo.png"
+apple-touch-icon: "apple-touch-icon.png"
+apple-touch-icon-size: 120
+favicon: "favicon.ico"
 ---
 
 ```{r include = FALSE}
@@ -27,8 +32,8 @@ Welcome to the CASA0005 Geographic Information Systems and Science online pratic
 
 Thanks to the following people who have either contributed directly or provided code in repositories that have helped me style this book:
 
-* [Jenny Bryan](https://twitter.com/JennyBryan)
 * [STAT 545](https://stat545.com/index.html#other-contributors)
+* [rstudio4edu](https://rstudio4edu.github.io/rstudio4edu-book/)
 * [Hadley Wickham](https://twitter.com/hadleywickham)
 * [Alison Presmanes Hill](https://twitter.com/apreshill)
 * [Yihui Xie](https://twitter.com/xieyihui)
@@ -37,6 +42,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [Matt Ng](https://twitter.com/mattnkm)
 * [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
 * [Julia Silge](https://twitter.com/juliasilge)
+* [Jenny Bryan](https://twitter.com/JennyBryan)
 
 The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
 
