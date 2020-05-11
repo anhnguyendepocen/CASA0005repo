@@ -1,7 +1,7 @@
 bookdown::gitbook:
   includes:
-    in_header: [google_analytics.html, javaheader.html]
-  css: style.css
+    in_header: [assets/google_analytics.html, assets/javaheader.html, assets/hypothesis.html]
+  css: assets/style.css
   config:
     toc:
       collapse: section
@@ -21,7 +21,7 @@ bookdown::gitbook:
     sharing:
       github: yes
       facebook: no
-      twitter: yes
+      twitter: no
       all: no
 download: ["rmd"]
 bookdown::pdf_book:

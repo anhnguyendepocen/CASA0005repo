@@ -10,12 +10,11 @@ biblio-style: apalike
 link-citations: yes
 github-repo: andrewmaclachlan/CASA0005repo
 description: "The CASA0005 Geographic Information Systems and Science practical book"
-twitter-handle: andymaclachlan
 url: "https://andrewmaclachlan.github.io/CASA0005repo/"
 cover-image: "general_images/casa_logo.png"
-apple-touch-icon: "apple-touch-icon.png"
+apple-touch-icon: "assets/apple-touch-icon.png"
 apple-touch-icon-size: 120
-favicon: "favicon.ico"
+favicon: "assets/favicon.ico"
 ---
 
 ```{r include = FALSE}
