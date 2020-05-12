@@ -282,7 +282,7 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/ArcGISvsQGIS.png')
 ```
-### ArcGIS
+#### ArcGIS
 
 ArcGIS is a huge and complex suite of software, see [ArcGIS suite] for more information. Thankfully it has an excellent help system –-- depending on the version you are using (they are all quite similar anyway) you can access the online help system here:
 
