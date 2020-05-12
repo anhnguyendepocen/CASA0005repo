@@ -10,9 +10,9 @@ library(knitr)
 
 **Deadline:** Monday 13th January 2020, 5pm. There are no opportunities to submit a second version after this deadline, this means it's a one time only submission.
 
-**Submission:** PDF via Moodle. If anything other than a .pdf is submitted it will not be marked. 
+**Submission:** PDF via Moodle. If anything other than a .pdf is submitted **it will not be marked**. 
 
-**Coversheet:** You must have a coversheet at the start of your assignment (included within the single PDF) that includes your title, department, GitHub repository URL and any online website / instructions you have created (e.g. RPubs). 
+**Coversheet:** You must have a coversheet at the start of your assignment (included within the single PDF) that includes your title, department, GitHub repository URL and any online website / instructions you have created (e.g. RPubs). There is no standard format for the cover sheet, just ensure it has all the required information. It is not included in the word count.
 
 **Weighting:** This assessment makes up 100% of the marks for this module but is divided into two parts (worth 50% each) that must be submitted together in a single PDF document.
 
