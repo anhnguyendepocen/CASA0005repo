@@ -11,8 +11,7 @@ By the end of this practical you should be able to:
 
 ## Homework 
 
-::: {.infobox .note data-latex="{note}"}
-
+::: {.infobox .assignment data-latex="{note}"}
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 **Assignment**

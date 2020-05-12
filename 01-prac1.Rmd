@@ -15,7 +15,7 @@ By the end of this practical you should be able to:
 
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
-::: {.infobox .note data-latex="{note}"}
+::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
 
 This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I'd recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it.

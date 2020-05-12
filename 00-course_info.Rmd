@@ -61,7 +61,7 @@ From left to right these buttons will let you:
 
 * <i class="fa fa-info" fa-lg></i> information about shortcuts for this book and most others like it
 
-The <i class="fa fa-github fa-lg"> icon in the top right of the page takes you to the GitHub repository for this book and the 
+The <i class="fa fa-github fa-lg"></i> icon in the top right of the page takes you to the GitHub repository for this book.
 
 ## Getting started {-}
 

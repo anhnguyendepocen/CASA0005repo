@@ -11,20 +11,23 @@
   color: #2ea8b3;
   background-color: #fcfcfc;
 }
+.assignment {
+  background-image: url("../general_images/hat.png");
+}
 .caution {
-  background-image: url("general_images/caution.png");
+  background-image: url("../general_images/caution.png");
 }
 .important {
-  background-image: url("general_images/important.png");
+  background-image: url("../general_images/important.png");
 }
 .note {
-  background-image: url("general_images/design.png");
+  background-image: url("../general_images/design.png");
 }
 .tip {
-  background-image: url("general_images/lightbulb.png");
+  background-image: url("../general_images/lightbulb.png");
 }
 .warning {
-  background-image: url("general_images/gotcha_2.png");
+  background-image: url("../general_images/gotcha_2.png");
 }
 p.caption {
   color: #777;
@@ -151,3 +154,57 @@ a.anchor:hover {
 .book .book-summary ul.summary li.divider {
     height: 0px;
 }
+
+/* ------------Links------------------ */
+
+.book .book-body .page-wrapper .page-inner section.normal a {
+  color: #157f8e;
+}
+
+/*____Code Chunks____*/
+
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
+
+.sourceCode {
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+}
+
+/* --------------Two columns--------------- */
+
+.col2 {
+  columns: 2 200px;         /* number of columns and width in pixels*/
+  -webkit-columns: 2 200px; /* chrome, safari */
+  -moz-columns: 2 200px;    /* firefox */
+}
+
+
+.side-by-side {
+  display: flex;
+}
+
+.side1 {
+  width: 40%;
+}
+
+.side2 {
+  width: 58%;
+  margin-left: 1rem;
+}
+
+/* --------------Even split- two columns--------------- */
+
+.split {
+  display: flex;
+}
+
+.split1 {
+  width: 50%;
+  padding-right: 20px;
+}
+
+.split2 {
+  width: 50%;
+}
+

@@ -1,6 +1,6 @@
 --- 
 title: "CASA0005 Geographic Information Systems and Science"
-author: "Andy MacLachlan and Adam Dennett"
+author: Andy MacLachlan^[The Bartlett Centre for Advanced Spatial Analysis, https://twitter.com/andymaclachlan] and Adam Dennett^[The Bartlett Centre for Advanced Spatial Analysis, https://twitter.com/adam_dennett]
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -8,10 +8,10 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: andrewmaclachlan/CASA0005repo
+github-repo: "andrewmaclachlan/CASA0005repo"
 description: "The CASA0005 Geographic Information Systems and Science practical book"
-url: "https://andrewmaclachlan.github.io/CASA0005repo/"
-cover-image: "general_images/casa_logo.png"
+url: 'https\://andrewmaclachlan.github.io/CASA0005repo/'
+cover-image: general_images/casa_logo.png
 apple-touch-icon: "assets/apple-touch-icon.png"
 apple-touch-icon-size: 120
 favicon: "assets/favicon.ico"
@@ -25,11 +25,13 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 <a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" width="150" alt="CASA0005 course" align="right" style="margin: 0 1em 0 1em" /></a>
 
-Welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns. How to access this data is explained in [Hello GIS].
+Welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns. Accessing this data is explained in the [section hello GIS](#Hello GIS).
 
 ## Acknowledgement {-}
 
 Thanks to the following people who have either contributed directly or provided code in repositories that have helped me style this book:
+
+<div class="col2">
 
 * [STAT 545](https://stat545.com/index.html#other-contributors)
 * [rstudio4edu](https://rstudio4edu.github.io/rstudio4edu-book/)
@@ -43,7 +45,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
 * [Julia Silge](https://twitter.com/juliasilge)
 * [Jenny Bryan](https://twitter.com/JennyBryan)
-
+</div><br/>
 The artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst) and you can find all the images on Allison's [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations)
 
 I've certainly learnt a lot from their open code repositories!

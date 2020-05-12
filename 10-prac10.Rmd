@@ -11,7 +11,7 @@
 
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
-::: {.infobox .note data-latex="{note}"}
+::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
 
 From weeks 10 until the assignment deadline, undertake your analysis, then write up your discussion and conclusion **(that includes recommendations)**.
