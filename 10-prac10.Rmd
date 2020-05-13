@@ -290,7 +290,7 @@ In terms of code clarity i'm going to refer to [section 21.5 on iteration](https
 
 "Some people will tell you to avoid for loops because they are slow. They’re wrong! (Well at least they’re rather out of date, as for loops haven’t been slow for many years). The chief benefits of using 'other functions' is not speed, but clarity: they make your code easier to write and to read". 
 
-That said, within this course you are not marked on how 'good' or 'efficient' your code is. Sure, i want you to write great code, but if you are writing code for your assigment or any future project really, my advice is the same. Get something that work and addresses the mark scheme (read the mark scheme!) and then if you have time, improve it later on. There is also a section later on about writing advanced code in the assignment. 
+That said, within this course you are not marked on how 'good' or 'efficient' your code is. Sure, i want you to write great code, but if you are writing code for your assigment or any future project really, my advice is the same. Get something that works and addresses the mark scheme (read the mark scheme!) and then if you have time, improve it later on. There is also a section later on about writing advanced code in the assignment. 
 
 ### Advanced mapping (again)
 

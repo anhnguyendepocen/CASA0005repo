@@ -8,7 +8,7 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: yes
       before: |
-        <li><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005">CASA0005</a></li>
+        <li class="toc-logo"><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005"><img src="general_images/casa_logo.jpg"></a></li>
       after: |
         <li><center>
           <a rel="license" href="./external-usage.html#license">
