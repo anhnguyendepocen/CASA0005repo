@@ -96,7 +96,7 @@ t
 boroughsandwards<-data[t]
 ```
 
-4. Now read in both of the files using ```lapply()``` that applies a function (here `st_read()`) to a list 
+4. Now read in both of the files using ```lapply()``` that applies a function (here `st_read()` from the `sf` package) to a list 
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
 boroughsandwardssf<-lapply(boroughsandwards, st_read)
@@ -444,7 +444,7 @@ tmp2 <- crop_shape(hold[[2]], hold[[1]], polygon = TRUE)
 
 # check it worked, you should be 
 #able to see the river
-plot(sf::st_geometry(tmp2))
+plot(st_geometry(tmp2))
 ```
 
 13. Now we need to join our wards data and borough data togther to give us a borough  value for each ward within...
@@ -608,7 +608,7 @@ testData  <- joinednames[-trainingRowIndex, ]
 
 Now let's build the model...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # build the model
 lmMod <- lm(Wardcount ~ Boroughcount, data=trainingData)  
 # use the model to make some predicitons with our test data
@@ -724,10 +724,11 @@ Results show that our cross validated model accounts for around 60% of varaince 
 We'll get our OSM data, project it, extract only hotels, join it with the boroughs, set any NAs to 0, join it with the wards, rename the new 'freq' coloumn to Hotel count, remove the geometry and then set any more NAs to 0...
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
+
 # read in OSM data
 OSM <- st_read("prac10_data/gis_osm_pois_a_free_1.shp")
-# project it
 
+# project it
 OSM <- st_transform(OSM, 27700)
 
 # select only hotels
