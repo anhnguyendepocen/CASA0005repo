@@ -52,6 +52,13 @@ If you are using Git with your project and have large data it's best to set up a
 
 This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
 
+GitHub has a maximum file upload size of 50mb....image credit [reddit r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/gm69za/my_girlfriend_crocheted_my_favourite_meme_as_a/)
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/gitignore.jpg')
+```
+
+
 ### Remote sensing background (required)
 
 * Landsat is raster data

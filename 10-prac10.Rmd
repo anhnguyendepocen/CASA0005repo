@@ -55,9 +55,8 @@ Here we will be using London brough and ward data from practical 1. As we're get
 
 1. Download and unzip the London statistical gis boundaries.
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 # make a temp file to store the .zip in
-library(sf)
 temp <- tempfile()
 download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip",temp)
 # unzip data into a folder (exdir) of your choice
@@ -68,7 +67,7 @@ unlink(temp)
 
 Using a recent update we could also change this a bit with the `pins()` package that downlaods and caches the url and automatically checks for file changes, only re-downloading if needed!
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, results=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, results=FALSE}
 library(pins)
 pinexample<-pin("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip")
 ```
@@ -77,7 +76,7 @@ pinexample<-pin("https://data.london.gov.uk/download/statistical-gis-boundary-fi
 
 2. Take the downloaded data and filter it based on the filename that countains: Borough OR Ward_ AND `.shp` using `grepl()`
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 data <- unzip("prac10_data/statistical-gis-boundaries-london.zip", exdir="prac10_data")
 ```
 
@@ -92,19 +91,20 @@ t
 
 3. We then need to use it to subset from our original data...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 boroughsandwards<-data[t]
 ```
 
 4. Now read in both of the files using ```lapply()``` that applies a function (here `st_read()` from the `sf` package) to a list 
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
+library(sf)
 boroughsandwardssf<-lapply(boroughsandwards, st_read)
 ```
 
 To map or access each individual shapefile it's just...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, output=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, output=FALSE}
 library(tmap)
 qtm(boroughsandwardssf[[2]]) 
 # or change to 1 
@@ -112,14 +112,14 @@ qtm(boroughsandwardssf[[2]])
 
 5. Get the data for Airbnb
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, output=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, output=FALSE}
 library(tidyverse)
 Airbnb <- read_csv("http://data.insideairbnb.com/united-kingdom/england/london/2019-07-10/visualisations/listings.csv")
 ```
  
 6. And for OSM we'll download it from geofabrik, you can also use the OSM Application Programming Interface (API) but there is a limit on the number of points downloadable per call so you'd have to do something a bit more complicated to get the whole of London...however, I have provided an example of the api call.
 
-```{r eval=FALSE, cache=TRUE, warning=FALSE, message=FALSE}
+```{r eval=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
 library(memisc)
 temp2 <- tempfile()
 download.file("http://download.geofabrik.de/europe/great-britain/england/greater-london-latest-free.shp.zip",
@@ -135,7 +135,7 @@ unlink(temp2)
 
 Example of using the API....
 
-```{r, eval=FALSE, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, eval=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
 library(osmar)
 src <- osmsource_api(url = "https://api.openstreetmap.org/api/0.6/")
 # 1000 refers to distance from centre point
@@ -152,14 +152,14 @@ hway <- subset(LDN, ids = hway)
 
 7. Next up we need to project our `.shp` data ...we could project our data indiviudally using:
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 st_transform(boroughsandwardssf[[1]], 27700)
 st_transform(boroughsandwardssf[[2]], 27700)
 ```
 
 or use `lapply()` again...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 library(plyr)
 
 boroughsandwardssf<- lapply(boroughsandwardssf, crs=27700, st_transform)
@@ -178,7 +178,7 @@ Airbnb <- st_transform(Airbnb, 27700)
 
 8. Now remember our function we made for joining our Airbnb data (or Hotels) to the London boroughs layer... let's make the fucntion again...
 
-```{r cache=TRUE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE}
 
 Joinfun <- function(data1, data2) {
   # join OSM and London boroughs
@@ -199,7 +199,7 @@ Joinfun <- function(data1, data2) {
 
 9. Ok, but we want to get a count of Airbnb points per London ward and Borough...how can we do that?...well manually of course...like this...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 Airbnbborough <- Joinfun(Airbnb, boroughsandwardssf[[1]])
 Airbnbward <- Joinfun(Airbnb, boroughsandwardssf[[2]])
 ```
@@ -210,7 +210,7 @@ Tell us what a loop is aleady?
 
 A loop let's you go over something adding 1 (or any value) each time...for example let's look a basic loop. You need to run everything in the loop at once from the while to the }. If you make just a normal Rscript you can set breakpoints --- the code will the stop each time it hits the breakpoint within the loop. You can't do this at the moment with RMarkdown code chunks, i normally develop the loop outside of it looping then put it all together.
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # set up a variable  
 basicloop <- 1
 # so while our variable is less than 
@@ -229,7 +229,7 @@ That loop outputs the values of 1-5, as we started with a value of 1, then added
 
 We can also save these results to diffrent variables but we need to make a list (or dataframe/ whatever you need) to start with to save them in
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # here is my empty list
 emptylist <- list()
   
@@ -244,7 +244,7 @@ while (basicloop < 6) {
 
 Here we are using the varaible `basicloop` to index our emptylist.. so everytime we add 1 it changes the index value....have a look what i mean...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 emptylist
 emptylist[[1]]
 emptylist[[2]]
@@ -254,7 +254,7 @@ Right, so how are we going to apply this to our data. We have two `.shp` files (
 
 Firstly let's set up the length to stop at, make an empty list and a starting point. As our data is in a list we just want the length of that (as a number)..
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # get the length - add 1 as we are using less than
 boroughlen<-length(boroughsandwardssf)+1
 # empty list
@@ -265,7 +265,7 @@ i<-1
 
 Now here is the loop..
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 
 # while i is less than boroughlength 
 # max of boroughlength is 3
@@ -393,7 +393,7 @@ wardandboroughs
 
 Have a look around the map...Westminster borough uses a scale considering all other London borough values, whilst the ward scale is specific to Westminster. Use the following code to explore the values...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # range of Airbnbs per ward in Westminster
 wardsrange<-c(min(wardsatborough$freq), max(wardsatborough$freq))
 wardsrange
@@ -401,7 +401,7 @@ wardsrange
 Borough$freq
 ```
 
-```{r, fig.show="hide", eval=FALSE, include=FALSE, cache=TRUE}
+```{r, fig.show="hide", eval=FALSE, include=FALSE, cache=FALSE}
 tmap_mode("view")
 tm_shape(Borough) +
   tm_borders(lwd=2)+
@@ -422,7 +422,7 @@ In this part of the practical we're going to try and model the relationship betw
 
 This section will also show you how to make/ use different regression models in R. Regression aims to find a mathematical equation to predict a value (in this case Airbnb at ward level) from one (or more) predictor variables (e.g. borough data). So we'll use values of X (borough data) to predict values of Y (ward data)...
 
-```{r echo=FALSE, out.width = "400", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac10_images/linear_regression.png') 
 ```
 
@@ -449,7 +449,7 @@ plot(st_geometry(tmp2))
 
 13. Now we need to join our wards data and borough data togther to give us a borough  value for each ward within...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # join wards and boroughs
 joined <- st_join(hold[[1]], tmp2, join=st_contains)
 # rename the coloumns 
@@ -460,7 +460,7 @@ joinednames<-dplyr::rename(joined, Boroughcount = freq.x, Wardcount = freq.y)
 
 14. To start with let's just visualise the relationship between the borough an ward count using a scatter plot. If you have multiple predictor variables (explied later on) a plot will be drawn for each of them...
 
-```{r cache=TRUE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE}
 scatter.smooth(x=joinednames$Boroughcount, 
                y=joinednames$Wardcount, 
                main="Borough count ~ Ward count",
@@ -474,7 +474,7 @@ The scatter plot shows some kind of linear relationship. The point variation aro
 
 15. Generally any point that is outside 1.5* the interquartile-range (or IQR) is considered an outlier (a data point that differs significantly from all others) and you could use something like the methods here to remove and replace them...the IQR is the distance between the 25th and 75th percentile..
 
-```{r cache=TRUE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE}
 par(mfrow=c(1, 2))  # divide graph area in 2 columns
 boxplot(joinednames$Boroughcount, main="Boroughs")
 boxplot(joinednames$Wardcount, main="Wards")
@@ -487,7 +487,7 @@ boxplot(joinednames$Wardcount, main="Wards")
 
 16. Correlation let's use see the level of linear dependence between two varaibles between -1 and 1. High values (towards 1) mean that for every x instance there is an increase in y. Low values (towards -1) mean the opposite. 
 
-```{r cache=TRUE, warning=FALSE, message=FALSE}
+```{r cache=FALSE, warning=FALSE, message=FALSE}
 stat_sig=cor.test(joinednames$Boroughcount, 
                   joinednames$Wardcount, 
                   use ="complete.obs",
@@ -501,7 +501,7 @@ stat_sig
 
 18. Now let's use a linear model to establish a relationship between predictor and response with the function `lm()`. Here we are calling the `lm()(then stating the Formula, then the data)`
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 linearMod <- lm(Wardcount ~ Boroughcount, data=joinednames)
 linearMod
 summary(linearMod)
@@ -552,23 +552,23 @@ See [this guide](https://feliperego.github.io/blog/2015/10/23/Interpreting-Model
 
 Remember the formula produced from the regression equation, well we can also extract this automatically ...to make that original formula in RMarkdown I used this (not within a code chunk)....
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 $$Wardcount = -3.8188 + 0.0541*Boroughcount$$
 ```
 
 But we can also extract it directly using a new package from GitHub...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # load remotes so we can get the new package
 library(remotes)
 ```
 
-```{r,  cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r,  cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 # get the new package equatiomatic()
 remotes::install_github("datalorax/equatiomatic")
 ```
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # load it
 library(equatiomatic)
 # extract the info to make the equation
@@ -577,7 +577,7 @@ extract_eq(linearMod)
 
 Play around with line length and use the actual coefficient names
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 extract_eq(linearMod, use_coefs = TRUE, wrap=TRUE, terms_per_line = 2)
 ```
 
@@ -596,7 +596,7 @@ Have a [look here](https://github.com/datalorax/equatiomatic) for more informati
 
 19. We've made a regression model using all of our data but there is now no way to test its validity...what if we take 20% as a test sample and use the remaining 80% to train it...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 # training 80% index
 trainingRowIndex <- sample(1:nrow(joinednames), 0.8*nrow(joinednames))
 # subset the data with the index
@@ -608,20 +608,23 @@ testData  <- joinednames[-trainingRowIndex, ]
 
 Now let's build the model...
 
-```{r, cache=FALSE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, message=FALSE, wanring=FALSE}
 # build the model
 lmMod <- lm(Wardcount ~ Boroughcount, data=trainingData)  
 # use the model to make some predicitons with our test data
 wardpredict <- predict(lmMod, testData)
-
-summary(lmMod)
+#summary(lmMod)
 
 # get R2, RMSE and MAE
 library(caret)
 predictions <- lmMod %>% predict(testData)
-data.frame( R2 = R2(predictions, testData$Wardcount),
+t<-data.frame( R2 = R2(predictions, testData$Wardcount),
             RMSE = RMSE(predictions, testData$Wardcount),
             MAE = MAE(predictions, testData$Wardcount))
+
+t
+#for some reason this will show in RStudio
+#but not the bookdown (this practical) output.
 ```
 
 20. We can use the R2, Root Mean Square Error and Mean Absolute Error. 
@@ -639,7 +642,7 @@ Where $d_i$ is the actual value,  $d_f$ is the predicted value, and $n$ is the n
 
 We could also just run a correlation between the data we left out and the predicted data to assess the accuracy...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 
 actuals_preds <- data.frame(cbind(actuals=testData$Wardcount,
                                   predicteds=wardpredict)) 
@@ -657,7 +660,7 @@ This shows us that we have a strong and statistically significant relationship b
 
 $$MinMaxAccuracy= mean\left( \frac{min(actuals, predicteds}{max(actuals, predicteds)} \right)$$
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 min_max_accuracy <- mean(apply(actuals_preds, 1, min, na.rm=TRUE) /
                            apply(actuals_preds, 1, max, na.rm=TRUE))  
 min_max_accuracy
@@ -668,7 +671,7 @@ min_max_accuracy
 $$MAPE= mean\left( \frac{abs(predicteds - actuals}{actuals} \right)$$
 
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 mape <- mean(abs((actuals_preds$predicteds -
                     actuals_preds$actuals))/
                actuals_preds$actuals, na.rm=TRUE)  
@@ -682,13 +685,13 @@ Here we've got a very high MAPE --- this is most likely because of the range of 
 
 23. Our validation approach so far was OK, but what if the test data was a different 20% --- would it still hold up? We can test this by dividing all our data into blocks and then running the analysis several times, each time selecting a different block to be the test data...this is called cross validation ...
 
-```{r, echo=FALSE, out.width = "600", fig.align='center', cache=TRUE}
+```{r, echo=FALSE, out.width = "600", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac10_images/cross_validation.jpg') 
 ```
 
 24. To start with we'll remove the geomtery, set up a data frame and replace any NAs with 0 --- this is appropraite here as if there are no Airbnbs within the ward they would be 0.
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 joinednamesdf<-as.data.frame(st_set_geometry(joinednames, NULL))
 joinednamesdf$Wardcount[is.na(joinednamesdf$Wardcount)] <- 0
 
@@ -696,7 +699,7 @@ joinednamesdf$Wardcount[is.na(joinednamesdf$Wardcount)] <- 0
 
 25. Now let's change our training data... here i've got 5 iterations then the whole lot is repeated 3 times. Search literautre for the right number to use, i think 10 iterations with no repeats is a good place to start. 
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 library(caret)
 model<- train(Wardcount ~ Boroughcount, 
               joinednamesdf,
@@ -723,7 +726,7 @@ Results show that our cross validated model accounts for around 60% of varaince 
 
 We'll get our OSM data, project it, extract only hotels, join it with the boroughs, set any NAs to 0, join it with the wards, rename the new 'freq' coloumn to Hotel count, remove the geometry and then set any more NAs to 0...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 
 # read in OSM data
 OSM <- st_read("prac10_data/gis_osm_pois_a_free_1.shp")
@@ -760,7 +763,7 @@ joined2df$Wardcount[is.na(joined2df$Wardcount)] <- 0
 
 27. Re run the model including Hotel count...you simply use a +
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 model2<- train(Wardcount ~ Boroughcount+Hotelcount, 
               joined2df,
               method="lm", 
@@ -777,7 +780,7 @@ summary(model2)
 
 The summary here shows that the hotel count predictor is not statistically significant so we should remove it...how about we add some population and house price data....download [the excel data from here](https://data.london.gov.uk/dataset/ward-profiles-and-atlas)
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 library("readxl")
 # read the excel sheet
 my_data <- read_excel("prac10_data/ward-profiles-excel-version.xls", sheet=2, col_names=TRUE)
@@ -808,7 +811,7 @@ joined3df$Median.House.Price.......2014[is.na(joined3df$Median.House.Price......
 
 28. Now run the model again
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 model3<- train(Wardcount ~ Boroughcount+Population...2015
                +Median.House.Price.......2014,
               joined3df,
@@ -827,13 +830,13 @@ Our R squared and adjusted R squared have increased (albeit slightly) and all pr
 
 ### Ridge regression 
 
-```{r, echo=FALSE, out.width = "300", fig.align='center', cache=TRUE}
+```{r, echo=FALSE, out.width = "300", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac10_images/ridge.jpg') 
 ```
 
 Least squares regression tries to minimise how far each point is away from the line...but if you look in this figure...the red dots are the training data and the green dots are the test data. Here normal OLS has been fitted to the training data perfcetly...the sum of the sqaured residuals (squared error distance from the line) is very small, probably 0. But when applied to the test data the sum of the squared residuals is large --- it therefore has high variance and would be termed to be overfitting the training data.
 
-```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=TRUE}
+```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=FALSE}
 knitr::include_graphics('prac10_images/ridge_eg.png') 
 ```
 
@@ -853,7 +856,7 @@ So if we were trying to minimise the sum of the sqaured residuals plus the ridge
 
 The penatly $\lambda * slope^2$ adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points...like this --- Ridge is the blue line that has become slightly more horizontal...
 
-```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=TRUE}
+```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=FALSE}
 knitr::include_graphics('prac10_images/ridge_eg2.png') 
 ```
 
@@ -862,7 +865,7 @@ But wait.... how do we calcualte $\lambda$, well we try a load of values and use
 
 29. Let's see an exmaple to show that if $\lambda$ is 0, then we have our box standard linear regression...as the penalty $\lambda * the slope^2$ will be 0, so we will just be minimising the sum of the sqaured residuals. 
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(broom)
 library(glmnet)
@@ -908,7 +911,7 @@ predict(ridge_mod, x=x,y=y, s = 0, exact = T, type = 'coefficients')
 
 30. The coefficient estaimtes should be the same or very very similar...now let's try and use ridge regression to improve upon our least squares regression...first let's show linear regression for comparison using the train data..
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 
 normallm2 <- lm(Wardcount ~ Hotelcount+Boroughcount+
                   Population...2015+
@@ -923,7 +926,7 @@ mean((s_pred-ytest)^2)
 
 31. Now we will find the best value for $\lambda$ using cross validation
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 
 #find the best lambda from our list via cross-validation
 # family = gaussian means linear regression
@@ -934,7 +937,7 @@ cv_out <- cv.glmnet(x[train,], y[train], alpha = 0, family="gaussian", type.meas
 
 Combined, this will fit a linear regression with a ridge regression penatly using 10-fold cross validation to find the best $\lambda$ value that minimises mean square error (average squared distance of the data points to the line). Let's apply it to the model...
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 plot(cv_out)
 
 # best value 
@@ -958,13 +961,13 @@ You can also doing this in a few less steps with the `ridge` package
 
 ### LASSO
 
-```{r, echo=FALSE, out.width = "200", fig.align='center', cache=TRUE}
+```{r, echo=FALSE, out.width = "200", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac10_images/LASSO.jpg') 
 ```
 
 Least absolute shrinkage and selection operator (LASSO) performs variable selection and regularisation to increase prediction accuracy of the model...the only difference to ridge is that the regularisation term is an absolute value. So instead of squaring the slope (like i metioned in Ridge regression), we take the absolute value. As a result LASSO regression can increase $\lambda$ then set irrelevant parameters to 0 (Ridge will just shrink them but not set to 0) --- relevant paramters might shink a little bit in both too. The advantage here is that LASSO can exclude useless variables --- so if you have a lot of variables it might be preferable. However, if most variables are useful then Ridge regression would probably work better.  
 
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
 #find the best lambda from our list via cross-validation
 cv_out <- cv.glmnet(x[train,], y[train], alpha = 1, family="gaussian", type.measure = "mse")
 
@@ -997,7 +1000,7 @@ In R, Elastic-Net Regression is where you change the alpha value between 0 and 1
 
 Let's compare the results of the MSE and r sqaured for the normallm2, LASSO and Ridge as we used the same predictors...this is the code to get the values we don't already have...
 
-```{r,cache=TRUE, warning=FALSE, message=FALSE}
+```{r,cache=FALSE, warning=FALSE, message=FALSE}
 summary(normallm2)$r.squared
 ```
 
@@ -1013,7 +1016,7 @@ It depends, just because Ridge regression seems to be the best for this applicat
 
 Easy...just go back through the code and use the the `predict()` function --- this will also work for linear models...
 
-```{r,cache=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r,cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 
 # replace with your data - this is just an example
 # setting intervals specifies confidence intervals
