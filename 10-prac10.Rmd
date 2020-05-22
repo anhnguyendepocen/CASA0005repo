@@ -1031,7 +1031,7 @@ predict(linearmodel, newdata, interval="confidence", level=0.95)
 
 It would be great if you could write your analysis in as least possible lines of code as possible...**BUT** you are not marked on how concise or efficient your code is in this course. My advice would be to get something that works and addresses all of the marking criteria and listen to Hadley Wickham....
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/589068687669243905?ref_src=twsrc%5Etfw">April 17, 2015</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<blockquote class="twitter-tweet tw-align-center"><p lang="en" dir="ltr">The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code</p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/589068687669243905?ref_src=twsrc%5Etfw">April 17, 2015</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 <br/>
 
 ## More resources
