@@ -6,13 +6,13 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 ## How to adopt this course {-}
 
-All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to it's size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
+All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to its size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
 
-There are two main options to adpot this course:
+There are two main options to adopt this course:
 
-1. Adpot the course in it's entirety by forking the repository on GitHub and Pulling to your local machine or simply download a `.zip` file containing the entire course
+1. Adopt the course in its entirety by forking the repository on GitHub and Pulling to your local machine or simply download a `.zip` file containing the entire course.
 
-2. Adpot a single practical by downloading the `.rmd` file and associated data. 
+2. Adopt a single practical by downloading the `.rmd` file and associated data. 
 
 Instructions can be found in the section [How to download data and files from GitHub]
 
@@ -68,7 +68,7 @@ session <- devtools::session_info(pkgs = all_pkgs)
 session$platform
 ```
 
-And makes use of the following packacges throughout. Thanks to [STAT 545](https://stat545.com/index.html#other-contributors) for this code.
+And makes use of the following packages throughout. Thanks to [STAT 545](https://stat545.com/index.html#other-contributors) for this code.
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
 session$packages %>% 
