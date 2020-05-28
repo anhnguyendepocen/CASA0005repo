@@ -417,7 +417,7 @@ It's also not limited to R code!!! To change the code language all you have to d
 
 Now, earlier on in this exercise, I got you to open a new R Script. You now need to open a new R Markdown document, you could also select an R Notebook...They are both RMarkdown documents, the notebook originally let you run code chunks that could be exectued independently, however you can also now do this if you select a markdown file. To my knowledge the only difference is that a R Notebook adds ```output: html_notebook``` in the output option in the header of the file that adds a Preview button in the tool bar. If you don't have this then the preview option will be replaced with Knit.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/knit-logo.png')
 ```
 
@@ -597,7 +597,7 @@ knitr::include_graphics('prac4_images/knitword.png')
 
 ### Shortcuts
 
-This [Twitter thread started by We are R-Ladies](https://twitter.com/WeAreRLadies/status/1250310603970732036) is one of the best resiurces i've found for shortcuts using RMarkdown. Favourties that will help you are:
+This [Twitter thread started by We are R-Ladies](https://twitter.com/WeAreRLadies/status/1250310603970732036) is one of the best resources i've found for shortcuts using RMarkdown. Favourties that will help you are:
 
 **New code chunk**
 CTRL + ALT + i
@@ -610,6 +610,10 @@ CTRL+i
 
 **Fromant ugly code to nice looking code**
 CTRL + ALT + A 
+
+**Insert section label which is foldable and navigable** --- this only works in a `.R` file not a `.Rmd` but is still useful
+
+CTRL + SHIFT + R
 
 ### Adding references
 
@@ -629,7 +633,7 @@ And editing the fields on the right...Now...
 46. Select Escape LaTex special characters, enable BibTex syncing and Create a BibTex file for your whole library or per group.
 47. Select to save the BibTeX file in the same folder as your R project, otherwise R won't be able to find it
 
-Else you can just use my BibTex file from [here](https://github.com/andrewmaclachlan/example) it's the `.bib`.
+Else you can just use my BibTex file from [my GitHub](https://github.com/andrewmaclachlan/example) it's the `.bib`.
 
 **Warning** Whilst we've excluded the special characters if they happen to be in some of the fields within Mendeley (e.g. abstracts) this will throw an error
 

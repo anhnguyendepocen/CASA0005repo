@@ -94,7 +94,7 @@ Fortunately there are a number of software environments that have been developed
 
 If you are some kind of masochist, you are welcome to use the bundled R GUI for all of your work. If pain is not your thing, then for this practical (and future practicals) I will assume that you are using RStudio.
 
-1. From the start menu on your computer, find and run R Studio
+1. From the start menu on your computer, find and run RStudio
 
 Once RStudio has opened, the first thing we will do is create a new project – projects enable you to organise your work effectively and store all of the files you create and work with for a particular task. 
 
