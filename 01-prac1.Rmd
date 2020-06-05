@@ -282,6 +282,7 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/ArcGISvsQGIS.png')
 ```
+
 #### ArcGIS
 
 ArcGIS is a huge and complex suite of software, see [ArcGIS suite] for more information. Thankfully it has an excellent help system –-- depending on the version you are using (they are all quite similar anyway) you can access the online help system here:
@@ -295,6 +296,7 @@ Here will we just be using:
 * **ArcCatalog --- Similar to Windows Explorer, ArcCatalog allows you to manage your GIS files, folders and geodatabases**
 
 * **ArcMap --- This is the programme you will use most often –-- it is the main mapping and spatial analysis element of ArcGIS**
+
 
 #### ArcCatalog
 
@@ -317,7 +319,7 @@ Close ArcCatalog and **never** have both ArcCatalog and another ArcGIS product o
 ArcMap is the core of the ArcGIS suite and where you would normally produce maps, carry out spatial analysis functions and automate processes. 
 
 1. Search for and open ArcMap 
-2. Upon opening select the database you just created in the default geodatabased fpor this map dialogue box
+2. Upon opening select the database you just created in the default geodatabased for this map dialogue box
 3. Click ok
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}

@@ -5,7 +5,7 @@
 By the end of this practical you should be able to:
 
 1. Explain the use of and differences between Git and GitHub
-2. Create reproduciable and open R code
+2. Create reproducible and open R code
 3. Produce RMarkdown documents that explain code and analysis
 
 ## Homework
@@ -380,6 +380,59 @@ knitr::include_graphics('prac4_images/branchcompare.png')
 We will show you how to publish RMarkdown documents online in a later practical.
 
 ### Back in time
+
+Here, we're going to use code seen [in the section of existing project (way 3)](#If have have an existing project - way 3).
+
+To quick recap here, i have an RProject with some files in, one of which is the test_file.R seen in the [in the section of existing project (way 3)](#If have have an existing project - way 3).
+
+We also added some code to this file [in the section pulling from GitHub](#Pull from GitHub).
+
+Now, we are going to add some more code then go back in time to remove it. I've added `z<-5+5` to my script and you can see the file has come up in the Git tab (also called the Git working directory) on the right hand side.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac4_images/backtime1.png')
+```
+
+Now, as we have done before, Commit(in the Git tab) then the review changes window comes up. Add a commit message, click stage and the Commit. ** Don't push to GitHub yet**
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac4_images/backtime2.png')
+```
+
+But wait, you've just recevied an urgent email (probably using the high importance flag) that the variable `z` should be deleted, renamed `t` and be equal to 2. Now, of course, we could just rename it here manually and Commit our changes. But what if you have a large project (like this book!) and make mistakes on several scripts or RMarkdown documents and you need to undo them (like the undo button in Microsoft software). Here we are going to show that.
+
+To do this we need to clearly know what we are trying to acheive, for us it's easy, go back one commit.
+
+We have to use the shell again, click the cog icon then shell..
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac4_images/backtime2.png')
+```
+
+Now, there are two commands we can use here `git reset --soft HEAD~1` or `git reset --soft HEAD~1`. These simply tell Git to reset to Head-1 commit (your current commit is the Head). Changing the number will alter how many commits you go back. Hard will delete all the changes in the previous commit, soft will move the changes we committed to the Git tab, reversing out commit --- always use soft!
+
+Type the command `git reset --soft HEAD~1`, the press enter...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac4_images/backtime3.png')
+```
+
+You'll see that the `test_file.R`  has moved back to the Git tab. Now if you have forgotten what changes you actually made in the last commit, click the Diff icon (next to Commit) and it will show the changes made to each file.
+
+So change `z` to `t` and assign it a value of 2+1. Stage the file, commit to git then now push to GitHub.
+
+But wait...more incoming news from management...`t` is wrong, is should be assigned to 2+2,....but do they not know we've already pushed to GitHub!!
+
+If we use `reset` once we've pushed to GitHub it will rewrite the commit history and won't match with GitHub, so if you tried to push to GitHub you will get an error saying the tip of your local branch is behind the remote. This is because you have done back in time locally. It will ask you to pull the changes from the remote. If you have `reset`, made changes, tried to push, got an error, tried to pull --- you will likely get a merge conflict message that you have to correct manually. 
+
+However, we can instead use `revert` to maintain the history and avoid any conflicts --- revert adds a new commit at then end of the 'chain' of commits. On the other hand `reset` will move your local master (or other branch) back in the chain of commits.
+
+To use git `revert` you have two options either just: `git revert HEAD` or `git revert [input commit ID]`. Every commit you make will have an ID (called an SHA). To see the SHA just go to Diff (in the Git tab) > History (top left of the review changes window) --- note down your SHA and use it in the shell command.
+
+Similarly you can also do this with `reset`
+
+
+
 
 You can go back in time with Git and revert to previous versions of files that you committed. This is a bit more invovled, so have a look [at this website](https://ohi-science.org/news/github-going-back-in-time) for more information.
 

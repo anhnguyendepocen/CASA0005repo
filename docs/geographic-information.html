@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-06-02" />
+<meta name="date" content="2020-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -490,7 +490,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.6.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>9.6.4</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>9.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
-<li class="chapter" data-level="9.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#arcgis-1"><i class="fa fa-check"></i><b>9.8</b> ArcGIS</a></li>
+<li class="chapter" data-level="9.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#arcgis-2"><i class="fa fa-check"></i><b>9.8</b> ArcGIS</a></li>
 <li class="chapter" data-level="9.9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#feedback-8"><i class="fa fa-check"></i><b>9.9</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html"><i class="fa fa-check"></i><b>10</b> Advanced R, MAUP and more regression</a><ul>
@@ -797,8 +797,9 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <div id="data-loading" class="section level3">
 <h3><span class="header-section-number">1.6.4</span> Data loading</h3>
 <p>Now it’s time to load, inspect and do some basic manipulation of this data. As mentioned in the lecture there are several GIS software ‘types’, here we will repeat the same process across ArcGIS, QGIS and R. Each system has specific benefits, but in general there has been a recent shift towards the use of QGIS and R, both being opensource. ArcGIS was the first major spatial analysis software produced by the Environmental Systems Research Institute, Inc. (Esri), founded in 1969 by Jack Dangermond. Due to its high cost and lack of customisation it is now less commonly used within the research community.</p>
-<p><img src="prac1_images/ArcGISvsQGIS.png" width="300pt" style="display: block; margin: auto;" />
-#### ArcGIS</p>
+<p><img src="prac1_images/ArcGISvsQGIS.png" width="300pt" style="display: block; margin: auto;" /></p>
+<div id="arcgis-1" class="section level4">
+<h4><span class="header-section-number">1.6.4.1</span> ArcGIS</h4>
 <p>ArcGIS is a huge and complex suite of software, see <a href="software-installation.html#arcgis-suite">ArcGIS suite</a> for more information. Thankfully it has an excellent help system –– depending on the version you are using (they are all quite similar anyway) you can access the online help system here:</p>
 <ul>
 <li><p><a href="http://resources.arcgis.com/en/help/main/10.2/" class="uri">http://resources.arcgis.com/en/help/main/10.2/</a></p></li>
@@ -809,8 +810,9 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <li><p><strong>ArcCatalog — Similar to Windows Explorer, ArcCatalog allows you to manage your GIS files, folders and geodatabases</strong></p></li>
 <li><p><strong>ArcMap — This is the programme you will use most often –– it is the main mapping and spatial analysis element of ArcGIS</strong></p></li>
 </ul>
+</div>
 <div id="arccatalog" class="section level4">
-<h4><span class="header-section-number">1.6.4.1</span> ArcCatalog</h4>
+<h4><span class="header-section-number">1.6.4.2</span> ArcCatalog</h4>
 <ul>
 <li><p>Find and run the ArcCatalog piece of software</p></li>
 <li><p>Once ArcCatalog Opens, go to File &gt; Connect To Folder… and navigate to the N:folder, right click in the contents area and create a new File Geodatabase - i’ve called mine prac1.</p></li>
@@ -820,13 +822,13 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <p>Close ArcCatalog and <strong>never</strong> have both ArcCatalog and another ArcGIS product open at the same time.</p>
 </div>
 <div id="arcmap" class="section level4">
-<h4><span class="header-section-number">1.6.4.2</span> ArcMap</h4>
+<h4><span class="header-section-number">1.6.4.3</span> ArcMap</h4>
 <div id="introduction" class="section level5">
-<h5><span class="header-section-number">1.6.4.2.1</span> Introduction</h5>
+<h5><span class="header-section-number">1.6.4.3.1</span> Introduction</h5>
 <p>ArcMap is the core of the ArcGIS suite and where you would normally produce maps, carry out spatial analysis functions and automate processes.</p>
 <ol style="list-style-type: decimal">
 <li>Search for and open ArcMap</li>
-<li>Upon opening select the database you just created in the default geodatabased fpor this map dialogue box</li>
+<li>Upon opening select the database you just created in the default geodatabased for this map dialogue box</li>
 <li>Click ok</li>
 </ol>
 <p><img src="prac1_images/default_database.png" width="800pt" style="display: block; margin: auto;" /></p>
@@ -837,7 +839,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 </ol>
 </div>
 <div id="load-data" class="section level5">
-<h5><span class="header-section-number">1.6.4.2.2</span> Load data</h5>
+<h5><span class="header-section-number">1.6.4.3.2</span> Load data</h5>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Using the <strong>Plus</strong> icon (add data layer) navigate to the extracted folder you saved earlier.</p></li>
 <li><p>Open <code>London_Borough_Excluding_MHW.shp</code>, but feel free to explore the other data layers. In the left hand Table Of Contents you can unselect layers to turn them off or drag layers above or below to change the display order. In the example below the wards layer is showing above the borough layer.</p></li>
@@ -857,7 +859,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <p><img src="prac1_images/London_attribute_table.png" width="500pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="join-data" class="section level5">
-<h5><span class="header-section-number">1.6.4.2.3</span> Join data</h5>
+<h5><span class="header-section-number">1.6.4.3.3</span> Join data</h5>
 <p>We’re now going to join our flytipping data to the London borough shapefile. So:</p>
 <ol start="8" style="list-style-type: decimal">
 <li>Right click on the london borough layer &gt; Joins and Relates &gt; Join<br />
@@ -877,7 +879,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 </blockquote>
 </div>
 <div id="export-data" class="section level5">
-<h5><span class="header-section-number">1.6.4.2.4</span> Export data</h5>
+<h5><span class="header-section-number">1.6.4.3.4</span> Export data</h5>
 <ol start="15" style="list-style-type: decimal">
 <li>Right click on the london boroughs layer &gt; Data &gt; Export Data</li>
 <li>The location should default to our GeoDatabase. Be sure to change the filename — again avoid all of the characters (e.g. spaces and -) previously mentioned. Add the new data layer to the map and remove the old one (Right Click (on the layer) &gt; Remove)</li>
