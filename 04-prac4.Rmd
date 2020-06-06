@@ -435,7 +435,7 @@ Similarly you can also do this with `reset`
 
 * git add .
 * git commit -m "commit comment"
-* git push
+* git push v
 
 
 You can go back in time with Git and revert to previous versions of files that you committed. This is a bit more invovled, so have a look [at this website](https://ohi-science.org/news/github-going-back-in-time) for more information.
