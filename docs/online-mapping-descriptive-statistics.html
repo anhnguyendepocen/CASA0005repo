@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-06-03" />
+<meta name="date" content="2020-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1042,10 +1042,10 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <a class="sourceLine" id="cb476-2" title="2"><span class="co"># Create a new data frame just containing the two variables we are #interested in</span></a>
 <a class="sourceLine" id="cb476-3" title="3">mydata&lt;-<span class="kw">as.data.frame</span>(LondonWardsDF[,<span class="kw">c</span>(<span class="st">&quot;PctOwned20&quot;</span>,<span class="st">&quot;PctNoEngli&quot;</span>)])</a>
 <a class="sourceLine" id="cb476-4" title="4"><span class="kw">attach</span>(mydata)</a></code></pre></div>
-<pre><code>## The following objects are masked from LondonWardsSF (pos = 4):
+<pre><code>## The following objects are masked from LondonWardsSF (pos = 3):
 ## 
 ##     PctNoEngli, PctOwned20</code></pre>
-<pre><code>## The following objects are masked from LondonWardsSF (pos = 5):
+<pre><code>## The following objects are masked from LondonWardsSF (pos = 4):
 ## 
 ##     PctNoEngli, PctOwned20</code></pre>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="co">#– check variable distributions first</span></a>
@@ -1081,7 +1081,7 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
 <a class="sourceLine" id="cb486-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))</a>
 <a class="sourceLine" id="cb486-3" title="3">p<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>],<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-445-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-450-1.png" width="672" /></p>
 <div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1">mydata<span class="op">$</span>cluster &lt;-<span class="st"> </span>fit<span class="op">$</span>cluster</a>
 <a class="sourceLine" id="cb487-2" title="2"></a>
 <a class="sourceLine" id="cb487-3" title="3"><span class="co">#add the cluster groups to the LondonWards data frame</span></a>
@@ -1091,7 +1091,7 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <a class="sourceLine" id="cb487-7" title="7"><span class="co">#now map our geodeomographic classification</span></a>
 <a class="sourceLine" id="cb487-8" title="8">map &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWardsSF) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill=</span>cluster))<span class="op">+</span><span class="kw">scale_fill_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb487-9" title="9">map</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-445-2.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-450-2.png" width="672" /></p>
 <p><img src="allisonhorst_images/kmeans_12.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p>Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try.</p>
 <p>I haven’t even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right… or indeed a dissertation topic!</p>
