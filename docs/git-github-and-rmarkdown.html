@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-06-07" />
+<meta name="date" content="2020-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -876,16 +876,16 @@ If you were to update your file on GitHub and your local one in RStudio seperate
 <p>To quick recap here, i have an RProject with some files in, one of which is the test_file.R seen in the <a href="#If%20have%20have%20an%20existing%20project%20-%20way%203">in the section of existing project (way 3)</a>.</p>
 <p>We also added some code to this file <a href="#Pull%20from%20GitHub">in the section pulling from GitHub</a>.</p>
 <p>Now, we are going to add some more code then go back in time to remove it. I’ve added <code>z&lt;-5+5</code> to my script and you can see the file has come up in the Git tab (also called the Git working directory) on the right hand side.</p>
-<p><img src="prac4_images/backtime1.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/backtime1.png" width="800pt" style="display: block; margin: auto;" /></p>
 <p>Now, as we have done before, Commit(in the Git tab) then the review changes window comes up. Add a commit message, click stage and the Commit. ** Don’t push to GitHub yet**</p>
-<p><img src="prac4_images/backtime2.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/backtime2.png" width="600pt" style="display: block; margin: auto;" /></p>
 <p>But wait, you’ve just recevied an urgent email (probably using the high importance flag) that the variable <code>z</code> should be deleted, renamed <code>t</code> and be equal to 2. Now, of course, we could just rename it here manually and Commit our changes. But what if you have a large project (like this book!) and make mistakes on several scripts or RMarkdown documents and you need to undo them (like the undo button in Microsoft software). Here we are going to show that.</p>
 <p>To do this we need to clearly know what we are trying to acheive, for us it’s easy, go back one commit.</p>
 <p>We have to use the shell again, click the cog icon then shell..</p>
-<p><img src="prac4_images/backtime2.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/backtime2.png" width="600pt" style="display: block; margin: auto;" /></p>
 <p>Now, there are two commands we can use here <code>git reset --soft HEAD~1</code> or <code>git reset --soft HEAD~1</code>. These simply tell Git to reset to Head-1 commit (your current commit is the Head). Changing the number will alter how many commits you go back. Hard will delete all the changes in the previous commit, soft will move the changes we committed to the Git tab, reversing out commit — always use soft!</p>
 <p>Type the command <code>git reset --soft HEAD~1</code>, the press enter…</p>
-<p><img src="prac4_images/backtime3.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/backtime3.png" width="600pt" style="display: block; margin: auto;" /></p>
 <p>You’ll see that the <code>test_file.R</code> has moved back to the Git tab. Now if you have forgotten what changes you actually made in the last commit, click the Diff icon (next to Commit) and it will show the changes made to each file.</p>
 </div>
 <div id="github" class="section level4">
@@ -901,7 +901,7 @@ If you were to update your file on GitHub and your local one in RStudio seperate
 <p>To use git <code>revert</code> you have two options either just: <code>git revert HEAD</code> or <code>git revert [input commit ID]</code>. Every commit you make will have an ID (called an SHA). To see the SHA just go to Diff (in the Git tab) &gt; History (top left of the review changes window) — note down your SHA and use it in the shell command.</p>
 <p>Ok, so to use <code>revert</code> go to the shell and enter <code>git revert HEAD</code></p>
 <p>You will probably be met with the VIM (or viewport) window. The best course of action is to input <code>:q</code> to quit and accept the default commit message. You will see already that my <code>test_file.R</code> has already been placed back in the Git tab and <code>t&lt;-2+1</code> again.</p>
-<p><img src="prac4_images/VIM.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/VIM.png" width="600pt" style="display: block; margin: auto;" /></p>
 <p>If you really want to change the commit message then you need to get into insert mode by typing <code>i</code> &gt; modify text &gt; exit the insert mode with Ctrl+C then &gt; <code>:q</code> to quit. Thanks to the article by <a href="https://ohi-science.org/news/github-going-back-in-time">Melanie Frazier</a> for this information.</p>
 <div class="infobox warning">
 <p>If you are storing your R project in a folder that is synchronises online (e.g. OneDrive) you might have issues with this. When you use <code>revert</code> git locks a file which mean it can’t synchronise, if you try and do another <code>revert</code> git will not know who you are. It looks like the process of reverting still happens, but just be careful!</p>

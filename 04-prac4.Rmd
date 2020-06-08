@@ -391,13 +391,13 @@ We also added some code to this file [in the section pulling from GitHub](#Pull 
 
 Now, we are going to add some more code then go back in time to remove it. I've added `z<-5+5` to my script and you can see the file has come up in the Git tab (also called the Git working directory) on the right hand side.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/backtime1.png')
 ```
 
 Now, as we have done before, Commit(in the Git tab) then the review changes window comes up. Add a commit message, click stage and the Commit. ** Don't push to GitHub yet**
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/backtime2.png')
 ```
 
@@ -407,7 +407,7 @@ To do this we need to clearly know what we are trying to acheive, for us it's ea
 
 We have to use the shell again, click the cog icon then shell..
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/backtime2.png')
 ```
 
@@ -415,7 +415,7 @@ Now, there are two commands we can use here `git reset --soft HEAD~1` or `git re
 
 Type the command `git reset --soft HEAD~1`, the press enter...
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/backtime3.png')
 ```
 
@@ -441,7 +441,7 @@ Ok, so to use `revert` go to the shell and enter `git revert HEAD`
 
 You will probably be met with the VIM (or viewport) window. The best course of action is to input `:q` to quit and accept the default commit message. You will see already that my `test_file.R` has already been placed back in the Git tab and `t<-2+1` again.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/VIM.png')
 ```
 
