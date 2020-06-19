@@ -638,7 +638,7 @@ Examining the output above, it is clear that including median house price into o
 
 But do our two explanatory variables satisfy the no-multicoliniarity assumption? If not and the variables are highly correlated, then we are effectively double counting the influence of these variables and overstating their explanatory power. 
 
-To check this, we can compute the Pearson correlation coefficient between the variables. In an ideal world, we would be looking for something less than a 0.8 correlation
+To check this, we can compute the product moment correlation coefficient between the variables. In an ideal world, we would be looking for something less than a 0.8 correlation
 
 ```{r, message=FALSE, cache=TRUE}
 library(corrplot)
