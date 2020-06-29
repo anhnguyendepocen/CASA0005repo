@@ -16,3 +16,9 @@ This GitHub repository generates the CASA0005 Geographic Information Systems and
 
 Within each practical the assocaited data is stored in the prac(number)_data folder for example prac2_data. The image folders simply stored all the graphics used within the practical book to explain concepts/provide examples.
 
+## Previous versions
+
+The content of the course changes most years and previous version can be found at the links below.
+
+Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
+
