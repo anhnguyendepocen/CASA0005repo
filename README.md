@@ -22,3 +22,21 @@ The content of the course changes most years and previous version can be found a
 
 Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
 
+## Annual updates
+
+Provided below are brief descriptions of the main annual updates to the practical material.
+
+Improvements made 2020 - 2021:
+
+1. All of ArcGIS content removed and replaced with R and QGIS (open source)
+1. Set clear weekly homework tasks 
+1. Custom styling of the bookdown website
+1. Revision of nearly all code, moving towards the `tidyverse` and piped (`%>%`) syntax
+1. More focus on `dplyr` and other data wrangling/tidying tools (e.g. `Janitor`)
+
+Improvements made 2019 - 2020:
+
+1. All material moved to bookdown
+1. Majority of practicals moved to R
+1. Addition of raster practicals
+1. Revised assignment markscheme and assignment requirements 

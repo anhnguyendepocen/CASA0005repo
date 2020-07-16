@@ -50,6 +50,10 @@ The code within this pracical book is available under the [MIT license](https://
 
 This is version 2.0 of the practical book
 
+Previous versions can be found at the following links.
+
+2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
+
 ## Packages {-}
 
 This bookdown document was built with:

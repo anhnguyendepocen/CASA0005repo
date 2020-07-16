@@ -18,7 +18,7 @@ library(knitr)
 
 **Assessment outline:**
 
-For the assessment of this course you will combine the cartographic and GIScience skills you have learned over the last 10 weeks to showcase your abilities as a fully rounded spatial analyst. Your task is to carry out a mini research project which answers a pertinent or topical geo-spatial question/hypothesis/issue in a logical, scientific and reproducible manner. Your project can be located anywhere on Earth and at any spatial scale (e.g. local, national, international) but must involve analysis of some appropriate spatial data (raster, vector or both) that you have sourced yourself. You must not reuse the data we provided in the practical sessions. You will submit only one document, but the assessment process will be divided into 2 parts detailed below, each worth 50% of the final grade and around 1500 words. The final total (of both parts combined) should not exceed 3000 words excluding references. The reference list should be provided on a new page within your PDF document.
+For the assessment of this course you will combine the cartographic and GIScience skills you have learned over the last 10 weeks to showcase your abilities as a fully rounded spatial analyst. Your task is to carry out a mini research project which answers a pertinent or topical geo-spatial question/hypothesis/issue in a logical, scientific and reproducible manner. Your project can be located anywhere on Earth and at any spatial scale (e.g. local, national, international) but must involve analysis of some appropriate spatial data (raster, vector or both) that you have sourced yourself. You must not reuse the data we provided in the practical sessions. You will submit only one document, but the assessment process will be divided into 2 parts detailed below, each worth 50% of the final grade and around 1500 words. The final total (of both parts combined) should not exceed 3000 words excluding references. The reference list should be provided on a new page within your PDF document. You must conduct your analysis using R and/or QGIS.
 
 **Part 1**
 
@@ -108,7 +108,7 @@ Checkout the [Assignment resources] pages for help. You can use any of this data
 
 **Can I use methods not covered in the course and can I use another piece of software (e.g. Python)**
 
-Yes and no. Make sure you select only appropriate methods for your proposed analysis and as the course focuses on R, ArcMap and QGIS we expect the analysis to be completed within them.
+Yes and no. Make sure you select only appropriate methods for your proposed analysis and as the course focuses on R and QGIS we expect the analysis to be completed within them.
 
 **Can I just use methods covered in the course **
 
@@ -122,9 +122,9 @@ However you deem appropriate for your data and analysis. A reader should be able
 
 Yes, but only where appropriate for your data and analysis. You can recreate any of the online mapping tools we demonstrated and link this into the PDF document you submit. For example, you could display a static map in your submitted work that is hyperlinked to an RPubs, RMarkdown site or Shiny. 
 
-**How can I show my code / Arc or QGIS tool within the assignment**
+**How can I show my code or QGIS tool within the assignment**
 
-If you want to provide reproducible code for your analysis then follow the relevant practical within the practical book. You can then provide a hyperlink to the url/repository within your PDF report. If you have made ArcMap or QGIS model you should still be able to upload it to GitHub, GoogleDirve, Dropbox or OneDrive and provide a hyperlink. However, make sure that whatever you choose to do, it is reproducible with appropriate documentation
+If you want to provide reproducible code for your analysis then follow the relevant practical within the practical book. You can then provide a hyperlink to the url/repository within your PDF report. If you have made a QGIS model you should still be able to upload it to GitHub, GoogleDirve, Dropbox or OneDrive and provide a hyperlink. However, make sure that whatever you choose to do, it is reproducible with appropriate documentation
 
 **I've used a large dataset do i need to provide all of it**
 

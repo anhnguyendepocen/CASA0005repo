@@ -438,7 +438,7 @@ Now, let's have a look at our first bootstrap using `filter()` from `dplyr`
 
 ```{r}
 firstboot<-filter(GCSE_aug,id=="Bootstrap0001")
-length(firstboot$Average.GCSE.capped.point.scores...2014)
+length(firstboot$`Average GCSE capped point scores - 2014`)
 ```
 
 Ok, so how do we know that our coefficient is the same for all 626 points within our first bootstrap? Well we can check all of them, but this would just print the coefficent info for all 262....
@@ -470,7 +470,7 @@ library(janitor)
 
 GCSE_aug <- janitor::clean_names(GCSE_aug)
 
-ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_2013,
+ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_percent_2013,
                   average_gcse_capped_point_scores_2014))+
   # we want our lines to be from the fitted column grouped by our bootstrap id
   geom_line(aes(y = fitted, group = id), alpha = .2, col = "cyan3") +  

@@ -2,41 +2,9 @@
 
 This course primarily uses the R data science programming language and we strongly advise you complete the assignment using it. We briefly touch upon ArcMap and QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course. 
 
-## ArcGIS {-}
-
-ArcGIS should be installed as a standard programme in the UCL desktop and you can navigate to it from the Windows start button. 
-
-### Installing ArcGIS on your own computer {-}
-As a UCL student, you can install ArcGIS on your own computer. This is easy if you have a PC, but if you have a Mac this can be trickier as Arc will only run in a PC environment. If you have a Mac, the options open to you are either to:
-
-a)	Run ArcGIS through the Desktop@UCL application --- http://www.ucl.ac.uk/isd/services/computers/remote-access/desktop 
-b)	Duel boot your machine using bootcamp, install Windows (7 or 8 is fine) and then install Arc onto the Windows partition. 
-c)	Install some kind of virtualisation software such as [Parallels](http://www.parallels.com/ca/products/desktop/) or [VMware](http://www.vmware.com/products/fusion/), and run Arc on a virtual windows machine
-
-If you can, it is preferable to run Arc on Bootcamp as virtualisation software can be slow, but the Desktop@UCL facility should suffice for this course.
-ArcGIS (Version 10.6 is the latest at time of writing, but may have already been superseded) can be downloaded from the [UCL Software Database](https://swdb.ucl.ac.uk/) for free
-
-**Make sure** you read the instructions provided by the [UCL Software Database on how to activate ArcGIS](https://www.ucl.ac.uk/isd/how-to/how-to-activate-arcgis) fully if installing onto your own machine as you have to set the license correctly. 
-
-### ArcGIS suite {-}
-
-ArcGIS is actually a whole suite of software built and maintained by ESRI (http://www.esri.com/software/arcgis).Within the ArcGIS for Desktop suite you will find the following programmes:
-
-* **ArcCatalog --- Similar to Windows Explorer, ArcCatalog allows you to manage your GIS files, folders and geodatabases**
-
-* ArcGIS Administrator --- This programme us used to manage licences for the various elements of ArcGIS
- 
-* ArcGlobe --- ArcGlobe allows you to view and analyse your data in 3D –-- this interface looks very similar to Google Earth and is part of the 3D analyst extension
-
-* **ArcMap --- This is the programme you will use most often –-- it is the main mapping and spatial analysis element of ArcGIS**
-
-* ArcScene --- ArcScene is a 3D viewer which allows you to navigate and interact with your 3D raster and feature data
-
-ArcCatalog and ArcMap are in bold as these are the only programmes we will be using explicitly in this course. By all means experiment with the others if you have any spare time! 
-
 ## QGIS {-}
 
-QGIS is very similar to ArcMap except that as it is open-source and free there are many add on packages that (or plugins) that provide additional functionality to the software.  
+QGIS is an open-source garphic user interface GIS with many community developed add on packages that (or plugins) that provide additional functionality to the software.  
 
 To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/download.html
 
@@ -71,3 +39,12 @@ knitr::include_graphics('prac1_images/upload.png')
 ```
 
 If you upload a shapefile you will need to incldue all the relevant files and upload them to RStudio cloud as a ```.zip```
+
+## ArcGIS {-}
+
+As ArcGIS is not open soure and from my experience analysis within it is largely not reproducible and therefore it is not included within this practical book. If you are interested in it please [consult previous iterations of this course](https://andrewmaclachlan.github.io/CASA0005repo_20192020/). You will find tutorials on: [Joining data](https://andrewmaclachlan.github.io/CASA0005repo_20192020/geographic-information.html#data-loading), [Map Making](https://andrewmaclachlan.github.io/CASA0005repo_20192020/map-making.html#mapping-in-arcmap) and [Spatial Patterns](https://andrewmaclachlan.github.io/CASA0005repo_20192020/analysing-spatial-patterns.html#arcmap-part-2). 
+
+
+**However**, the analysis for your coursework must be done in either R and/or QGIS.
+
+
