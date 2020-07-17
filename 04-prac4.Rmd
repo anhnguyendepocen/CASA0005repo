@@ -5,8 +5,8 @@
 By the end of this practical you should be able to:
 
 1. Explain the use of and differences between Git and GitHub
-2. Create reproducible and open R code
-3. Produce RMarkdown documents that explain code and analysis
+1. Create reproducible and open R code
+1. Produce RMarkdown documents that explain code and analysis
 
 ## Homework
 
@@ -37,7 +37,7 @@ This week:
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
-## Recommended listening
+## Recommended listening `r emo::ji("headphones")`
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
@@ -66,8 +66,8 @@ The tools you will use are:
 There are three ways to make your RStudio project work with GitHub
 
 1. Set up the GitHub repository, clone it to your Git then load it in RStudio --- using Git GUI
-2. Create a new RStudio project and link it to GitHub --- new version control
-3. If you have an existing RProject then you can link them manually --- existing project
+1. Create a new RStudio project and link it to GitHub --- new version control
+1. If you have an existing RProject then you can link them manually --- existing project
 
 I will show you all three, you should be able to do way 1, then way 2 using the same repository. Way 3 will have merge issues, so start with a fresh GitHub repository. It is useful if you have produced some code then want to share it at a later date. Follow what i do in the lecture.
 
@@ -77,13 +77,13 @@ My advice is to read the Git and GitHub parts of the practical before you start 
 
 1. If you are working on your own computer, you will first need to install Git --- https://git-scm.com/ --- if you are working on the UCL Remote Desktop, you won’t need to do this as it is already installed for you.
 
-2. Go to http://github.com, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar), making sure it is public and you check the box that says ‘initialise new repository with a README’ --- click ‘create repository’ at the bottom
+1. Go to http://github.com, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar), making sure it is public and you check the box that says ‘initialise new repository with a README’ --- click ‘create repository’ at the bottom
 
 ```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/github.png') 
 ```
 
-3. Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md markdown file has also been created. This can be edited to tell people what they are likely to find in this repository.
+1. Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md markdown file has also been created. This can be edited to tell people what they are likely to find in this repository.
 
 ### Using RStudio with Git
 
@@ -99,27 +99,27 @@ The next part of the practical is going run through the three ways of using Git 
 
 ### Using the Git GUI - way 1
 
-4. Now you have created your repo online, you need to ‘clone’ it so that there is an identical copy of it in a local folder on your computer.
+1. Now you have created your repo online, you need to ‘clone’ it so that there is an identical copy of it in a local folder on your computer.
 
 There are a couple of ways of doing this, but the easy one is to use the GUI that comes packaged with your git installation.
 
-5. The first thing you need to do is copy the Clone URL for your repo from the github website --- click the green button in your repo for ‘Clone or Download’ and copy the link:
+1. The first thing you need to do is copy the Clone URL for your repo from the github website --- click the green button in your repo for ‘Clone or Download’ and copy the link:
 
 ```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/githubrepodownload.png') 
 ```
 
-6. Now in the windows start menu, go to Git > GUI
+1. Now in the windows start menu, go to Git > GUI
 
-7. Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don't create a new folder in windows explorer you have to specify it in the file path).
+1. Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don't create a new folder in windows explorer you have to specify it in the file path).
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/gitsetup.png') 
 ```
 
-8. After a few moments, you should now be able to view a copy of your GitHub repo on your local machine. This is where you will be able to store all of your code and some other files for your reproducible research.
+1. After a few moments, you should now be able to view a copy of your GitHub repo on your local machine. This is where you will be able to store all of your code and some other files for your reproducible research.
 
-9. Open RStudio and go File > New Project > Existing Directory
+1. Open RStudio and go File > New Project > Existing Directory
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/existing.png') 
@@ -133,11 +133,11 @@ knitr::include_graphics('prac4_images/existing.png')
 
 There is an easier way to set up Git and GitHub with your project, but this assumes you are starting fresh (with no code in an RProject)!
 
-15. Under [Set up your GitHub] we made a respository on GitHub. Copy that URL.
+1. Under [Set up your GitHub] we made a respository on GitHub. Copy that URL.
 
-16. Open RStudio > File New Project > Version Control > Git
+1. Open RStudio > File New Project > Version Control > Git
 
-17. Copy in the repository URL and provide a project directory name...but it should populate when you paste in the URL
+1. Copy in the repository URL and provide a project directory name...but it should populate when you paste in the URL
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/easyway.png') 
@@ -159,9 +159,9 @@ Now you will be able to use Git and GitHub as per the following instructions...y
 
 ### Commiting to Git
 
-18. As well as saving (as you normally do with any file), which saves a copy to our local directory, we will also ‘commit’ or create a save point for our work on git. 
+1. As well as saving (as you normally do with any file), which saves a copy to our local directory, we will also ‘commit’ or create a save point for our work on git. 
 
-19. To do this, you should click the ‘Git’ icon and up will pop a menu like the one below:
+1. To do this, you should click the ‘Git’ icon and up will pop a menu like the one below:
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/commit1.png') 
@@ -173,7 +173,7 @@ You can also click the Git tab that will have appeared in the top-right window o
 knitr::include_graphics('prac4_images/commit2.png') 
 ```
 
-20. Stage the changes, add a commit message so you can monitor the changes you make, then click commit
+1. Stage the changes, add a commit message so you can monitor the changes you make, then click commit
 
 21. Make some more changes to your file and save it. Click commit again then in the review changes box you will be able to see what has changed within your file. Add a comitt message and click commit:
 
@@ -187,11 +187,11 @@ Sometimes RStudio Git can be a bit temperamental. For example, when staging the 
 
 Alternatively if you would like to use Git but you’re working on the UCL Remote Desktop or you are experiening other problems with getting git working in RStudio, fear not, you can just use your raw Git installation.
 
-22. In the Start Menu, open the git GUI. Start > Git > Git GUI. You should open the existing repository that you have just created.
+1. In the Start Menu, open the git GUI. Start > Git > Git GUI. You should open the existing repository that you have just created.
 
-23. Whenever you have made some changes to your files in your cloned repo, you can use git to review the changes and ‘Commit’ (save) them and then ‘Push’ them up to your master repository on GitHub.
+1. Whenever you have made some changes to your files in your cloned repo, you can use git to review the changes and ‘Commit’ (save) them and then ‘Push’ them up to your master repository on GitHub.
 
-24. To review and commit your changes, in the commit menu, simply:
+1. To review and commit your changes, in the commit menu, simply:
 
 a. scan for changes
 b. stage them ready for committing
@@ -202,15 +202,15 @@ d. push the changes to your GitHub repo
 
 Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (envrionment quadrant), or from the review changes box (opens when you click commit).
 
-25. To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your master GitHub repo --- you might be prompted to enter your github username and password to enable this...
+1. To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your master GitHub repo --- you might be prompted to enter your github username and password to enable this...
 
 But....if the push button is greyed out go to the section [Greyed out push button]
 
 ### Pull from GitHub
 
-26. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
+1. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
 
-27. Add a line of code or a comment, preview the changes then commit directly to the master branch.
+1. Add a line of code or a comment, preview the changes then commit directly to the master branch.
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/pullexample.png') 
@@ -335,7 +335,7 @@ reprex(venue="r")
 
 A *Fork* in GitHub is a copy of someone elses repository. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then *pull* your changes to their repository. 
 
-29. You can fork a GitHub example repository from: https://github.com/octocat/Spoon-Knife 
+1. You can fork a GitHub example repository from: https://github.com/octocat/Spoon-Knife 
 
 Once you fork it, you should see it in your repositories 
 
@@ -343,39 +343,39 @@ Once you fork it, you should see it in your repositories
 
 Each repository you make in git has a default branch but you can create new branches to isolate development of specific areas of work without affecting other branches --- like a test envrionment. 
 
-30. Go to the test repository you just forked on github. Click the branch drop down and type in the name for a new branch:
+1. Go to the test repository you just forked on github. Click the branch drop down and type in the name for a new branch:
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/branch.png') 
 ```
 
-31. Now click on the README.md file > edit this file
+1. Now click on the README.md file > edit this file
 
-32. Add some changes, preview them and complete the commit changes box at the bottom of the screen.
+1. Add some changes, preview them and complete the commit changes box at the bottom of the screen.
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/branchtest.png') 
 ```
 
-33. Here, we're going to commit directly to the new branch. We could have made these changes to the master branch and then made a new branch for them at this stage. Commit the changes.
+1. Here, we're going to commit directly to the new branch. We could have made these changes to the master branch and then made a new branch for them at this stage. Commit the changes.
 
-34. Go to the home page of our example branch (click the branch down arrow and select your example branch). You'll see that our example branch is now 1 commit ahead of the master. 
+1. Go to the home page of our example branch (click the branch down arrow and select your example branch). You'll see that our example branch is now 1 commit ahead of the master. 
 
 Now let's create a **pull** reqest to the master branch. If you had modified someone else's code, then you would send a reqest to them to pull in the changes. Here we are doing a pull request for ourselves --- from our example branch to our master.
 
-35. Click New pull request.
+1. Click New pull request.
 
-36. At the top you will see the branches that are being compared --- the base defaults to githubs example repository, change it to yours.
+1. At the top you will see the branches that are being compared --- the base defaults to githubs example repository, change it to yours.
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/branchcompare.png') 
 ```
 
-37. Now scroll down and you will see the comaparison of between the two branches. Click create pull request.  
+1. Now scroll down and you will see the comaparison of between the two branches. Click create pull request.  
 
-38. Select squash and merge > confirm squash and merge. This means that all our commits on the exmaple branch and squashed into one, as we only have one it doesn't matter but could be useful in future. 
+1. Select squash and merge > confirm squash and merge. This means that all our commits on the exmaple branch and squashed into one, as we only have one it doesn't matter but could be useful in future. 
 
-39. Go back to your master branch repositry and you should see the changes from the example branch have been merged.
+1. Go back to your master branch repositry and you should see the changes from the example branch have been merged.
 
 We will show you how to publish RMarkdown documents online in a later practical.
 
@@ -480,7 +480,7 @@ And an older one [here](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkd
 This video is also pretty good at explaining the benefits of RMarkdown
 
 ```{r echo=FALSE, fig.align='center', cache=TRUE}
-knitr::include_url("https://www.youtube.com/embed/zNzZ1PfUDNk")
+#knitr::include_url("https://www.youtube.com/embed/zNzZ1PfUDNk")
 ```
 
 R Markdown is awesome as you can show code, explanations and results within the same document!!!! Often it could be very hard to reproduce results owing to a lack of information in the methodology / userguides or walkthrougts not matching up with the latest version of software. Think back to a time where you had to use software and consult a massive userguide in how to use it...for me it was a very painful experience. R Markdown is a big improvement as it puts all of the information in the same document, which can then be convereted into a range of different formats --- html for webpages, word documents, PDFs, blogs, books --- virtually everything! 
@@ -497,13 +497,13 @@ Now, earlier on in this exercise, I got you to open a new R Script. You now need
 knitr::include_graphics('allisonhorst_images/knit-logo.png')
 ```
 
-But you can mix the output options in your header for the file to get the Preview button back if you wish to. Basically, there isn't much difference and you can manually change it with one line of code. Have a look [here](https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook) for more infomation. For ease i'd just stick with R Markdown files
+But you can mix the output options in your header for the file to get the Preview button back if you wish to. Basically, there isn't much difference and you can manually change it with one line of code. Have a look [at this stackoverflow question](https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook) for more infomation. For ease i'd just stick with R Markdown files
 
 There are two ways to create an RMarkdown document 
 
 1. File > New File > R Markdown
 
-2. You can change the type in the bottom right corner of the script window....
+1. You can change the type in the bottom right corner of the script window....
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/changetype.png') 
@@ -517,19 +517,18 @@ knitr::include_graphics('prac4_images/Rmakrdowneg.png')
 
 ### HTML
 
-40. We are now going to insert some code from the practical last week into the new R Markdown document that i've tweaked a bit and run it...clear all of the code except the stuff between the ---
+1. We are now going to insert some code from the practical last week into the new R Markdown document that i've tweaked a bit and run it...clear all of the code except the stuff between the ---
 
-41. In RStudio, you can either select Code > Insert Chunk or you can Click the ‘Insert’ button and insert an R chunk
+1. In RStudio, you can either select Code > Insert Chunk or you can Click the ‘Insert’ button and insert an R chunk
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/code_chunk.png')
 ```
 
-42. A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:
+1. A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:
 
-```{r warning=FALSE, cache=TRUE}
+```{r warning=FALSE, cache=FALSE}
 library(plotly)
-library(reshape2)
 library(raster)
 library(weathermetrics)
 
@@ -549,20 +548,23 @@ GBclim <- raster::getData("worldclim",
 
 month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-
 names(GBclim) <- month
-GBtemp <- crop(GBclim, GB_auto)
-exactGB <- mask(GBtemp, GB_auto)
 
-#WorldClim data has a scale factor of 10!
-exactGB <- exactGB/10
+GBtemp <- GBclim %>%
+  crop(., GB_auto)%>%
+  #WorldClim data has a scale factor of 10!
+  mask(., GB_auto)/10
 
-alldf=as.data.frame(exactGB)
-squishdata <- melt(alldf, measure.vars=names(alldf))
+alldf <- GBtemp %>% 
+  as.data.frame()%>%
+  pivot_longer(
+  cols = 1:12,
+  names_to = "Month",
+  values_to = "Temp")%>%
+  drop_na()
 
-# split the data for plotly based on month
-jan<-subset(squishdata, variable=="Jan", na.rm=TRUE)
-jun<-subset(squishdata, variable=="Jun", na.rm=TRUE)
+jan<-filter(alldf, Month=="Jan")
+jun<-filter(alldf, Month=="Jun")
 
 # give axis titles
 x <- list (title = "Temperature")
@@ -573,16 +575,16 @@ xbinsno<-list(start=-5, end=20, size = 2.5)
 
 # plot the histogram calling all the variables we just set
 ihist<-plot_ly(alpha = 0.6) %>%
-        add_histogram(x = jan$value,
+        add_histogram(x = jan$Temp,
         xbins=xbinsno, name="January") %>%
-        add_histogram(x = jun$value,
+        add_histogram(x = jun$Temp,
         xbins=xbinsno, name="June") %>% 
         layout(barmode = "overlay", xaxis=x, yaxis=y)
 
 ihist
 ```
 
-43. When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk...if you toggle the buttons you'll see the code change in the chunk 'header'. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)
+1. When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk...if you toggle the buttons you'll see the code change in the chunk 'header'. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/code_chunk_options.png')
@@ -666,7 +668,7 @@ knitr::include_graphics('prac4_images/knitword.png')
 
 ### Knit options
 
-44. Various other options and tips can be found in the full R Markdown guide on RStudio here: 
+1. Various other options and tips can be found in the full R Markdown guide on RStudio here: 
 
 * https://rmarkdown.rstudio.com/lesson-1.html 
 * https://rmarkdown.rstudio.com/lesson-3.html (for code chunk options)
@@ -705,9 +707,9 @@ knitr::include_graphics('prac4_images/button.png')
 
 And editing the fields on the right...Now...
 
-45. Go Tools > Options > BibTex
-46. Select Escape LaTex special characters, enable BibTex syncing and Create a BibTex file for your whole library or per group.
-47. Select to save the BibTeX file in the same folder as your R project, otherwise R won't be able to find it
+1. Go Tools > Options > BibTex
+1. Select Escape LaTex special characters, enable BibTex syncing and Create a BibTex file for your whole library or per group.
+1. Select to save the BibTeX file in the same folder as your R project, otherwise R won't be able to find it
 
 Else you can just use my BibTex file from [my GitHub](https://github.com/andrewmaclachlan/example) it's the `.bib`.
 
@@ -719,7 +721,7 @@ If you use Zotero then follow Adam's guide in [section 4.1 here](https://rpubs.c
 
 #### Add refereces into R
 
-48. In your document add the following to the YAML header (this is what we call the top of any RMarkdown header, enclosed by ---). I beleive it stands for Yet Another Markup Language.
+1. In your document add the following to the YAML header (this is what we call the top of any RMarkdown header, enclosed by ---). I beleive it stands for Yet Another Markup Language.
 
 I've added a few extra bits...these are pretty self-explanatory (e.g table of contents, numbered sections) but have a play around.
 
@@ -740,7 +742,7 @@ editor_options:
 bibliography: library.bib
 ---
 ```
-49. Now to cite someone just use:
+1. Now to cite someone just use:
 
 ```{r eval=FALSE, cache=TRUE}
 [@MicheleAcuto2016; @McPherson2016]
@@ -748,7 +750,7 @@ bibliography: library.bib
 
 > **Note** that the name i've used (e.g. McPherson2016) is what Mendeley provided as the citation key for me (see the details about every document you store to find it).
 
-50. The complete bibliography will be placed in the last section, to add a new section to the markdown document just use # and then a space (e.g. # Last section).
+1. The complete bibliography will be placed in the last section, to add a new section to the markdown document just use # and then a space (e.g. # Last section).
 
 #### References using ```citr```
 
@@ -758,7 +760,7 @@ If you don't want to type the code above you can also add references to R using 
 library(citr)
 ```
 
-51. In the ‘Addins’ menu near the top of RStudio, you should (once RStudio has been restarted) have a citr option for ‘Insert citations’ and including them in your work.
+1. In the ‘Addins’ menu near the top of RStudio, you should (once RStudio has been restarted) have a citr option for ‘Insert citations’ and including them in your work.
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/citr.png')
@@ -805,11 +807,11 @@ Next, we have four simple steps
 
 1. Write a compendium --- a standard and recognisable way of organising files
 
-2. Write a docker file --- contains commands to create an image of the GitHub repository
+1. Write a docker file --- contains commands to create an image of the GitHub repository
 
-3. Create a bage, like mine above and copy the code to a file (e.g. the README.md or a .Rmd). Note, you don't nee to have this in a code chunk.
+1. Create a bage, like mine above and copy the code to a file (e.g. the README.md or a .Rmd). Note, you don't nee to have this in a code chunk.
 
-4. Push to GitHub, then click the bagde!
+1. Push to GitHub, then click the bagde!
 
 So let's do it! Change the "Your compendium name" or anything with "Your" with what you want to call it,
 

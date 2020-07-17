@@ -31,7 +31,7 @@ This week:
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
-## Recommended listening
+## Recommended listening `r emo::ji("headphones")`
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
@@ -59,7 +59,6 @@ knitr::include_graphics(c("prac3_images/vector_lonlat.png","prac3_images/vector_
 
 Knowing this, if we want to conduct analysis locally (e.g. at a national level) or use metric (e.g. kilometres) measurements we need to be able to change the projection of our data or "reproject" it. Most countries and even states have their own projected coordinate reference system such as British National Grid in the above example...Note how the origin (0,0) is has moved from the centre of the Earth to the bottom South West corner of the UK, which has now been ironed (or flattened) out.
 
-
 ::: {.infobox .warning data-latex="{note}"}
 
 **Projection rules**
@@ -81,14 +80,15 @@ Until now, we’ve not really considered how our maps have been printed to the s
 
 ```{r, message=FALSE, cache=FALSE}
 library(sf)
-st_layers("prac3_data/gadm36_AUS.gpkg")
+library(here)
+st_layers(here("prac3_data", "gadm36_AUS.gpkg"))
 ```
 
 1. Then read in the GeoPackage layer for the whole of Australia (layer ending in 0)
 
 ```{r, cache=FALSE}
 library(sf)
-Ausoutline <- st_read("prac3_data/gadm36_AUS.gpkg", 
+Ausoutline <- st_read(here("prac3_data", "gadm36_AUS.gpkg"), 
                       layer='gadm36_AUS_0')
 ```
 
@@ -133,7 +133,7 @@ Or, more concisely...but remember this is only useful if there is no CRS when yo
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #or more concisely
-Ausoutline <- st_read("prac3_data/gadm36_AUS.gpkg", 
+Ausoutline <- st_read(here("prac3_data", "gadm36_AUS.gpkg"), 
                       layer='gadm36_AUS_0') %>% 
   st_set_crs(4326)
 ```
@@ -210,7 +210,7 @@ We are going to use WorldClim data --- this is a dataset of free global climate 
 
 ```{r ,message=FALSE, cache=FALSE}
 library(raster)
-jan<-raster("prac3_data/wc2.0_5m_tavg_01.tif")
+jan<-raster(here("prac3_data", "wc2.0_5m_tavg_01.tif"))
 # have a look at the raster layer jan
 jan
 ```
@@ -248,16 +248,30 @@ plot(pr1)
 
 Ok, projections over. Let's move forward with the practical...
 
-1. A better and more efficient way is to firstly list all the files stored within our directory
+1. A better and more efficient way is to firstly list all the files stored within our directory with `dir_info` from the `fs` pacakge, then use `dplyr` in conjunction with `str_detect()` from `stringr` to search for filenames containing `tif`. Finally just select the paths.
+
+1. But let's firstly explore what `dir_info()` does...
 
 ```{r, cache=FALSE}
 # look in our folder, find the files that end with .tif and 
-# provide their full filenames
-listfiles <- list.files("prac3_data/", ".tif", full.names = TRUE)
+library(fs)
+dir_info("prac3_data/") 
+```
+
+Essentailly it just gets the details you would normally see in the file explorer..however, we can use this data with `dplyr` to select the data we actually want. Now be careful! the function `select()` exists both within the `dplyr` and `raster` package so to make sure you use the right one `dplyr::select` forces `select` from `dplyr`.
+
+```{r}
+library(tidyverse)
+listfiles<-dir_info("prac3_data/") %>%
+  filter(str_detect(path, ".tif")) %>%
+  dplyr::select(path)%>%
+  pull()
 
 #have a look at the file names 
 listfiles
 ```
+
+Here, we're also using `pull()` from `dplyr` which is the same as the `$` often used to extract columns as in the next stage the input must be filenames as characters (nothing else like a column name).
 
 1. Then load all of the data straight into a raster stack. A raster stack is a collection of raster layers with the same spatial extent and resolution.
 
@@ -316,7 +330,6 @@ AUcitytemp<- raster::extract(worldclimtemp, samples)
 1. Add the city names to the rows of AUcitytemp
 
 ```{r, cache=FALSE}
-library(tidyverse)
 Aucitytemp2 <- AUcitytemp %>% 
   as_tibble()%>% 
   add_column(Site = site, .before = "Jan")
@@ -332,14 +345,14 @@ knitr::include_graphics('allisonhorst_images/summary_statistics.png')
 
 ### Data preparation 
 
-12. Let's take Perth as an example. We can subset our data either using the row name:
+1. Let's take Perth as an example. We can subset our data either using the row name:
 
 ```{r, cache=FALSE}
 Perthtemp <- Aucitytemp2 %>%
   filter(site=="Perth")
 ```
 
-13. Or the row location:
+1. Or the row location:
 
 ```{r, cache=FALSE, eval=FALSE}
 Perthtemp <- Aucitytemp2[3,]
@@ -349,7 +362,7 @@ Perthtemp <- Aucitytemp2[3,]
 
 A histogram lets us see the frequency of distribution of our data.
 
-14. Make a histogram of Perth's temperature. The tibble stored the data as double and the base `hist()` function needs it as numeric..
+1. Make a histogram of Perth's temperature. The tibble stored the data as double and the base `hist()` function needs it as numeric..
 
 ```{r, cache=FALSE}
 hist(as.numeric(Perthtemp))
@@ -418,7 +431,6 @@ Check out [the `rmapshaper` vignette](https://cran.r-project.org/web/packages/rm
 
 **HOWEVER**, we need to make sure that both of our layers are in the same coordinate reference system when we combine them...so..
 
-
 ```{r, cache=FALSE}
 print(Ausoutline)
 #this works nicely for rasters
@@ -455,7 +467,6 @@ Both our Austemp and exactAus are raster bricks. A brick is similar to a stack e
 ```{r, cache=FALSE}
 #subset using the known location of the raster
 hist(exactAus[[3]], col="red", main ="March temperature")
-
 ```
 
 We can also subset based on the name of the Brick, sadly we can't apply `filter()` from `dplyr` (like we did earlier when filtering Perth) yet to rasters...
@@ -475,7 +486,6 @@ However we have a bit more control with ```ggplot()```...
 ```{r, cache=FALSE}
 exactAusdf <- exactAus %>%
   as.data.frame()
-  
 ```
 
 ```{r, warning=FALSE, message=FALSE, cache=FALSE}
@@ -499,28 +509,31 @@ gghist + geom_vline(aes(xintercept=mean(Mar,
 
 How about plotting multiple months of temperature data on the same histogram 
 
-1. As we did in practical 2, we need to put our variaible (months) into a one coloumn using ```gather```. We will do this based on the names of our coloumns in alldf...
+1. As we did in practical 2, we need to put our variaible (months) into a one coloumn using ```pivot_longer()```. Here, we are saying select columns 1-12 (all the months) and place them in a new column called `Month` and their values in another called `Temp`
 
 ```{r, cache=FALSE}
-squishdata<-gather(exactAusdf, "Month")
+squishdata<-exactAusdf%>%
+  pivot_longer(
+  cols = 1:12,
+  names_to = "Month",
+  values_to = "Temp"
+)
 ```
-
 1. Then subset the data, selecting two months using `filter()` from `dplyr`
 
 ```{r, cache=FALSE}
 twomonths <- squishdata %>%
-  # | means OR
+  # | = OR
   filter(., Month=="Jan" | Month=="Jun")
 ```
 
-1. Get the mean for each month we selected
+1. Get the mean for each month we selected, remember `group_by()` and `summarise()` from last week?
 
 ```{r, cache=FALSE, messages=FALSE, warnings=FALSE}
 
 meantwomonths <- twomonths %>%
   group_by(Month) %>%
-  summarize(mean=mean(value, na.rm=TRUE))
-
+  summarise(mean=mean(Temp, na.rm=TRUE))
 
 meantwomonths
 ```
@@ -528,7 +541,7 @@ meantwomonths
 1. Select the colour and fill based on the variable (which is our month). The intercept is the mean we just calculated, with the lines also based on the coloumn variable.
 
 ```{r message=FALSE, warning=FALSE, cache=FALSE}
-ggplot(twomonths, aes(x=value, color=Month, fill=Month)) +
+ggplot(twomonths, aes(x=Temp, color=Month, fill=Month)) +
   geom_histogram(position="identity", alpha=0.5)+
   geom_vline(data=meantwomonths, 
              aes(xintercept=mean, 
@@ -544,7 +557,7 @@ ggplot(twomonths, aes(x=value, color=Month, fill=Month)) +
 
 > **Note** how i adjusted the title after i selected the theme, if i had done this before the theme defaults would have overwritten my command.
 
-1. Have you been getting an annoying error message about bin size and non-finate values? Me too!...Bin size defaults to 30 in ```ggplot2``` and the non-finate values is referring to lots of NAs (no data) that we have in our dataset. In the code below i've selected a bin width of 5 and removed all the NAs with ```complete.cases``` and produced a faceted plot...
+1. Have you been getting an annoying error message about bin size and non-finate values? Me too!...Bin size defaults to 30 in ```ggplot2``` and the non-finate values is referring to lots of NAs (no data) that we have in our dataset. In the code below i've dropped all the NAs with `drop_na()`, selected a bin width of 5 and produced a faceted plot...
 
 ```{r fig.height=10, fig.height=6, cache=FALSE}
 
@@ -552,7 +565,7 @@ data_complete_cases <- squishdata %>%
   drop_na()
 
 # Plot faceted histogram
-ggplot(data_complete_cases, aes(x=value, na.rm=TRUE, color=variable))+
+ggplot(data_complete_cases, aes(x=Temp, na.rm=TRUE, color=variable))+
   geom_histogram(color="black", binwidth = 5)+
   labs(title="Ggplot2 faceted histogram of Australian temperatures", 
        x="Temperature",
@@ -589,9 +602,9 @@ xbinsno<-list(start=0, end=40, size = 2.5)
 
 # plot the histogram calling all the variables we just set
 ihist<-plot_ly(alpha = 0.6) %>%
-        add_histogram(x = jan$value,
+        add_histogram(x = jan$Temp,
         xbins=xbinsno, name="January") %>%
-        add_histogram(x = jun$value,
+        add_histogram(x = jun$Temp,
         xbins=xbinsno, name="June") %>% 
         layout(barmode = "overlay", xaxis=x, yaxis=y)
 
@@ -607,7 +620,7 @@ Ok so enough with the histograms...the point is to think about how to best displ
 # mean per month
 meanofall <- squishdata %>%
   group_by(Month) %>%
-  summarize(mean = mean(value, na.rm=TRUE))
+  summarise(mean = mean(Temp, na.rm=TRUE))
 
 # print the top 1
 head(meanofall, n=1)
@@ -615,34 +628,34 @@ head(meanofall, n=1)
 # standard deviation per month
 sdofall <- squishdata %>%
   group_by(Month) %>%
-  summarize(sd = sd(value, na.rm=TRUE))
+  summarize(sd = sd(Temp, na.rm=TRUE))
 
 # maximum per month
 maxofall <- squishdata %>%
   group_by(Month) %>%
-  summarize(max = max(value, na.rm=TRUE))
+  summarize(max = max(Temp, na.rm=TRUE))
 
 # minimum per month
 minofall <- squishdata %>%
   group_by(Month) %>%
-  summarize(min = min(value, na.rm=TRUE))
+  summarize(min = min(Temp, na.rm=TRUE))
 
 # Interquartlie range per month
 IQRofall <- squishdata %>%
   group_by(Month) %>%
-  summarize(IQR = IQR(value, na.rm=TRUE))
+  summarize(IQR = IQR(Temp, na.rm=TRUE))
 
 # perhaps you want to store multiple outputs in one list..
 lotsofstats <- squishdata %>%
   group_by(Month) %>%
-  summarize(IQR = IQR(value, na.rm=TRUE), 
-            max=max(value, na.rm=T))
+  summarize(IQR = IQR(Temp, na.rm=TRUE), 
+            max=max(Temp, na.rm=T))
 
 # or you want to know the mean (or some other stat) 
 #for the whole year as opposed to each month...
 
 meanwholeyear=squishdata %>%
-  summarize(meanyear = mean(value, na.rm=TRUE))
+  summarize(meanyear = mean(Temp, na.rm=TRUE))
   
 ```
 

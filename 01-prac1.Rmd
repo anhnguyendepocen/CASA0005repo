@@ -31,7 +31,7 @@ This week:
 
 * [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
 :::
-## Recommended listening
+## Recommended listening `r emo::ji("headphones")`
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 

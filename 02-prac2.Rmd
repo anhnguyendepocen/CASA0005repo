@@ -419,7 +419,7 @@ library(here)
 
 Think of `here()` as a command that is just poitning to a file path, to find out where is pointing use...
 
-```{r, cache=FALSE}
+```{r, cache=FALSE, results=FALSE}
 here::here()
 ```
 
@@ -543,7 +543,7 @@ However, we can instead try a cool ‘data sciency’ way of pulling out the row
 
 `dplyr` has a cool function called `filter()`that let's you subset rows based on conditions...
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/dplyr_filter.jpg')
 ```
 Here, we could filter based on a variable, for example extracting all the wards where female life expextancy is greather than 90. 
@@ -621,7 +621,7 @@ LondonBoroughs <- LondonBoroughs %>%
 
 By defualt `Janitor` removes all capitals and uses an underscore wherever there is a space, this would be the same as using setting the `case` argument to snake... 
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
 ```
 
@@ -639,7 +639,7 @@ What about determining both (a) the average of male and female life expectancy t
 
 To do this we will rely on the `mutate()` function that let's us add new variables based on existing ones...
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
 ```
 
@@ -652,9 +652,10 @@ Life_expectancy <- LondonBoroughs %>%
   mutate(normalisedlifeepectancy= averagelifeexpectancy /
            mean(averagelifeexpectancy))%>%
   #select only columns we want
-  select(borough,
-          averagelifeexpectancy, 
-          normalisedlifeepectancy)%>%
+  select(new_code,
+         borough,
+         averagelifeexpectancy, 
+         normalisedlifeepectancy)%>%
   #arrange in descending order
   #ascending is the default and would be
   #arrange(normalisedlifeepectancy)
@@ -671,13 +672,13 @@ slice_head(Life_expectancy, n=5)
 slice_tail(Life_expectancy,n=5)
 ```
 
-####Levelling up with`dplyr`
+#### Levelling up with`dplyr`
 
 So far, we've really just covered basic operations with `dplyr` that you might have previously done in Excel. However, `dplyr` has much more powerful functions that can make advanced data wrangling a breeze. Whilst we've looked at life expectancy in the London boroughs relative to each other, how does the life expectancy of the London Boroughs compare the the UK average of 81.16?
 
 To answer this question we can use the `case_when()`, whereby if the value is greater than 81.16 we can assign the Borough a string of "above UK average", and if below a string of "below UK average"....
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/dplyr_case_when.png')
 ```
 
@@ -685,6 +686,7 @@ knitr::include_graphics('allisonhorst_images/dplyr_case_when.png')
 Life_expectancy2 <- Life_expectancy %>%
   mutate(UKcompare = case_when(averagelifeexpectancy>81.16 ~ "above UK average",
                                TRUE ~ "below UK average"))
+Life_expectancy2
 ```
 
 Now whilst this is useful, it doesn't tell is much more about the data itself, what if we wanted to know the range of life expectancies for London Boroughs that are above the national average....
@@ -695,11 +697,12 @@ Life_expectancy2_group <- Life_expectancy2 %>%
   group_by(UKcompare )%>%
   summarise(range=max(UKdiff)-min(UKdiff), count=n(), Average=mean(UKdiff))
 
+Life_expectancy2_group
 ```
 
 This is useful, but now what if we wanted to have more information based on the distribution of the Boroughs compared to the national average, as opposed to just over or under....there are a few ways to do this..
 
-We are going to 
+We are going to:
 
 1. Again work out difference between the life expectancy of the Boroughs compared to the national average
 1. Round the whole table based on if the column is numeric (this isn't required and we're not adding a new column). Here we are using `across` that applies some kind of transformation across the columns selected (or that are numeric in this case).
@@ -733,7 +736,14 @@ Life_expectancy3 <- Life_expectancy %>%
 Life_expectancy3
 ```
 
+There is a lot of information here that we could use and make into a plot or map. For example, the Borough count of life expectancy difference could be visualised in a histogram (covered next week). Or, we could map the difference between the average life expectancy of each London Borough compared to the UK average..to do this would can just reuse some of the code from the example above....
 
+```{r}
+Life_expectancy4 <- Life_expectancy %>%
+  mutate(UKdiff = averagelifeexpectancy-81.16)%>%
+  mutate(across(is.numeric, round, 3))%>%
+  mutate(across(UKdiff, round, 0))
+```
 
 ### Plotting
 
@@ -769,11 +779,7 @@ plot_ly(LondonBoroughs,
 
 This next part of the practical applies the same principles introduced above to the much more complex problem of handling spatial data within R. 
 
-#####HERE
-
-In the remainder of this practical we will produce a map
-
-gallery of maps using many of the plotting tools available in R. The resulting maps will not be that meaningful --- the focus here is on sound visualisation with R and not sound analysis (I know one is useless without the other!). Good quality spatial analysis will come in the rest of the module.
+In the remainder of this practical we will produce a map, the focus here is getting to grips with some of R's visulisation tools and not sound analysis (I know one is useless without the other!). Good quality spatial analysis will come in the rest of the module.
 
 Whilst the instructions are step by step you are encouraged to start deviating from them (trying different colours for example) to get a better understanding of what we are doing.
 
@@ -819,7 +825,7 @@ library(geojsonio)
 
 R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the ```rgdal``` and ```rgeos``` packages. The  ```maptools``` package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The ```sp``` package (along with  ```spdep```) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like ```raster``` advanced the analysis of gridded spatial data, while packages like ```classInt``` and ```RColorbrewer``` facilitated the binning of data and colouring of choropleth maps.
 
-Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickam and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
+Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')
@@ -924,7 +930,7 @@ qtm(BoroughDataMap,
 
 But that's a bit basic! How about adding a basemap...to get a basemap we need to extract it from OpenStreetMap (OSM) using the `read_osm()` function from the `tmaptools` package. We talk about this in later weeks, but it's a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the `st_box()` function from the `sf` package to extract the basemap image (which is a raster). 
 
-```{r, eval=FALSE, cache=FALSE}
+```{r, eval=TRUE, cache=FALSE}
 tmaplondon <- BoroughDataMap %>%
   st_bbox(.) %>% 
   tmaptools::read_osm(., type = "osm", zoom = NULL)
@@ -942,7 +948,7 @@ There is a bit of extra code below that we haven't explained:
 ```{r, eval=FALSE, cache=FALSE}
 tmap_mode("plot")
 
-tm_shape(tmaplondon)+
+tm_shape(ftmaplondon)+
 tm_rgb()+
 tm_shape(BoroughDataMap) + 
 tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
@@ -957,12 +963,48 @@ tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015",
 
 ```
 
-So that's our first real map done! Awesome work.
+So that's our first real map done! Awesome work. But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to 
 
+1. Merge our `Life_expectancy4map` with the spatial data `EW`
+1. Map our merge with `tmap`
+
+```{r}
+Life_expectancy4map <- EW %>%
+  merge(.,
+        Life_expectancy4, 
+        by.x="lad15cd", 
+        by.y="new_code",
+        no.dups = TRUE)%>%
+  distinct(.,lad15cd, 
+           .keep_all = TRUE)
+```
+
+Now let's make the map!
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(tmaplondon)+
+tm_rgb()+
+tm_shape(Life_expectancy4map) + 
+tm_polygons("UKdiff", 
+        style="pretty",
+        palette="Blues",
+        midpoint=NA,
+        title="Number of years",
+        alpha = 0.5) + 
+  tm_compass(position = c("left", "bottom"),type = "arrow") + 
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_layout(title = "Difference in life expectancy", legend.position = c("right", "bottom"))
+```
+
+There are a few subtle differences in the code of this second map if you look closely:
+* Style is now `pretty` not `jenks`. Style controls where the breaks are within the data that are then assigned to each colour for mapping. `pretty` rounds to whole numbers and evenly spaces them over the data.
+* Palette in now `Blues` not `YlOrBr`. Palette controls the colour of the map, you can see more options through `tmaptools::palette_explorer()`
 
 ## Tidying data
 
-As per the [R for Data Science book](https://r4ds.had.co.nz/tidy-data.html), tidy data is defined using the following three rules:
+As you progress through the programme you will probably notice that there is pretty much a tool or function for anything you could want. However, there has been little reserach into creating a standardised approach for wrangling data into a common format for analysis. This is where [Hadley Wickham's tidy data comes in]( https://www.jstatsoft.org/article/view/v059i10 ). As per the [R for Data Science book](https://r4ds.had.co.nz/tidy-data.html), tidy data is defined using the following three rules:
 
 1. Each variable must have its own column.
 
@@ -970,11 +1012,21 @@ As per the [R for Data Science book](https://r4ds.had.co.nz/tidy-data.html), tid
 
 1. Each value must have its own cell.
 
-But, as per the book, these three are interrelated as you can't only adhere to two without adhering to all three. So this gives us:
+But, as per the book, these three requirements are interrelated as you can't only adhere to two without adhering to all three. So this gives us:
 
 1. Put each dataset in a tibble
 
 1. Put each variable in a column
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+knitr::include_graphics('prac2_images/tidy-1.png') 
+```
+
+However, i also find this example from [KSK analytics](https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/) very helpful..
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+knitr::include_graphics('prac2_images/messy-tidy-ex.png') 
+```
 
 Earlier we read in the data using:
 
@@ -1007,8 +1059,8 @@ So we have a tibble with columns of each varaible (e.g. warning letters, total a
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 #convert the tibble into a tidy tibble
-library(tidyverse)
-flytipping_long <- flytipping1 %>% pivot_longer(
+flytipping_long <- flytipping1 %>% 
+  pivot_longer(
   cols = 4:11,
   names_to = "tipping_type",
   values_to = "count"
@@ -1018,7 +1070,7 @@ flytipping_long <- flytipping1 %>% pivot_longer(
 view(flytipping_long)
 ```
 
-Do you see the difference...this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.
+Do you see the difference..the data has become longer!...this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.
 
 You could also use this to do the same thing...
 
