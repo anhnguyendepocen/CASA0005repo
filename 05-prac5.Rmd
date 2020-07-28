@@ -238,39 +238,46 @@ Your R and geogprahical are certainly improving by now, so i'm just going to pro
 library(sf)
 library(tmap)
 library(tmaptools)
-library(plyr)
 library(tidyverse)
+library(here)
 
-tmap_mode("plot")
+# read in all the spatial data and 
+# reproject it 
 
-OSM <- st_read("prac5_data/greater-london-latest-free.shp/gis_osm_pois_a_free_1.shp")
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
 
-Londonborough <- st_read("Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
+Worldcities <- st_read(here::here("prac5_data", 
+                                  "World_Cities", 
+                                  "World_Cities.shp")) %>%
+  st_transform(., 27700)
 
-Airbnb <- read_csv("prac5_data/listings.csv")
-  
-Worldcities <- st_read("prac5_data/World_Cities/World_Cities.shp")
+UK_outline <- st_read(here::here("prac5_data", 
+                                 "gadm36_GBR_shp", 
+                                 "gadm36_GBR_0.shp")) %>%
+  st_transform(., 27700)
 
-UK_outline <- st_read("prac5_data/gadm36_GBR_shp/gadm36_GBR_0.shp")
+#London Borough data is already in 277000
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
 
-# plot xy data
-Airbnb <- st_as_sf(Airbnb, coords = c("longitude", "latitude"), 
-                   crs = 4326)
+# read in the .csv
+# and make it into spatial data
 
-# reproject
-OSM <- st_transform(OSM, 27700)
-Worldcities <- st_transform(Worldcities, 27700)
-UK_outline <- st_transform(UK_outline, 27700)
-Airbnb <- st_transform(Airbnb, 27700)
-# we don't need to reproject Londonborough, but it 
-# doesn't have a CRS..you could also use set_crs
-# it needs to have one for the next step
-Londonborough<- st_transform(Londonborough, 27700)
+Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  st_as_sf(., coords = c("longitude", "latitude"), 
+                   crs = 4326) %>%
+    st_transform(., 27700)%>%
+    #select entire places that are available all year
+    filter(room_type == 'Entire home/apt' & availability_365 =='365')
 
-#select hotels only
-OSM <- OSM[OSM$fclass == 'hotel',]
-Airbnb <- Airbnb[Airbnb$room_type == 'Entire home/apt' &
-                   Airbnb$availability_365=='365',]
 
 # make a function for the join
 # functions are covered in practical 7
@@ -278,17 +285,13 @@ Airbnb <- Airbnb[Airbnb$room_type == 'Entire home/apt' &
 # hint all you have to do is replace data1 and data2
 # with the data you want to use
 
-Joinfun <- function(data1, data2) {
-  # join OSM and London boroughs
-  joined <- st_join(data1, data2, join = st_within)
-  
-  # count the number of hotels per borough
-  countno <- as.data.frame(plyr::count(joined$GSS_CODE))
-  
-  # join the count back to the borough layer
-  counted <-left_join(data2, countno, by=c("GSS_CODE"="x"))
-  
-  return(counted)
+Joinfun <- function(data1, data2){
+
+output<- data1%>%
+  st_join(Londonborough,.)%>%
+  add_count(GSS_CODE, name="hotels_in_borough") 
+
+  return(output)
 }
 
 # use the function for hotels
@@ -296,33 +299,41 @@ Hotels <- Joinfun(OSM, Londonborough)
 
 # then for airbnb
 Airbnb <- Joinfun(Airbnb, Londonborough)
-
-Worldcities2 <- Worldcities[Worldcities$CNTRY_NAME=='United Kingdom'&
-                              Worldcities$CITY_NAME=='Birmingham'|
-                              Worldcities$CITY_NAME=='London'|
-                              Worldcities$CITY_NAME=='Edinburgh',]
+ 
+Worldcities2 <- Worldcities %>%
+  filter(CNTRY_NAME=='United Kingdom'&
+           Worldcities$CITY_NAME=='Birmingham'|
+           Worldcities$CITY_NAME=='London'|
+           Worldcities$CITY_NAME=='Edinburgh')
 
 newbb <- c(xmin=-296000, ymin=5408, xmax=655696, ymax=1000000)
-UK_outlinecrop=st_crop(UK_outline$geometry, newbb)
+  
+UK_outlinecrop <- UK_outline$geometry %>%
+  st_crop(., newbb)
 
-# now try to arrange the plots with tmap
-# note that OSM is a live dataset
-# so you might have more than 286 hotels in yours!
-# adjust accordingly 
+#change the column name from hotels_in_borough for the legend
+
+Hotels <- Hotels %>%
+  dplyr::rename(`Accomodation count` = hotels_in_borough)
+
+Airbnb <- Airbnb %>%
+  dplyr::rename(`Accomodation count` = hotels_in_borough)
+
+tmap_mode("plot")
+
+# set the breaks
+# for our mapped data
 breaks = c(0, 5, 12, 26, 57, 286) 
-
-#change the column name from freq for the legend
-colnames(Hotels)[colnames(Hotels)=="freq"] <- "Accom count"
 
 # plot each map
 tm1 <- tm_shape(Hotels) + 
-  tm_polygons("Accom count", breaks=breaks)+
+  tm_polygons("Accomodation count", breaks=breaks)+
   tm_legend(show=FALSE)+
   tm_layout(frame=FALSE)+
   tm_credits("(a)", position=c(0,0.85), size=1.5)
 
 tm2 <- tm_shape(Airbnb) + 
-  tm_polygons("freq", breaks=breaks) + 
+  tm_polygons("Accomodation count", breaks=breaks) + 
   tm_legend(show=FALSE)+
   tm_layout(frame=FALSE)+
   tm_credits("(b)", position=c(0,0.85), size=1.5)
@@ -335,7 +346,7 @@ tm3 <- tm_shape(UK_outlinecrop)+
   tm_text("CITY_NAME", xmod=-1, ymod=-0.5)
 
 legend <- tm_shape(Hotels) +
-    tm_polygons("Accom count") +
+    tm_polygons("Accomodation count") +
     tm_scale_bar(position=c(0.2,0.04), text.size=0.6)+
     tm_compass(north=0, position=c(0.65,0.6))+
     tm_layout(legend.only = TRUE, legend.position=c(0.2,0.25),asp=0.1)+
@@ -377,7 +388,7 @@ But could we not also make an interactive map like we did in practical 2?
 tmap_mode("view")
 
 tm_shape(Airbnb) + 
-  tm_polygons("freq", breaks=breaks) 
+  tm_polygons("Accomodation count", breaks=breaks) 
 ```
 
 ### Advanced interactive map
@@ -389,24 +400,46 @@ But let's take it a bit further so we can select our layers on an interactive ma
 library(leafpop)
 library(leaflet)
 
-#join data
-ti<-st_join(Airbnb, Hotels, join = st_equals)
-ti<-st_transform(ti,crs = 4326)
+Airbnb_count <- Airbnb %>% 
+  count(GSS_CODE)
 
+Hotels_count<-Hotels %>%
+  count(GSS_CODE)
+#join data
+
+lbtibble <- Londonborough %>%
+  st_drop_geometry() %>%
+  as.tibble()
+
+Joining<-Airbnb_count%>%
+  st_join(., Hotels_count, join = st_equals) %>%
+  st_transform(.,crs = 4326) %>%
+  merge(.,lbtibble, 
+        by.x="GSS_CODE.x", 
+        by.y="GSS_CODE") %>%
+  rename(`Airbnb count` = `n.x`, 
+         `GSS Code`= GSS_CODE.x,
+         `Borough`=NAME,
+         `Hotel count` = `n.y`) %>%
+  dplyr::select(Borough, `GSS Code`, `Airbnb count`, `Hotel count`)
+  
 #remove the geometry for our pop up boxes to avoid
-#the geometry field 
-ti2 <- ti
-st_geometry(ti2) <- NULL
-popairbnb <- popupTable(ti2, zcol=c("NAME.x", "GSS_CODE.x", "freq"))
-pophotels <- popupTable(ti2, zcol=c("NAME.x", "GSS_CODE.x", "Accom count"))
+Joining_drop <- Joining %>%
+  st_drop_geometry()
+
+popairbnb <- Joining_drop %>%
+  popupTable(.,zcol=c("Borough", "GSS Code", "Airbnb count"))
+  
+pophotels <- Joining_drop %>%
+  popupTable(.,zcol=c("Borough", "GSS Code", "Hotel count"))
 
 # set the colour palettes using our previously defined breaks
 # the colour palettes are the same using the same breaks
 # but different data
-pal <- colorBin(palette = "YlOrRd", domain=ti2$freq, bins=breaks)
-pal2 <- colorBin(palette = "YlOrRd", domain=ti2$`Accom count`, bins=breaks)
+pal <- colorBin(palette = "YlOrRd", domain=Joining$`Airbnb count`, bins=breaks)
+pal2 <- colorBin(palette = "YlOrRd", domain=Joining$`Hotel count`, bins=breaks)
 
-map<- leaflet(ti) %>%
+map<- leaflet(Joining) %>%
   
   # add basemap options
   addTiles(group = "OSM (default)") %>%
@@ -421,19 +454,21 @@ map<- leaflet(ti) %>%
               dashArray = "3",
               popup = popairbnb,
               fillOpacity = 0.7,
-              fillColor = ~pal(freq),
+              fillColor = ~pal(`Airbnb count`),
               group = "Airbnb")%>%
   
-  addPolygons(fillColor = ~pal(`Accom count`), 
+  addPolygons(fillColor = ~pal(`Hotel count`), 
               weight = 2,
               opacity = 1,
               color = "white",
               dashArray = "3",
               popup = pophotels,
-              fillOpacity = 0.7,group = "Hotels")%>%
+              fillOpacity = 0.7,
+              group = "Hotels")%>%
   # add a legend
-  addLegend(pal = pal2, values = ~`Accom count`, group = c("Airbnb","Hotel"), 
-            position ="bottomleft") %>%
+  
+  addLegend(pal = pal, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
+            position ="bottomleft", title = "Accomodation count") %>%
   # specify layers control
   addLayersControl(
     baseGroups = c("OSM (default)", "Toner", "Toner Lite", "CartoDB"),
@@ -445,9 +480,13 @@ map<- leaflet(ti) %>%
 map
 ```
 
-If you want to explore Leaflet more have a look at [this website](https://rstudio.github.io/leaflet/)
+::: {.infobox .warning data-latex="{note}"}
+The legend on this map doesn't update when you select a different layer. I could have enabled this by chaning the `group` argument to just Airbnb or Hotel, then calling a second `addLegend()` function for the other group. However, when displaying maps such as these, it's often useful to have a consistent scale in the legend so they are **directly** comparable. 
+:::
 
-To see other basemap options (there are loads!) have a look here: http://leaflet-extras.github.io/leaflet-providers/preview/
+If you want to explore Leaflet more have a look at [the leaflet for R Guide](https://rstudio.github.io/leaflet/)
+
+To see other basemap options (there are loads!) have a look here at [leaflet extras](http://leaflet-extras.github.io/leaflet-providers/preview/)
 
 ## Bad maps
 
@@ -461,7 +500,7 @@ What makes a bad map then... and what should you avoid:
 * Presented data is too small or too big --- be critical about what you produce, it should be easy to read and understand
 * A map or figure without enough detail --- **A reader should be able to understand a map or figure using the graphic in the figure/map and the caption alone!** A long caption is **fine** assuming it's all relevant information.
 
-For more cartography ideas/advice have a look at this [blog post](https://www.katiejolly.io/blog/2019-08-28/nyt-urban-heat), consult [axis map catography guide](https://www.axismaps.com/guide/) and check out the [data is beautiful reddit](https://www.reddit.com/r/dataisbeautiful/).
+For more cartography ideas/advice have a look at [Katie Jolly's blog post on urban heat islands](https://www.katiejolly.io/blog/2019-08-28/nyt-urban-heat), consult [axis map catography guide](https://www.axismaps.com/guide/) and check out the [data is beautiful reddit](https://www.reddit.com/r/dataisbeautiful/).
 
 Another decent resource is the [Fundamentals of Data Visualization book](https://serialmentor.com/dataviz/)
 

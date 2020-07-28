@@ -480,15 +480,19 @@ class(LondonData)
 class(LondonDataOSK)
 ```
 
-We can also use the ```class``` function within another two functions ```summarise_all() and gather()``` to check that our data has been read in correctly and that, for example, numeric data haven’t been read in as text or other variables. Run the following line of code:
+We can also use the `class()` function (from base R) within another two functions `summarise_all()` (from `dplyr`) and `pivot_longer()` (from `tidyr`) to check that our data has been read in correctly and that, for example, numeric data haven’t been read in as text or other variables. Run the following line of code:
 
 ```{r, cache=FALSE}
 Datatypelist <- LondonData %>% 
-      summarise_all(class) %>% 
-      gather(variable, class)
-  
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
 Datatypelist
 ```
+
+We cover `pivot_longer()` later in this practical, but for now 
 
 You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.
 
@@ -847,7 +851,7 @@ EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbdd
 
 Or you can do a manual download from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2) via Download > Shapefile.
 
-Pull out London using grep and the regex wildcard for 'start of the string' (^) to to look for the bit of the district code that relates to London (E09) from the 'lad15cd' column in the data slot of our spatial polygons dataframe
+Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 
 
 ```{r, cache=FALSE}
 LondonMap<- EW %>%
