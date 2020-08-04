@@ -88,10 +88,10 @@ To access the Landsat data we will use in this practical you can either:
 To download the data:
 
 1. Search for Manchester in the address/place box and select it. 
-2. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
-3. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
-4. Click results, there should be one image, download it..it might take a while
-5. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear.
+1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
+1. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
+1. Click results, there should be one image, download it..it might take a while
+1. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear.
 
 #### Alternative raster data
 
@@ -115,31 +115,20 @@ o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR
 Next we need to uncompress and unzip the file with `untar()`, first list the files that end in the extension `.gz` then pass that to `untar` with the pipe `%>%` remember this basically means after this function... then...do this other function with that data
 
 ```{r, eval=F, cache=T}
-listgoogledriveGZ <- list.files("prac7_data/exampleGoogleDrive",pattern="\\.gz$",
-                          ignore.case=TRUE, full.names=TRUE) %>%
-  untar(exdir="prac7_data/exampleGoogleDrivedata")
+library(tidyverse)
+library(fs)
+library(stringr)
+library(utils)
+
+listfiles<-dir_info(here::here("prac7_data", "exampleGoogleDrivedata")) %>%
+  dplyr::filter(str_detect(path, ".gz")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  #print out the .gz file
+  print()%>%
+  as.character()%>%
+  utils::untar(exdir=here::here("prac7_data", "exampleGoogleDrivedata"))
 ```
-
-Alternatively instead of the pipe you could write...
-
-```{r, eval=F, cache=T}
-listgoogledriveGZ <- list.files("prac7_data/exampleGoogleDrive",pattern="\\.gz$",
-                          ignore.case=TRUE, full.names=TRUE) 
-
-untar(listgoogledriveGZ, exdir="prac7_data/exampleGoogleDrive")
-```
-
-The only difference is that our list of files (or just one file) has been passed to `untar` manually as i've used the `untar()` function like this...
-
-```{r, cache=T, eval=F}
-untar(tarfile, exdir = ".")
-```
-
-Where:
-
-`tarfile` is pathname of the `.tar` file and 
-
-`exdir` is the directory to extract files to
 
 ## Processing raster data
 
@@ -147,7 +136,7 @@ Where:
 
 Today, we are going to be using a Landsat 8 raster of Manchester. The vector shape file for Manchester has been taken from an ESRI repository. 
 
-6. Let's load the majority of packages we will need here. 
+1. Let's load the majority of packages we will need here. 
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 ## listing all possible libraries that all presenters may need following each practical
@@ -159,84 +148,113 @@ library(rasterVis)
 library(ggplot2)
 ```
 
-7. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a seperate ```.TIF``` file.
+1. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a seperate ```.TIF``` file.
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
+library(stringr)
+library(raster)
+library(fs)
+library(sf)
+
 # List your raster files excluding band 8 using the patter argument
-listlandsat <- list.files("prac7_data/Lsatdata",pattern=".*[B123456790]\\.tif$",
-                          ignore.case=TRUE, full.names=TRUE)
+listlandsat<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B123456790].TIF")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  # Load our raster layers into a stack
+  stack()
 
 # Load the manchester boundary
-manchester_boundary <- readOGR('prac7_data/manchester_boundary.shp')
-
-# Load our raster layers into a stack
-stacklandsat <- stack(listlandsat)
+manchester_boundary <- st_read(here::here("prac7_data", "manchester_boundary.shp"))
 
 #check they have the same Coordinate Reference System (CRS)
 crs(manchester_boundary)
-crs(stacklandsat)
+crs(listlandsat)
 ```
 
 ### Resampling
 
-8. There is an error with this dataset as band 8 does not fully align with the extent of the other raster layers. There are several ways to fix this, but in this tutorial we will resample the band 8 layer with the extent of band 1. Resampling takes awhile, so please be patient...
+1. There is an error with this dataset as band 8 does not fully align with the extent of the other raster layers. There are several ways to fix this, but in this tutorial we will resample the band 8 layer with the extent of band 1. First, read in the band 8 and store it as a raster.
 
 ```{r eval=FALSE, cache=TRUE}
 # get band 8
-b8list <- list.files("prac7_data/Lsatdata",pattern=".*B[8]\\.tif$", 
-                     ignore.case=TRUE, full.names=TRUE)
-b8 <- raster(b8list)
+b8list<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+```
 
+Then, `resample()` and write out the new layer, resampling takes awhile, so please be patient or find my output on GitHub.
+
+```{r, eval=FALSE}
 ## ngb is a nearest neighbour sampling method
-b8<-resample(b8, 
-             stacklandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1, 
-             method = "ngb") 
-
-# Write out the raster
-writeRaster(b8, names(b8), format='GTiff', overwrite=TRUE)
-
+b8correct <- b8list%>%
+  resample(., listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1, 
+             method = "ngb") %>%
+  # Write out the raster
+writeRaster(.,str_c(here::here("prac7_data", 
+                             "Lsatdata"), 
+                  names(b8list), 
+                  sep="/"),
+            format='GTiff', 
+            overwrite=TRUE)
+            
 ```
 
-9. Load band 8 and add it to our raster stack
+1. Load band 8 and add it to our raster stack
 
 ```{r, cache=TRUE}
-b8list2 <- list.files("prac7_data/Lsatdata",pattern=".*B[8]\\.tif$", ignore.case=TRUE,
-                      full.names = TRUE)
-
-# Read in band 8
-b8backin <- raster(b8list2)
-
-stacklandsat <- addLayer(stacklandsat, b8backin)
+b8backin<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+  
+listlandsat <- listlandsat %>%
+  addLayer(., b8backin)
+  
 ```
 
-10. We can compare it to see if both rasters have the same extent, number of rows and columns, projection, resolution and origin
+1. We can compare it to see if both rasters have the same extent, number of rows and columns, projection, resolution and origin
 
 ```{r, cache=TRUE}
-compareRaster(stacklandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1,
-              stacklandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B8)
+raster::compareRaster(listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1,
+              listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B8)
 ```
 
 ### Clipping 
 
-10. Our raster is currently the size of the scene which satellite data is distributed in, to clip it to our study area it's best to first crop it to the extent of the shapefile and then mask it as we have done in previous practicals...
+1. Our raster is currently the size of the scene which satellite data is distributed in, to clip it to our study area it's best to first crop it to the extent of the shapefile and then mask it as we have done in previous practicals...
 
 ```{r, cache=TRUE}
-e <- extent(manchester_boundary)
-lsatcrop <- crop(stacklandsat, e)
-lsatmask <- mask(lsatcrop, manchester_boundary)
+
+lsatmask <- listlandsat %>%
+  # now crop our temp data to the extent
+  crop(.,manchester_boundary)%>%
+  mask(.,  manchester_boundary)
 ```
 
 11. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
 
 ```{r, cache=TRUE}
 # add mask to the filenames within the raster stack
-names(lsatmask)<-paste(names(lsatmask), "mask", sep="")
+
+names(lsatmask) <- names(lsatmask)%>%
+  str_c(., 
+        "mask", 
+        sep="_")
 
 # I need to write mine out in another location
-outputfilenames <- paste("prac7_data/Lsatdata/", names(lsatmask), sep="")
+outputfilenames <-
+  str_c("prac7_data/Lsatdata/", "mask/", names(lsatmask) ,sep="")
+
 ```
 
-In the first line of code i'm taking the original names of the raster layers and adding "mask" to the end of them. This is done using ```paste()``` and the arguments
+In the first line of code i'm taking the original names of the raster layers and adding "mask" to the end of them. This is done using ```str_c()``` from the stringr package and the arguments
 
 * ```names(lsatmask)```: original raster layer names
 * ```"mask"```: what i want to add to the names
@@ -245,13 +263,21 @@ In the first line of code i'm taking the original names of the raster layers and
 As i can't upload my Landsat files to GitHub i'm storing them in a folder that is not linked (remember this is all sotred on GitHub) -- so you won't find ```prac7_data/Lsatdata``` on there. If you want to store your clipped Landsat files in your project directory just use:
 
 ```{r eval=FALSE, cache=TRUE}
-writeRaster(lsatmask, names(lsatmask), bylayer=TRUE, format='GTiff', overwrite=TRUE)
+lsatmask %>%
+  writeRaster(., names(lsatmask), 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
 ```
 
 For me though it's:
 
 ```{r, cache=TRUE}
-writeRaster(lsatmask, outputfilenames, bylayer=TRUE, format='GTiff', overwrite=TRUE)
+lsatmask %>%
+  writeRaster(., outputfilenames, 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
 ```
 
 Here i write out each raster layer individually though specifying ```bylayer=TRUE```.
@@ -260,28 +286,32 @@ Here i write out each raster layer individually though specifying ```bylayer=TRU
 
 ### More loading and manipulating
 
-12. For the next stage of analysis we are only interested in bands 1-7, we can either load them back in from the files we just saved or take them directly from the original raster stack.
+1. For the next stage of analysis we are only interested in bands 1-7, we can either load them back in from the files we just saved or take them directly from the original raster stack.
 
 ```{r, cache=TRUE}
 # either read them back in from the saved file:
-manc_files<-list.files("prac7_data/Lsatdata/",pattern=".*B[1234567]\\mask.tif$", 
-                       ignore.case=TRUE, full.names=TRUE)
-manc <- stack(manc_files)
+
+manc_files<-dir_info(here::here("prac7_data", "Lsatdata", "mask")) %>%
+  dplyr::filter(str_detect(path, "[B1234567]_mask.tif")) %>%
+  dplyr::filter(str_detect(path, "B11", negate=TRUE))%>%
+  dplyr::select(path)%>%
+  pull()%>%
+  stack()
 
 # or extract them from the original stack
-manc<-stack(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B1mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B2mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B3mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B4mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6mask,
-                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B7mask)
+manc<-stack(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B1_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B2_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B3_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B4_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B7_mask)
 
 # Name the Bands based on where they sample the electromagentic spectrum
 names(manc) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2') 
 ```
 
-13. If you want to extract specific information from a raster stack use:
+1. If you want to extract specific information from a raster stack use:
 
 ```{r results="hide", eval=FALSE, cache=TRUE}
 crs(manc) # projection
@@ -302,8 +332,11 @@ manc_rgb <- stack(manc$red, manc$green, manc$blue)
 # false colour composite
 manc_false <- stack(manc$NIR, manc$red, manc$green)
 
-plotRGB(manc_rgb, axes=TRUE, stretch="lin")
-plotRGB(manc_false, axes=TRUE, stretch="lin")
+manc_rgb %>%
+  plotRGB(.,axes=TRUE, stretch="lin")
+
+manc_false %>%
+    plotRGB(.,axes=TRUE, stretch="lin")
 ```
 
 ### Data similarity
@@ -314,7 +347,6 @@ plotRGB(manc_false, axes=TRUE, stretch="lin")
 plot(manc$SWIR2)
 
 ## How are these bands different?
-
 #set the plot window size (2 by 2)
 par(mfrow = c(2,2))
 #plot the bands
@@ -332,9 +364,12 @@ Low statistical significance means that the bands are sufficiently different eno
 ```{r cache=TRUE}
 library(ggplot2)
 library(GGally)
-mancdataframe=as.data.frame(manc[[1:7]], na.rm=TRUE)
-randomsample<-mancdataframe[sample(nrow(mancdataframe), 100), ]
-ggpairs(randomsample, axisLabels="none") 
+
+manc %>%
+  as.data.frame(., na.rm=TRUE)%>%
+  sample_n(., 100)%>%
+  ggpairs(.,axisLabels="none")
+
 ```
 
 You can do much more using ```GGally``` have a look at the great [documentation](https://ggobi.github.io/ggally/#ggallyggpairs)
@@ -351,9 +386,20 @@ $$NDVI= \frac{NIR-Red}{NIR+Red}$$
 
 ### NDVI function
 
-In R we can write functions to logically break our code into simpler sections. We can use NDVI as an example...
+One of the great strengths of R is that is lets users define their own functions. Here we will practice writing a couple of basic functions to process some of the data we have been working with. 
 
-16. Let's make a function called ```NDVIfun```
+One of the benefits of a function is that it generalises some set of operations that can then be repeated over and again on different data... the structure of a function in R is given below:
+
+```{r prac8_fun,eval=FALSE}
+myfunction <- function(arg1, arg2, ... ){
+  statements
+  return(object)
+}
+```
+
+We can use NDVI as an example...
+
+1. Let's make a function called ```NDVIfun```
 
 ```{r, cache=TRUE}
 NDVIfun <- function(NIR, Red) {
@@ -368,7 +414,7 @@ Here we have said our function needs two arguments NIR and Red, the next line ca
 source('insert file name')
 ```
 
-17. To use the function do so through...
+1. To use the function do so through...
 
 ```{r, cache=TRUE}
 ndvi <- NDVIfun(manc$NIR, manc$red)
@@ -376,29 +422,41 @@ ndvi <- NDVIfun(manc$NIR, manc$red)
 
 Here we call the function ```NDVIfun()``` and then provide the NIR and Red band.
 
-18. Check the output
+1. Check the output
 
 ```{r, cache=TRUE}
-plot(ndvi, col = rev(terrain.colors(10)), main = "Landsat-NDVI")
+ndvi %>%
+  plot(.,col = rev(terrain.colors(10)), main = "Landsat-NDVI")
 
 # Let's look at the histogram for this dataset
-hist(ndvi, breaks = 40, main = "NDVI Histogram", xlim = c(-.3,.8))
+ndvi %>%
+  hist(., breaks = 40, main = "NDVI Histogram", xlim = c(-.3,.8))
 ```
 
-19. We can reclassify to the raster to show use what is most likely going to vegetation based on the histogram using the 3rd quartile --- anything above the 3rd quartile we assume is vegetation.
+1. We can reclassify to the raster to show use what is most likely going to vegetation based on the histogram using the 3rd quartile --- anything above the 3rd quartile we assume is vegetation.
 
 > Note, this is an assumption for demonstration purposes, if you were to do something similar in your assignment be sure to provide reasoning with linkage to literature (e.g. policy or academic)
 
 ```{r, cache=TRUE}
-veg <- reclassify(ndvi, cbind(-Inf, 0.3, NA))
-plot(veg, main = 'Possible Veg cover')
+
+veg <- ndvi %>%
+  reclassify(., cbind(-Inf, 0.3, NA))
+
+veg %>%
+  plot(.,main = 'Possible Veg cover')
+
 ```
 
-20. Let's look at this in relation to Manchester as a whole
+1. Let's look at this in relation to Manchester as a whole
 
 ```{r, cache=TRUE}
-plotRGB(manc_rgb, axes = TRUE, stretch = "lin", main = "Landsat True Color Composite")
-plot(veg, add=TRUE, legend=FALSE)
+
+manc_rgb %>%
+  plotRGB(.,axes = TRUE, stretch = "lin", main = "Landsat True Color Composite")
+
+veg %>%
+  plot(., add=TRUE, legend=FALSE)
+
 ```
 
 ## Advanced raster calculations
@@ -412,7 +470,7 @@ Here we are going to compute temperature from Landsat data --- there are many me
 Some of the terms used our outlined in the remote sensing background section at the end of the document, so check back there if you get confused.
 
 
-21. Calcualte the Top of Atmopshere (TOA) spectral radiance from the Digital Number (DN) using:
+1. Calcualte the Top of Atmopshere (TOA) spectral radiance from the Digital Number (DN) using:
 
 $$\lambda= Grescale * QCAL + Brescale$$
 
@@ -426,24 +484,35 @@ Grescale and Brescale are available from the ```.MTL``` file provided when you d
 
 ```{r results="hide", warnings=FALSE, message=FALSE, cache=TRUE}
 library(RStoolbox)
-MTL <- list.files("prac7_data/Lsatdata/",pattern="*MTL.txt", ignore.case=TRUE, full.names = TRUE)
 
-readMTL<-readMeta(MTL)
-#To see all the attributes
-readMTL
+MTL<-dir_info(here::here("prac7_data", "Lsatdata")) %>%
+  dplyr::filter(str_detect(path, "MTL.txt")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  readMeta()
+
+ #To see all the attributes
+head(MTL)
 ```
 
-22. Now let's extract the values from the readMTL variable for Band 10...
+1. Now let's extract the values from the readMTL variable for Band 10...we can either use the function `getMeta()` from `RStoolbox` of just extract the values ourselves...
 
 ```{r, cache=TRUE}
-offsetandgain <- subset(readMTL$CALRAD, rownames(readMTL$CALRAD) == "B10_dn")
+
+offsetandgain <-MTL %>%
+  getMeta("B10_dn", metaData = ., what = "CALRAD")
+
+offsetandgain
+
+##OR  
+offsetandgain <- subset(MTL$CALRAD, rownames(MTL$CALRAD) == "B10_dn")
 ```
 
-23. Run the calculation using the band 10 raster layer
+1. Run the calculation using the band 10 raster layer
 
 ```{r, cache=TRUE}
-TOA <-  offsetandgain$gain *
-  lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B10mask + 
+TOA <- offsetandgain$gain *
+  lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B10_mask + 
   offsetandgain$offset
 ```
 
@@ -457,56 +526,51 @@ K1 (774.8853) and K2 (1321.0789) are pre launch calibration constants provided b
 
 Check the [handbook](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1574_L8_Data_Users_Handbook_v4.0.pdf) for these values 
 
-25. Instead of hardcoding these values...yep, you guessed it... we can extract them from our ```MTL```
+1. Instead of hardcoding these values...yep, you guessed it... we can extract them from our ```MTL```
 
 ```{r, cache=TRUE}
 
-Calidata <- as.data.frame(readMTL$CALBT)
-
-# subet the rows
-Calidata <- subset(Calidata, rownames(Calidata) %in% "B10_dn")
+Calidata <- MTL$CALBT%>%
+  as.data.frame()%>%
+  mutate(Band=rownames(.))%>%
+  filter(Band=="B10_dn")
 
 # subset the columns
-K1<-subset(Calidata, select=(K1))
-K2<-subset(Calidata, select=(K2))
+K1 <- Calidata %>%
+  dplyr::select(K1)%>%
+  pull()
 
-# get just the values out
-K1<-K1$K1
-K2<-K2$K2
+K2 <- Calidata %>%
+  dplyr::select(K2)%>%
+  pull()
 
-# this would also work for K1
-K1<-readMTL$CALBT$K1[1]
-
-#for K2
-K2<-readMTL$CALBT$K2[1]
-
-Brighttemp<-(K2 / log((K1 / TOA) + 1))
+Brighttemp <- (K2 / log((K1 / TOA) + 1))
 ```
 
 Earlier we calcualted NDVI, let's use that to determine emissivity of each pixel.
 
-26. First we need to calcualte the fractional vegetation of each pixel, through the equation:
+1. First we need to calcualte the fractional vegetation of each pixel, through the equation:
 
 $$F_v= \left( \frac{NDVI - NDVI_{min}}{NDVI_{max}-NDVI_{min}} \right)^2$$
 ```{r, cache=TRUE}
-facveg=(ndvi-0.2/0.5-0.2)^2
+facveg <- (ndvi-0.2/0.5-0.2)^2
 ```
 
 Fractional vegetation cover is the ratio of vertically projected area of vegetation to the total surface extent.
 
 Here, $NDVI_{min}$ is the minimum NDVI value (0.2) where pixels are considered bare earth and $NDVI_{max}$ is the value at which pixels are considered healthy vegetation (0.5)
 
-27. Now compute the emissivity using:
+1. Now compute the emissivity using:
 
 $$\varepsilon = 0.004*F_v+0.986$$
 
 ```{r, cache=TRUE}
-emiss=0.004*facveg+0.986
+emiss <- 0.004*facveg+0.986
 ```
 
 Emissivity is the ratio absorbed radiation engery to total incoming radiation engery compared to a blackbody (which would absorb everything), being ameasure of absoptivity.
 
-28. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
+1. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
 
 $$LST= \frac{T_b}{1+(\lambda \varrho T_b / (p))ln\varepsilon}$$
 
@@ -525,11 +589,11 @@ Here we have:
 * $\varrho$ which is the Boltzmann constant of $1.38 × 10^-23 J/K$
 
 ```{r, cache=TRUE}
-Boltzmann=1.38*10e-23
-Plank=6.626*10e-34
-c=2.998*10e8
+Boltzmann <- 1.38*10e-23
+Plank <- 6.626*10e-34
+c <- 2.998*10e8
 
-p=Plank*(c/Boltzmann)
+p <- Plank*(c/Boltzmann)
 ```
 
 Now for the rest of the equation....we have the values for:
@@ -544,17 +608,17 @@ Now for the rest of the equation....we have the values for:
 
 ```{r, cache=TRUE}
 #define remaining varaibles
-lambda=1.09e-5
+lambda <- 1.09e-5
 #run the LST calculation
-LST <-Brighttemp/(1 +(lambda*Brighttemp/p)*log(emiss))
+LST <- Brighttemp/(1 +(lambda*Brighttemp/p)*log(emiss))
 # check the values
 LST
 ```
 
-31. Are the values very high?... That's because we are in Kevlin not degrees Celcius...let's fix that and plot the map
+1. Are the values very high?... That's because we are in Kevlin not degrees Celcius...let's fix that and plot the map
 
 ```{r, cache=TRUE}
-LST<-LST-273.15
+LST <- LST-273.15
 plot(LST)
 ```
 
@@ -572,65 +636,63 @@ $$NDBI= \frac{Short-wave Infrared (SWIR)-Near Infrared (NIR)}{Short-wave Infrare
 
 In Landsat 8 data the SWIR is band 6 and the NIR band 5
 
-31. Let's compute this index now...
+1. Let's compute this index now...
 
 ```{r, cache=TRUE}
-NDBI=((lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6mask-
-         lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5mask)/
-        (lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6mask+
-        lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5mask))
+NDBI=((lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask-
+         lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)/
+        (lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask+
+        lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask))
 ```
 
 But do you remember our function? ...Well this is the same calculation we used there just with different raster layers (or bands) so we could reuse it...
 
 ```{r, cache=TRUE}
-NDBIfunexample <- NDVIfun(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6mask,
-                          lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5mask)
+NDBIfunexample <- NDVIfun(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                          lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)
 ```
 
 ## Urban area and temperature relationship
 
-32. We could plot the varaibles agaisnt each other but there are a lot of data points
+1. We could plot the varaibles agaisnt each other but there are a lot of data points
 
 ```{r, cache=TRUE}
+
 plot(values(NDBI), values(LST))
 ```
 
 This is termed the overplotting problem. So, let's just take a random subset of the same pixels from both raster layers. 
 
-33. To do so we need to again stack our layers
+1. To do so we need to again stack our layers
 
 ```{r, cache=TRUE}
 # stack the layers
-computeddata=stack(LST,NDBI)
 
-# take a random subset
-random=sampleRandom(computeddata, 500, cells=TRUE)
+computeddata <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  sample_n(., 500)%>%
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
 
-# check the output
-plot(random[,2], random[,3])
-
+ # check the output
+plot(computeddata$Temp, computeddata$NDBI)
+  
 ```
 
-34. Let's jazz things up, load some more packages
+1. Let's jazz things up, load some more packages
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 library(plotly)
-library(tidyverse)
 library(htmlwidgets)
-library(ggplot2)
 ```
 
-35. Transfrom the data to a data.frame to work with `ggplot`, then plot
+1. Transfrom the data to a data.frame to work with `ggplot`, then plot
 
 ```{r, cache=TRUE}
-#convert to a data frame
-randomdf=as.data.frame(random)
 
-#rename the coloumns
-names(randomdf)<-c("cell", "Temperature", "Urban")
-
-heat<-ggplot(randomdf, aes(x = Urban, y = Temperature))+
+heat<-ggplot(computeddata, aes(x = NDBI, y = Temp))+
   geom_point(alpha=2, colour = "#51A0D5")+
   labs(x = "Temperature", 
        y = "Urban index",
@@ -650,14 +712,19 @@ knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
 ```
 
 
-36. How about plotting the whole dataset rather than a random subset...
+1. How about plotting the whole dataset rather than a random subset...
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
-computeddatadf<-as.data.frame(computeddata)
-names(computeddatadf)<-c("Temperature", "Urban")
 
+computeddatafull <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
 
-hexbins <- ggplot(computeddatadf, aes(x=Urban, y=Temperature) ) +
+hexbins <- ggplot(computeddatafull, 
+                  aes(x=NDBI, y=Temp)) +
   geom_hex(bins=100, na.rm=TRUE) +
   labs(fill = "Count per bin")+
   geom_smooth(method='lm', se=FALSE, size=0.6)+
@@ -669,39 +736,47 @@ ggplotly(hexbins)
 
 ## Statistical summary
 
-37. To see if our varaibles are related let's run some basic correlation
+1. To see if our varaibles are related let's run some basic correlation
 
 ```{r, cache=TRUE}
-stat.sig=cor.test(computeddatadf$Temperature, computeddatadf$Urban, use = "complete.obs",
-    method = c("pearson"))
-stat.sig
+library(rstatix)
+Correlation <- computeddatafull %>%
+  cor_test(Temp, NDBI, use = "complete.obs", method = c("pearson"))
+
+Correlation
 ```
 
 Let's walk through the results here...
 
-* t: is the t-test statistic value, we can work out the critical t value using:
+* statistic value (or t, or test statistic), we can work out the critical t value using:
 
 ```{r, cache=TRUE}
 abs(qt(0.05/2, 198268))
 ```
 
-As our t values is > than the critial value we can say that there is a relationship between the datasets. However, we would normally report the p-value...
+Within this formula
 
-* df: is the number of values we have -2...
+* 0.05 is the confidence level (95%)
+
+* 2 means a 2 sided test
+
+* 198268 is the degrees of freedom (df), being the number of values we have -2
 
 ```{r, cache=TRUE}
-length(computeddatadf$Temperature)
-# but some are NA
-removena<-na.omit(computeddatadf)
-length(removena$Temperature)
-length(removena$Urban)
+computeddatafull %>%
+  pull(Temp)%>%
+  length()
+
+length(computeddatafull)
 ```
+
+Here, as our t values is > than the critial value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
 
 * p-value: tells us wheather there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
 
 * cor: Pearon's correlation coefficient
 
-* 95 percent confidence interval: 95% confident that the population correlation coeffieicent is within this interval
+* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
 
 As p<0.05 is shows that are variables are have a statistically significant correlation... so as urban area (assuming the index in representative) per pixel increases so does temperature...therefore we can reject our null hypothesis... but remember that this does not imply causation!! 
 
