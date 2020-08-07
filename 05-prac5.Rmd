@@ -403,44 +403,44 @@ library(leaflet)
 Airbnb_count <- Airbnb %>% 
   count(GSS_CODE)
 
-Hotels_count<-Hotels %>%
-  count(GSS_CODE)
+Hotels_count <- Hotels %>% 
+  count(NAME)
+
 #join data
-
-lbtibble <- Londonborough %>%
-  st_drop_geometry() %>%
-  as.tibble()
-
-Joining<-Airbnb_count%>%
-  st_join(., Hotels_count, join = st_equals) %>%
-  st_transform(.,crs = 4326) %>%
-  merge(.,lbtibble, 
-        by.x="GSS_CODE.x", 
-        by.y="GSS_CODE") %>%
+Joined <- Airbnb_count%>%
+  st_join(., Hotels_count, join = st_equals)%>%
+  st_transform(., 4326)%>%
   rename(`Airbnb count` = `n.x`, 
-         `GSS Code`= GSS_CODE.x,
+         `GSS Code`= GSS_CODE,
          `Borough`=NAME,
-         `Hotel count` = `n.y`) %>%
-  dplyr::select(Borough, `GSS Code`, `Airbnb count`, `Hotel count`)
+         `Hotel count` = `n.y`) 
   
 #remove the geometry for our pop up boxes to avoid
-Joining_drop <- Joining %>%
-  st_drop_geometry()
+popupairbnb <-Joined %>%
+  st_drop_geometry()%>%
+  dplyr::select(`Airbnb count`, Borough)%>%
+  popupTable()
 
-popairbnb <- Joining_drop %>%
-  popupTable(.,zcol=c("Borough", "GSS Code", "Airbnb count"))
-  
-pophotels <- Joining_drop %>%
-  popupTable(.,zcol=c("Borough", "GSS Code", "Hotel count"))
+popuphotel <-Joined %>%
+  st_drop_geometry()%>%
+  dplyr::select(`Hotel count`, Borough)%>%
+  popupTable()
+
+tmap_mode("view")
 
 # set the colour palettes using our previously defined breaks
-# the colour palettes are the same using the same breaks
-# but different data
-pal <- colorBin(palette = "YlOrRd", domain=Joining$`Airbnb count`, bins=breaks)
-pal2 <- colorBin(palette = "YlOrRd", domain=Joining$`Hotel count`, bins=breaks)
 
-map<- leaflet(Joining) %>%
-  
+
+pal1 <- Joined %>%
+  colorBin(palette = "YlOrRd", domain=.$`Airbnb count`, bins=breaks)
+
+pal1 <-colorBin(palette = "YlOrRd", domain=Joined$`Airbnb count`, bins=breaks)
+
+pal2 <- Joined %>%
+  colorBin(palette = "YlOrRd", domain=.$`Hotel count`, bins=breaks)
+
+
+map<- leaflet(Joined) %>%
   # add basemap options
   addTiles(group = "OSM (default)") %>%
   addProviderTiles(providers$Stamen.Toner, group = "Toner") %>%
@@ -452,22 +452,20 @@ map<- leaflet(Joining) %>%
               weight = 2,
               opacity = 1,
               dashArray = "3",
-              popup = popairbnb,
+              popup = popupairbnb,
               fillOpacity = 0.7,
-              fillColor = ~pal(`Airbnb count`),
+              fillColor = ~pal2(`Airbnb count`),
               group = "Airbnb")%>%
   
-  addPolygons(fillColor = ~pal(`Hotel count`), 
+  addPolygons(fillColor = ~pal2(`Hotel count`), 
               weight = 2,
               opacity = 1,
               color = "white",
               dashArray = "3",
-              popup = pophotels,
-              fillOpacity = 0.7,
-              group = "Hotels")%>%
+              popup = popupairbnb,
+              fillOpacity = 0.7,group = "Hotels")%>%
   # add a legend
-  
-  addLegend(pal = pal, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
+  addLegend(pal = pal2, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
             position ="bottomleft", title = "Accomodation count") %>%
   # specify layers control
   addLayersControl(

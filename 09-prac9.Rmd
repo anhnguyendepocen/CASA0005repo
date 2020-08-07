@@ -5,9 +5,9 @@
 By the end of this practical you should be able to:
 
 1. Explain hypothesis testing
-2. Execute regression in R
-3. Descrbie the assumptions associated with regression models 
-4. Explain steps to deal with spatially autocorrelated (spatial similarlity of nearby observations) residuals.  
+1. Execute regression in R
+1. Descrbie the assumptions associated with regression models 
+1. Explain steps to deal with spatially autocorrelated (spatial similarlity of nearby observations) residuals.  
 
 ## Homework 
 
@@ -66,50 +66,71 @@ library(sf)
 library(sp)
 library(spdep)
 library(car)
+library(fs)
+library(janitor)
 ```
-read some ward data in
+Read some ward data in
+
 ```{r, eval=FALSE}
 #download a zip file containing some boundaries we want to use
+
 download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip", 
               destfile="prac9_data/statistical-gis-boundaries-london.zip")
-
-#unzip it
-unzip("prac9_data/statistical-gis-boundaries-london.zip", 
-      exdir="prac9_data")
 ```
+
+Get the zip file and extract it
+
+
+```{r, eval=FALSE}
+listfiles<-dir_info(here::here("prac9_data")) %>%
+  dplyr::filter(str_detect(path, ".zip")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  #print out the .gz file
+  print()%>%
+  as.character()%>%
+  utils::unzip(exdir=here::here("prac9_data"))
+```
+
+Look inside the zip and read in the `.shp`
 
 ```{r, message=FALSE, cache=TRUE}
-#look at the subfolders in the directory to work out where we want to get our shapefile from
-list.dirs("prac9_data/statistical-gis-boundaries-london")
 
-#read in the boundaries from the file you have just unzipped into your working directory
-LondonWardsss <- readOGR("prac9_data/statistical-gis-boundaries-london/ESRI/London_Ward_CityMerged.shp", 
-                         layer="London_Ward_CityMerged")
+#look what is inside the zip
 
-#convert it to a simple features object
-LondonWardsssSF <- st_as_sf(LondonWardsss)
-
-#check coordinate reference system
-LondonWardsssSF
-
-#Proj4 string tells me it's in wgs84, so Convert to British National Grid
-BNG = "+init=epsg:27700"
-LondonWardsssSFBNG <- st_transform(LondonWardsssSF, BNG)
+Londonwards<-dir_info(here::here("prac9_data", 
+                                 "statistical-gis-boundaries-london", 
+                                 "ESRI"))%>%
+  #$ means exact match
+  dplyr::filter(str_detect(path, 
+                           "London_Ward_CityMerged.shp$"))%>%
+  dplyr::select(path)%>%
+  pull()%>%
+  #read in the file in
+  st_read()
 
 #check the data
-qtm(LondonWardsssSFBNG)
+qtm(Londonwards)
 ```
 
-Now we are going to read in some data from the London Data Store - https://data.london.gov.uk/
+Now we are going to read in some data from the [London Data Store](https://data.london.gov.uk/)
 
 ```{r echo=TRUE, message=FALSE, paged.print=TRUE}
 #read in some attribute data
-LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", col_names = TRUE, locale = locale(encoding = 'Latin1'))
+LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
+                               col_names = TRUE, 
+                               locale = locale(encoding = 'Latin1'))
 ```
 
 ```{r eval=FALSE}
 #check all of the columns have been read in correctly
-str(LondonWardProfiles)
+Datatypelist <- LondonWardProfiles %>% 
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+Datatypelist
 ```
 
 #### Cleaning the data as you read it in
@@ -124,20 +145,30 @@ To deal with these errors, we can force `read_csv` to ignore these values by tel
 #We can use readr to deal with the issues in this dataset - which are to do with text values being stored in columns containing numeric values
 
 #read in some data - couple of things here. Read in specifying a load of likely 'n/a' values, also specify Latin1 as encoding as there is a pound sign (£) in one of the column headers - just to make things fun!
-LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", na = c("", "NA", "n/a"), locale = locale(encoding = 'Latin1'), col_names = TRUE)
+
+LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
+                               na = c("", "NA", "n/a"), 
+                               locale = locale(encoding = 'Latin1'), 
+                               col_names = TRUE)
 
 ```
 
 ```{r eval=FALSE}
-#check all of the columns have been read in OK
-str(LondonWardProfiles)
-```
+#check all of the columns have been read in correctly
+Datatypelist <- LondonWardProfiles %>% 
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+Datatypelist
+``````
 
 Now you have read in both your boundary data and your attribute data, you need to merge the two together using a common ID. In this case, we can use the ward codes to achieve the join
 
 ```{r, message=FALSE, cache=TRUE}
 #merge boundaries and data
-LonWardProfiles <- left_join(LondonWardsssSFBNG,
+LonWardProfiles <- left_join(Londonwards,
                              LondonWardProfiles, 
                              by = c("GSS_CODE" = "New code"))
 
@@ -145,20 +176,9 @@ LonWardProfiles <- left_join(LondonWardsssSFBNG,
 tmap_mode("view")
 qtm(LonWardProfiles, 
     fill = "Average GCSE capped point scores - 2014", 
-    borders = NULL)
-
-#we could even use plotly
-#plot_ly(
-  #LonWardProfiles,
-  #split = ~`Average GCSE capped point scores - 2014`,
-  #color = ~`Average GCSE capped point scores - 2014`)
+    borders = NULL,  
+    fill.palette = "Blues")
 ```
-
-
-```{r, message=FALSE, cache=TRUE}
-#qtm(LonWardProfiles, fill = "Unauthorised Absence in All Schools (%) - 2013", borders = NULL, fill.palette = "Blues")
-```
-
 
 #### Additional Data
 
@@ -175,11 +195,8 @@ lon_schools_sf <- st_as_sf(london_schools,
                            coords = c("x","y"), 
                            crs = 4326)
 
-#now pull out the secondary schools
-#these are the same - one uses grep() and one uses the stringr() package
-
-lond_sec_schools_sf <- lon_schools_sf[str_which(lon_schools_sf[["PHASE"]],"Secondary"),]
-lond_sec_schools_sf <- lon_schools_sf[grep("Secondary",lon_schools_sf[["PHASE"]]),]
+lond_sec_schools_sf <- lon_schools_sf %>%
+  filter(PHASE=="Secondary")
 
 tmap_mode("view")
 qtm(lond_sec_schools_sf)
@@ -204,7 +221,7 @@ The *null hypothesis* that I am going to test empirically with some models is th
 
 For those of you who know a bit about regression, you might want to skip down to the next section. However, if you are new to regression or would like a refresher, read on...
 
-The linear relationship in a regression model is probably most easily explained using a scatter plot:
+The linear relationship in a regression model is probably most easily explained using a scatter plot...
 
 ```{r, message=FALSE, cache=TRUE}
 q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, 
@@ -249,15 +266,27 @@ Any value of $y$ along the blue line can be modelled using the corresponding val
 
 ### Running a Regression Model in R
 
-In the graph above, I used a method called 'lm' in the `stat_smooth` function in `ggplot2` to draw the regression line. 'lm' stands for 'linear model' and is a standard function in R for running linear regression models. Use the help system to find out more about `lm` - `?lm`
+In the graph above, I used a method called 'lm' in the `stat_smooth()` function in `ggplot2` to draw the regression line. 'lm' stands for 'linear model' and is a standard function in R for running linear regression models. Use the help system to find out more about `lm` - `?lm`
 
-Below is the code that could be used to draw the blue line in our scatter plot. Note, the tilde `~` symbol means "is modelled by"
+Below is the code that could be used to draw the blue line in our scatter plot. Note, the tilde `~` symbol means "is modelled by".
+
+First though, we're going to clean up all our data names with `Janitor` then select what we want.
 
 ```{r, message=FALSE, cache=TRUE}
 #run the linear regression model and store its outputs in an object called model1
-model1 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, 
-             data = LonWardProfiles)
+Regressiondata<- LonWardProfiles%>%
+  clean_names()%>%
+  select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
 
+#now model
+model1 <- lm(average_gcse_capped_point_scores_2014 ~
+               unauthorised_absence_in_all_schools_percent_2013, 
+             data = Regressiondata)
+```
+
+Let's have a closer look at our model...
+
+```{r, message=FALSE, cache=TRUE}
 #show the summary of those outputs
 summary(model1)
 ```
@@ -275,7 +304,6 @@ In the output summary of the model above, there are a number of features you sho
 **Coefficient t-value** - this is the value of the coefficient divided by the standard error and so can be thought of as a kind of standardised coefficient value. The larger (either positive or negative) the value the greater the relative effect that particular independent variable is having on the dependent variable (this is perhaps more useful when we have several independent variables in the model) .
 
 **Coefficient p-value - Pr(>|t|)** - the p-value is a measure of significance. There is lots of debate about p-values which I won't go into here, but essentially it refers to the probability of getting a coefficient as large as the one observed in a set of random data. p-values can be thought of as percentages, so if we have a p-value of 0.5, then there is a 5% chance that our coefficient could have occurred in some random data, or put another way, a 95% chance that out coefficient could have only occurred in our data. 
-
 As a rule of thumb, the smaller the p-value, the more significant that variable is in the story and the smaller the chance that the relationship being observed is just random. Generally, statisticians use 5% or 0.05 as the acceptable cut-off for statistical significance - anything greater than that we should be a little sceptical about. 
 
 In `r` the codes `***, **, **, .` are used to indicate significance. We generally want at least a single `*` next to our coefficient for it to be worth considering. 
@@ -290,63 +318,68 @@ The output from the linear regression model is messy and like all things R mess 
 knitr::include_graphics('allisonhorst_images/broom_package.png')
 ```
 
-Here let's load `broom` and tidy our output...you will need to either install `tidymodels` or `broom`
+Here let's load `broom` and tidy our output...you will need to either install `tidymodels` or `broom`. The `tidy()` function will just make a tibble or the statistical findings from the model!
 
 ```{r, message=FALSE, cache=TRUE}
 library(broom)
 tidy(model1)
 ```
 
-We can also use `glance()` from `broom` to get a bit more information, such as $r^2$ and the adjusted r-squared value. 
+We can also use `glance()` from `broom` to get a bit more summary information, such as $r^2$ and the adjusted r-squared value. 
 
 ```{r, message=FALSE, cache=TRUE}
 glance(model1)
 ```
 
+But wait? Didn't we try to model our GCSE values based on our unauthorised absence variable? Can we see those predictions for each point, yes, yes we can...with the `tidypredict_to_column()` function from `tidypredict`, which adds the `fit` column in the following code.
+
+```{r}
+library(tidypredict)
+Regressiondata %>%
+  tidypredict_to_column(model1)
+
+  head(10)
+```
+
 ### Bootstrap resampling
 
-Fitting once, how can we get confidence about that estiamte. Bootstrap resample is where we take the original dataset and select random data points from within it but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement.
+If we only fit our model once, how can we be confident about that estiamte? Bootstrap resampling is where we take the original dataset and select random data points from within it, but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement.
 
-So here we will first get rid of all the coloumns we aren't using in this model using the package `dplyr` which is part of the `tidyverse` as they will just slow us down. At the moment we only care about average GCSE scores and unauthorised absecne in schools. 
+So first let's again get rid of all the coloumns we aren't using in this model using as they will just slow us down. At the moment we only care about average GCSE scores and unauthorised absecne in schools. 
 
 ```{r, message=FALSE, cache=FALSE}
-library(rsample)
-library(dplyr)
-
-LonWardProfilesGCSE <- LonWardProfiles %>% 
-  dplyr::select(`Average GCSE capped point scores - 2014`, 
-         `Unauthorised Absence in All Schools (%) - 2013`)
-
+Bootstrapdata<- LonWardProfiles%>%
+  clean_names()%>%
+  select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
 ```
 
 Next we are going to create our samples using the function `bootstraps()`. First we set the seed (to any number), which just means are results will be the same if we are to re-run this analysis, if we don't then as we are randomly replacing data the next time we do run the code the results could change. 
 
-Here we have created 1000 versions of our original data (times=1000). Apparent means we are using our entire dataset and the full dataset will be kept in our `GSCE_boot` variable.
+Here we have created 1000 versions of our original data (times=1000). `apparent` means we are using our entire dataset and the full dataset will be kept in our `GSCE_boot` variable. `set.seed(number)` just makes sure we get the same result here each time as it could vary.
 
 ```{r, message=FALSE, cache=FALSE}
-
+library(rsample)
 set.seed(99)
-GCSE_boot <-st_drop_geometry(LonWardProfilesGCSE) %>%
+
+GCSE_boot <-st_drop_geometry(Bootstrapdata) %>%
   bootstraps(times = 1000, apparent = TRUE)
-GCSE_boot
+
+
+slice_tail(GCSE_boot, n=5)
 ```
-So when we look in GSCE_boot we have 100 rows 
+So when we look in `GSCE_boot` we have 1000 rows, plus our `apparent` data.
 
-Here we are now going to run the linear regression model for each of our bootstrap resampled instances. To do this we are going to use the `map()` function from the `purrr` package that is part of the `tidyverse`. This lets us apply a function (so our regression formula) to a list (so our splits that we calculated from bootstrap resampling)
+Here we are now going to run the linear regression model for each of our bootstrap resampled instances. To do this we are going to use the `map()` function from the `purrr` package that is also part of the `tidyverse`. This lets us apply a function (so our regression formula) to a list (so our splits that we calculated from bootstrap resampling)
 
-We need to map over and then given the function to what we are mapping over. So we are mapping (or changing) our splits (from the bootstrap resampled) then apply our regression formula to each split. To make sure we can save the output we will create a new column called model with the `mutate()` function from the `dplyr` package that is also part of the `tidyverse`. Mutate just lets us add a column to an existing table.
-
-`dplyr` is possibly one of the most useful packages i've ever come across. It's described as the grammar of data manipulation with a set of functions (here also called verbs) that will let you transform your data into almost any format. Let's first finish our example with bootstrap resampling then we can have some fun with `dplyr`.
-
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, message=FALSE, results=FALSE}
-knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
-```
+We need to map over and then given the function to what we are mapping over. So we are mapping (or changing) our splits (from the bootstrap resampled) then apply our regression formula to each split. To make sure we can save the output we will create a new column called model with the `mutate()` function, remember this just lets us add a column to an existing table.
 
 ```{r, message=FALSE, cache=FALSE}
 
 GCSE_models <- GCSE_boot %>%
+  #make new column
   mutate(
-    model = map(splits, ~ lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013`, 
+    #column name is model that contains...
+    model = map(splits, ~ lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013, 
                              data = .)))
 
 # let's look at the first model results
@@ -354,9 +387,7 @@ GCSE_models$model[[1]]
 
 #if you wanted all of them it's
 #GCSE_models$model
-
 ```
-
 
 However, this is a very ugly output and pretty hard to understand. Now remember when we just went through the magic of [broom]? You might have thought that it didn't do very much! This is where it can really be of use. We want to tidy up our models results so we can actually use them. Firstly let's add a new coloumn with mutate (coef_info) then take our model coloumn and using the `map()` function again tidy the outputs (saving the result into that new coef_info column).
 
@@ -375,10 +406,11 @@ GCSE_coef <- GCSE_models_tidy %>%
 GCSE_coef
 ```
 
-If you look in the tibble GCSE_coef you will notice under the column heading term that we have intercept and unathorised absence values, here we just want to see the variance of coefficients for unauthorised absence, so let's filter it, again this uses `dplyr`.
+If you look in the tibble GCSE_coef you will notice under the column heading term that we have intercept and unathorised absence values, here we just want to see the variance of coefficients for unauthorised absence, so let's filter it...
 
 ```{r, message=FALSE, cache=FALSE}
-coef <- GCSE_coef %>% filter(term == "`Unauthorised Absence in All Schools (%) - 2013`")
+coef <- GCSE_coef %>% 
+  filter(term == "unauthorised_absence_in_all_schools_percent_2013")
 coef
 ```
 
@@ -387,7 +419,10 @@ Now let'd have a look at the histogram of our coefficients to see the distributi
 ```{r}
 coef %>%
   ggplot(aes(x=estimate)) +
-  geom_histogram(position="identity", alpha=0.5, bins=15, fill="lightblue2", col="lightblue3")+
+  geom_histogram(position="identity", 
+                 alpha=0.5, 
+                 bins=15, 
+                 fill="lightblue2", col="lightblue3")+
   geom_vline(aes(xintercept=mean(estimate)),
                  color="blue",
              linetype="dashed")+
@@ -398,9 +433,9 @@ coef %>%
   theme(plot.title = element_text(hjust = 0.5))
 ``` 
 
-Now, wouldn't it be useful to get some confidence intervals based on our bootstrap resample. Well! we can using the `int_pctl()` from the `rsample` package, which forms part of `tidymodels`.
+Now, wouldn't it be useful to get some confidence intervals based on our bootstrap resample. Well! we can using the `int_pctl()` from the `rsample` package, which is also part of `tidymodels`.
 
-Here, we give the function our models (GCSE_models_tidy), tell it what column the statstics are in (coef_info), specify the level of significance (alpha). Now if you recall we set the apparent argument to true earlier on and this is because this is a requirement of `int_pctl()`
+Here, we give the function our models (`GCSE_models_tidy`), tell it what column the statstics are in (`coef_info`), specify the level of significance (`alpha`). Now if you recall we set the apparent argument to true earlier on and this is because this is a requirement of `int_pctl()`
 
 ```{r}
 library(rsample)
@@ -434,11 +469,17 @@ So we know from our London Ward Profiles layer that we have 626 data points, che
 length(LonWardProfiles$`Average GCSE capped point scores - 2014`)
 ```
 
-Now, let's have a look at our first bootstrap using `filter()` from `dplyr`
+Now, let's have a look at our first bootstrap...
 
 ```{r}
 firstboot<-filter(GCSE_aug,id=="Bootstrap0001")
-length(firstboot$`Average GCSE capped point scores - 2014`)
+
+firstbootlength <- firstboot %>%
+  select(average_gcse_capped_point_scores_2014)%>%
+  pull()%>%
+  length()
+
+#nrow(firstboot)
 ```
 
 Ok, so how do we know that our coefficient is the same for all 626 points within our first bootstrap? Well we can check all of them, but this would just print the coefficent info for all 262....
@@ -450,30 +491,26 @@ firstboot$coef_info
 Another way is just to ask what are the unique values within our coefficient info?
 
 ```{r, cache=FALSE}
-unique(firstboot$coef_info)
+uniquecoefficent <- firstboot %>%
+  #select(average_gcse_capped_point_scores_2014) %>%
+  select(coef_info)%>%
+  unnest(coef_info)%>%
+  distinct()
+
+uniquecoefficent
+
+#or also this would work
+#unique(firstboot$coef_info)
 ```
 
 Right, now it would be really useful if we could plot our original data, but instead of fitting a line of best fit between it we use all the lines from the bootstrap resamples to show the possible variance. 
 
-However, it really annoys me that sometimes column names get crazy, for example `GCSE_aug$Average.GCSE.capped.point.scores...2014` just look at all those ......!!!! 
-
-Wound't it be good if there was a way to just standardise all names? Well we can with the help from `Janitor`
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
-```
-
-So let's clean up our names then use them in our plot.
-
 ```{r, message=FALSE, cache=FALSE}
-library(janitor)
-
-GCSE_aug <- janitor::clean_names(GCSE_aug)
 
 ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_percent_2013,
                   average_gcse_capped_point_scores_2014))+
   # we want our lines to be from the fitted column grouped by our bootstrap id
-  geom_line(aes(y = fitted, group = id), alpha = .2, col = "cyan3") +  
+  geom_line(aes(y = .fitted, group = id), alpha = .2, col = "cyan3") +  
   # remember out apparent data is the original within the bootstrap
   geom_point(data=filter(GCSE_aug,id=="Apparent"))+
   #add some labels to x and y
@@ -484,56 +521,52 @@ ggplot(GCSE_aug, aes(unauthorised_absence_in_all_schools_percent_2013,
 #ggsave("insert_filepath and name")
 
 ```
-You'll notice that this plot is slightly different to the one we first produced in [Regression Basics] as we've used `geom_point()` not `geom_jitter()` the latter adds a small amount of random variation to the points (not the data). If change in to `geom_point()` you will get the same plot as we just produced (apart from the bootstrap fitted lines obviously). We will use `qplot()` again, it is from the packaged `quickplot` and lets us make quick plots with similar code to `ggplot`, but avoid if when you have large amounts of data --- use `ggplot()`.
-
-```{r, cache=FALSE, message=FALSE, eval=FALSE}
-q <- qplot(x = `Unauthorised Absence in All Schools (%) - 2013`, 
-           y = `Average GCSE capped point scores - 2014`, 
-           data=LonWardProfiles)
-
-#plot with a regression line - note, I've added some jitter here as the x-scale is rounded
-q + stat_smooth(method="lm", 
-                se=FALSE, 
-                size=1) + 
-  geom_point()
-
-q
-```
+You'll notice that this plot is slightly different to the one we first produced in [Regression Basics] as we've used `geom_point()` not `geom_jitter()` the latter adds a small amount of random variation to the points (not the data). If change in to `geom_point()` you will get the same plot as we just produced (apart from the bootstrap fitted lines obviously).
 
 ### Assumptions Underpinning Linear Regression
 
-### Assumption 1 - There is a linear relationship between the dependent and Independent variables
+### Assumption 1 - There is a linear relationship between the dependent and independent variables
 
 The best way to test for this assumption is to plot a scatter plot similar to the one created earlier. It may not always be practical to create a series of scatter plots, so one quick way to check that a linear relationship is probable is to look at the frequency distributions of the variables. If they are normally distributed, then there is a good chance that if the two variables are in some way correlated, this will be a linear relationship.
 
 For example, look at the frequency distributions of our two variables earlier:
 
 ```{r }
+# use Janitor to clean up the names.
+
+LonWardProfiles <- LonWardProfiles %>%
+  clean_names()
 
 #let's check the distribution of these variables first
-ggplot(LonWardProfiles, aes(x=`Average GCSE capped point scores - 2014`)) + 
-  geom_histogram(aes(y = ..density..),binwidth = 5) + 
-  geom_density(colour="red", size=1, adjust=1)
+
+ggplot(LonWardProfiles, aes(x=average_gcse_capped_point_scores_2014)) + 
+  geom_histogram(aes(y = ..density..),
+                 binwidth = 5) + 
+  geom_density(colour="red", 
+               size=1, 
+               adjust=1)
 
 ```
-
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=`Unauthorised Absence in All Schools (%) - 2013`)) +
-  geom_histogram(aes(y = ..density..),binwidth = 0.1) + 
-  geom_density(colour="red", size=1, adjust=1)
+ggplot(LonWardProfiles, aes(x=unauthorised_absence_in_all_schools_percent_2013)) +
+  geom_histogram(aes(y = ..density..),
+                 binwidth = 0.1) + 
+  geom_density(colour="red",
+               size=1, 
+               adjust=1)
 ```
 
-We would describe both of these distribution as being relatively 'normally' or gaussian disributed - https://en.wikipedia.org/wiki/Normal_distribution - and thus more likely to have a linear correlation (if they are indeed associated).
+We would describe both of these distribution as being relatively ['normally' or gaussian disributed](https://en.wikipedia.org/wiki/Normal_distribution), and thus more likely to have a linear correlation (if they are indeed associated).
 
 Contrast this with the median house price variable:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=`Median House Price (£) - 2014`)) + 
+ggplot(LonWardProfiles, aes(x=median_house_price_2014)) + 
   geom_histogram()
 ```
 
-We would describe this as a not normal and/or positively 'skewed' - https://en.wikipedia.org/wiki/Skewness - distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
+We would describe this as a [not normal and/or positively 'skewed'](https://en.wikipedia.org/wiki/Skewness) distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
 
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, message=FALSE, results=FALSE}
 knitr::include_graphics('allisonhorst_images/not_normal.png')
@@ -542,8 +575,8 @@ knitr::include_graphics('allisonhorst_images/not_normal.png')
 If we plot the raw house price variable against GCSE scores, we get the following scatter plot:
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = `Median House Price (£) - 2014`, 
-      y = `Average GCSE capped point scores - 2014`, 
+qplot(x = median_house_price_2014, 
+      y = average_gcse_capped_point_scores_2014, 
       data=LonWardProfiles)
 ```
 
@@ -562,7 +595,7 @@ You might be asking how we could go about transforming our variables. In 1977, T
 In regression analysis, you analysts will frequently take the log of a variable to change its distribution, but this is a little crude and may not result in a completely normal distribution. For example, we can take the log of the house price variable:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=log(`Median House Price (£) - 2014`))) + 
+ggplot(LonWardProfiles, aes(x=log(median_house_price_2014))) + 
   geom_histogram()
 ```
 
@@ -571,28 +604,30 @@ This looks a little more like a normal distribution, but it is still a little sk
 Fortunately in R, we can use the `symbox()` function in the `car` package to try a range of transfomations along Tukey's ladder: 
 
 ```{r, message=FALSE, cache=TRUE}
-symbox(~`Median House Price (£) - 2014`, LonWardProfiles, 
-       na.rm=T, powers=seq(-3,3,by=.5))
+symbox(~median_house_price_2014, 
+       LonWardProfiles, 
+       na.rm=T,
+       powers=seq(-3,3,by=.5))
 ```
 
 Observing the plot above, it appears that raising our house price variable to the power of -1 should lead to a more normal distribution:
 
 ```{r, message=FALSE, cache=TRUE}
-ggplot(LonWardProfiles, aes(x=(`Median House Price (£) - 2014`)^-1)) + 
+ggplot(LonWardProfiles, aes(x=(median_house_price_2014)^-1)) + 
   geom_histogram()
 ```
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = (`Median House Price (£) - 2014`)^-1, 
-      y = `Average GCSE capped point scores - 2014`,
+qplot(x = (median_house_price_2014)^-1, 
+      y = average_gcse_capped_point_scores_2014,
       data=LonWardProfiles)
 ```
 
 Compare this with the logged transformation:
 
 ```{r, message=FALSE, cache=TRUE}
-qplot(x = log(`Median House Price (£) - 2014`), 
-      y = `Average GCSE capped point scores - 2014`, 
+qplot(x = log(median_house_price_2014), 
+      y = average_gcse_capped_point_scores_2014, 
       data=LonWardProfiles)
 ```
 
@@ -602,15 +637,23 @@ The decision is down to you as the modeller - it might be that a transformation 
 
 ### Assumption 2 - The residuals in your model should be normally distributed
 
-This assumption is easy to check. When we ran our Model1 earlier, one of the outputs stored in our Model 1 object is the residual value for each case (Ward) in your dataset. We can plot these as a histogram and see if there is a normal distribution:
+This assumption is easy to check. When we ran our Model1 earlier, one of the outputs stored in our Model 1 object is the residual value for each case (Ward) in your dataset. We can access these values using `augment()` from `broom` which will add model output to the original GCSE data...
+
+We can plot these as a histogram and see if there is a normal distribution:
 
 ```{r, message=FALSE, cache=TRUE}
 #save the residuals into your dataframe
-LonWardProfiles$model1_resids <- model1$residuals
 
-qplot(model1$residuals) + 
+model_data <- model1 %>%
+  augment(., Regressiondata)
+
+#plot residuals
+model_data%>%
+dplyr::select(.resid)%>%
+  pull()%>%
+  qplot()+ 
   geom_histogram() 
-
+  
 ```
 
 Examining the histogram above, we can be happy that our residuals look to be relatively normally distributed. 
@@ -622,15 +665,28 @@ Now, the regression model we have be experimenting with so far is a simple bivar
 As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect GSCE scores. Let's try the log or ^-1 transformed house price variable from earlier (the rationalle being that higher house prices indicate more affluence and therefore, potentially, more engagement with education):
 
 ```{r, message=FALSE, cache=TRUE}
-model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-               log(`Median House Price (£) - 2014`), data = LonWardProfiles)
+
+Regressiondata2<- LonWardProfiles%>%
+  clean_names()%>%
+  select(average_gcse_capped_point_scores_2014,
+         unauthorised_absence_in_all_schools_percent_2013,
+         median_house_price_2014)
+
+model2 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), data = Regressiondata2)
 
 #show the summary of those outputs
-summary(model2)
+tidy(model2)
 
-#and for future use, write the residuals out to a column in your dataframe
+glance(model2)
 
-LonWardProfiles$model2_resids <- residuals(model2)
+#and for future use, write the residuals out
+model_data2 <- model2 %>%
+  augment(., Regressiondata2)
+
+# also add them to the shapelayer
+LonWardProfiles <- LonWardProfiles %>%
+  mutate(model2resids = residuals(model2))
 
 ```
 
@@ -638,27 +694,24 @@ Examining the output above, it is clear that including median house price into o
 
 But do our two explanatory variables satisfy the no-multicoliniarity assumption? If not and the variables are highly correlated, then we are effectively double counting the influence of these variables and overstating their explanatory power. 
 
-To check this, we can compute the product moment correlation coefficient between the variables. In an ideal world, we would be looking for something less than a 0.8 correlation
+To check this, we can compute the product moment correlation coefficient between the variables, using the `corrr()` pacakge, that's part of `tidymodels`. In an ideal world, we would be looking for something less than a 0.8 correlation
 
 ```{r, message=FALSE, cache=TRUE}
-library(corrplot)
+library(corrr)
 
-#first drop the geometry column from the dataframe as it will cause problems
-tempdf <- st_set_geometry(LonWardProfiles,NULL)
-#pull out the columns we want to check for multicolinearity
-tempdf <- tempdf[,c("Median House Price (£) - 2014", "Unauthorised Absence in All Schools (%) - 2013")]
+Correlation <- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(average_gcse_capped_point_scores_2014,
+         unauthorised_absence_in_all_schools_percent_2013,
+         median_house_price_2014) %>%
+  mutate(median_house_price_2014 =log(median_house_price_2014))%>%
+    correlate() %>%
+  # just focus on GCSE and house prices
+  focus(-average_gcse_capped_point_scores_2014, mirror = TRUE) 
 
-#log houseprice
-tempdf[1] <- log(tempdf[1])
-#rename the columns to something shorter
-names(tempdf) <- c("Med House Price", "Un Auth Absence")
-
-#compute the correlation matrix for the two variables of interest
-cormat <- cor(tempdf[,1:2], use="complete.obs", method="pearson")
 
 #visualise the correlation matrix
-corrplot(cormat)
-
+rplot(Correlation)
 ```
 
 Looking at either the correlation matrix or the correlation plot of that matrix, it's easy to see that there is a low correlation (around 30%) between our two independent variables. 
@@ -718,15 +771,14 @@ Both the correlation plots and examination of VIF indicate that our multiple reg
 If we wanted to add more variables into our model, it would be useful to check for multicollinearity amongst every variable we want to include, we can do this by computing a correlation matrix for the whole dataset or checking the VIF after running the model:
 
 ```{r, message=FALSE, cache=TRUE}
-tempdf <- st_set_geometry(LonWardProfiles,NULL)
+position <- c(10:74)
 
-cormat <- cor(tempdf[,10:74], use="complete.obs", method="pearson")
+Correlation_all<- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(position)%>%
+    correlate()
 
-str(tempdf)
-
-#plot the matrix, but reduce the label sizes
-corrplot(cormat, type = "lower", tl.cex = 0.5)
-
+rplot(Correlation_all)
 ```
 
 ### Assumption 4 - Homoscedasticity
@@ -737,6 +789,7 @@ The best way to check for homo/hetroscedasticity is to plot the residuals in the
 
 ```{r, message=FALSE, cache=TRUE}
 #print some model diagnositcs. 
+par(mfrow=c(2,2))    #plot to 2 by 2 array
 plot(model2)
 ```
 
@@ -752,11 +805,12 @@ If you are running a regression model on data that do not have explicit space or
 
 This tests whether residuals are correlated and produces a summary statistic that ranges between 0 and 4, with 2 signifiying no autocorrelation. A value greater than 2 suggesting negative autocorrelation and and value of less than 2 indicating postitve autocorrelation. 
 
-In his excellent text book - https://www.discoveringstatistics.com/books/discovering-statistics-using-r/ - Andy Field suggests that you should be concerned with Durbin-Watson test statistics <1 or >3. So let's see:
+In his [excellent text book](https://www.discoveringstatistics.com/books/discovering-statistics-using-r/), Andy Field suggests that you should be concerned with Durbin-Watson test statistics <1 or >3. So let's see:
 
 ```{r, message=FALSE, cache=TRUE}
 #run durbin-watson test
-durbinWatsonTest(model2)
+DW <- durbinWatsonTest(model2)
+tidy(DW)
 ```
 
 As you can see, the DW statistics for our model is 1.61, so some indication of autocorrelation, but perhaps nothing to worry about. 
@@ -774,7 +828,7 @@ tmap_mode("view")
 #qtm(LonWardProfiles, fill = "model1_resids")
 
 tm_shape(LonWardProfiles) +
-  tm_polygons("model2_resids",
+  tm_polygons("model2resids",
               palette = "RdYlBu") +
 tm_shape(lond_sec_schools_sf) + tm_dots(col = "TYPE")
 
@@ -788,40 +842,60 @@ Let's do that now.
 
 ```{r, message=FALSE, cache=TRUE}
 
-#####
+#calculate the centroids of all Wards in London
+coordsW <- LonWardProfiles%>%
+  st_centroid()%>%
+  st_geometry()
 
-#Firstly convert our SF object into an SP object:
-LonWardProfilesSP <- as(LonWardProfiles,"Spatial")
-names(LonWardProfilesSP)
-#and calculate the centroids of all Wards in London
-coordsW <- coordinates(LonWardProfilesSP)
 plot(coordsW)
 
 #Now we need to generate a spatial weights matrix (remember from the lecture a couple of weeks ago). We'll start with a simple binary matrix of queen's case neighbours
 
-#create a neighbours list of queens contiguity
-LWard_nb <- poly2nb(LonWardProfilesSP, queen=T)
+LWard_nb <- LonWardProfiles %>%
+  poly2nb(., queen=T)
 
 #or nearest neighbours
-knn_wards <- knearneigh(coordsW, k=4)
-LWard_knn <- knn2nb(knn_wards)
+knn_wards <-coordsW %>%
+  knearneigh(., k=4)
+
+LWard_knn <- knn_wards %>%
+  knn2nb()
 
 #plot them
-plot(LWard_nb, coordinates(coordsW), col="red")
-plot(LWard_knn, coordinates(coordsW), col="blue")
+plot(LWard_nb, st_geometry(coordsW), col="red")
+plot(LWard_knn, st_geometry(coordsW), col="blue")
 
 #add a map underneath
-plot(LonWardProfilesSP)
+plot(LonWardProfiles)
 
 #create a spatial weights matrix object from these weights
-Lward.queens_weight <- nb2listw(LWard_nb, style="C")
-Lward.knn_4_weight <- nb2listw(LWard_knn, style="C")
+
+Lward.queens_weight <- LWard_nb %>%
+  nb2listw(., style="C")
+
+Lward.knn_4_weight <- LWard_knn %>%
+  nb2listw(., style="C")
 
 #now run a moran's I test on the residuals
 #first using queens neighbours
-moran.test(LonWardProfilesSP@data$model2_resids, Lward.queens_weight)
+
+Queen <- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(model2resids)%>%
+  pull()%>%
+  moran.test(., Lward.queens_weight)%>%
+  tidy()
+
 #then knn = 4
-moran.test(LonWardProfilesSP@data$model2_resids, Lward.knn_4_weight)
+Nearest_neighbour <- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(model2resids)%>%
+  pull()%>%
+  moran.test(., Lward.knn_4_weight)%>%
+  tidy()
+
+Queen
+Nearest_neighbour
 ```
 
 Observing the Moran's I statistic for both Queen's case neighbours and k-nearest neighbours of 4, we can see that the Moran's I statistic is somewhere between 0.27 and 0.29. Remembering that Moran's I ranges from between -1 and +1 (0 indicating no spatial autocorrelation) we can conclude that there is some weak to moderate spatial autocorrelation in our residuals. 
@@ -850,39 +924,45 @@ In this equation, $w$ is the spatial weights matrix you generated and $w_i$ is v
 
 In this model, a positive value for the $\rho w_i.y_i$ parameter would indicate that the average value for GCSE scores is expected to be higher if, on average, Wards neighbouring also have higher GCSE score values. 
 
-For more details on running a spatially lagged regression model and interpreting the outputs, see the chapter on spatially lagged models by Ward and Gleditsch (2008) available online here: https://methods.sagepub.com/book/spatial-regression-models/n2.xml 
+For more details on running a spatially lagged regression model and interpreting the outputs, see the chapter on spatially lagged models by Ward and Gleditsch (2008) available online here: https://methods.sagepub.com/book/spatial-regression-models/n2.xml
 
 Let's run the original model again to remind ourselves of the paramters:
 
-
 ```{r, message=FALSE, cache=TRUE}
 #Original Model
-model2 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-               log(`Median House Price (£) - 2014`), data = LonWardProfiles)
+model2 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), data = LonWardProfiles)
 
-summary(model2)
+tidy(model2)
 ```
 
 ```{r, message=FALSE, cache=TRUE}
 library(spatialreg)
 
 #run a spatially-lagged regression model with a queen's case weights matrix
-slag_dv_model2_queen <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-                                   log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_nb, style="C"), method = "eigen")
+slag_dv_model2_queen <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), 
+               data = LonWardProfiles, 
+               nb2listw(LWard_nb, style="C"), 
+               method = "eigen")
 
 #what do the outputs show?
-summary(slag_dv_model2_queen)
+tidy(slag_dv_model2_queen)
 ```
 
 Running the spatially-lagged model with a Queen's case spatial weights matrix reveals that in this example, there is an insignificant and small effect associated with the spatially lagged dependent variable. However, a different conception of neighbours we might get a different outcome
 
 ```{r, message=FALSE, cache=TRUE}
 #run a spatially-lagged regression model
-slag_dv_model2_knn4 <- lagsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-                                  log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
+slag_dv_model2_knn4 <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), 
+               data = LonWardProfiles, 
+               nb2listw(LWard_knn, 
+                        style="C"), 
+               method = "eigen")
 
 #what do the outputs show?
-summary(slag_dv_model2_knn4)
+tidy(slag_dv_model2_knn4)
 ```
 
 Using the 4 nearest neighbours instead of just considering all adjcent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, postitive and statistically significant (<0.05), conversely the effects of unauthorised absence and median house-price are reduced. What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the captial in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
@@ -893,11 +973,18 @@ We can also now check that the residuals from the spatially lagged model are now
 
 ```{r, message=FALSE, cache=TRUE}
 #write out the residuals
-LonWardProfilesSP@data$slag_dv_model2_knn_resids <- slag_dv_model2_knn4$residuals
 
-#now test for spatial autocorrelation
-moran.test(LonWardProfilesSP@data$slag_dv_model2_knn_resids, Lward.knn_4_weight)
+LonWardProfiles <- LonWardProfiles %>%
+  mutate(slag_dv_model2_knn_resids = residuals(slag_dv_model2_knn4))
 
+KNN4Moran <- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(slag_dv_model2_knn_resids)%>%
+  pull()%>%
+  moran.test(., Lward.knn_4_weight)%>%
+  tidy()
+
+KNN4Moran
 ```
 
 #### The Spatial Error Model
@@ -918,10 +1005,13 @@ For more detail on the spatial error model, see Ward and Gleditsch (2008) -  htt
 We can run a spatial error model on the same data below:
 
 ```{r, message=FALSE, cache=TRUE}
-sem_model1 <- errorsarlm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-                           log(`Median House Price (£) - 2014`), data = LonWardProfiles, nb2listw(LWard_knn, style="C"), method = "eigen")
+sem_model1 <- errorsarlm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), 
+               data = LonWardProfiles,
+               nb2listw(LWard_knn, style="C"), 
+               method = "eigen")
 
-summary(sem_model1)
+tidy(sem_model1)
 ```
 
 Comparing the results of the spatial error model with the spatially lagged model and the original OLS model, the suggestion here is that the spatially correlated errors in residuals lead to an over-estimate of the importance of unauthorised absence in the OLS model and an under-estimate of the importance of affluence, represented by median house prices. Conversely, the spatial error model estimates higher parameter values for both variables when compared to the spatially lagged model. 
@@ -936,9 +1026,16 @@ We will now read in some extra data which we will use shortly
 extradata <- read_csv("https://www.dropbox.com/s/qay9q1jwpffxcqj/LondonAdditionalDataFixed.csv?raw=1")
 
 #add the extra data too
-LonWardProfiles <- left_join(LonWardProfiles, extradata, by = c("GSS_CODE" = "Wardcode"))
+LonWardProfiles <- LonWardProfiles%>%
+  left_join(., 
+            extradata, 
+            by = c("gss_code" = "Wardcode"))%>%
+  clean_names()
 
-names(LonWardProfiles)
+#print some of the column names
+LonWardProfiles%>%
+  names()%>%
+  tail(., n=10)
 ```
 
 ### Extending your regression model - Dummy Variables
@@ -948,8 +1045,10 @@ What if instead of fitting one line to our cloud of points, we could fit several
 If we colour the points representing Wards for Inner and Outer London differently, we can start to see that there might be something interesting going on. Using 2011 data (as there are not the rounding errors that there are in the more recent data), there seems to be a stronger relationship between absence and GCSE scores in Outer London than Inner London. We can test for this in a standard linear regression model.  
 
 ```{r, message=FALSE, cache=TRUE}
-p <- ggplot(LonWardProfiles, aes(x=`UnauthAbsenceSchools11`, y=`AvgGCSE2011`))
-p + geom_point(aes(colour = InnerOuter)) 
+p <- ggplot(LonWardProfiles, 
+            aes(x=unauth_absence_schools11, 
+                y=average_gcse_capped_point_scores_2014))
+p + geom_point(aes(colour = inner_outer)) 
 ```
 
 Dummy variables are always **categorical** data (inner or outer London, or red / blue etc.). When we incorporate them into a regression model, they serve the purpose of splitting our analysis into groups. In the graph above, it would mean, effectively, having a separate regression line for the red points and a separate line for the blue points. 
@@ -958,14 +1057,25 @@ Let's try it!
 
 ```{r, message=FALSE, cache=TRUE}
 #first, let's make sure R is reading our InnerOuter variable as a factor
-LonWardProfiles$InnerOuter <- as.factor(LonWardProfiles$InnerOuter)
+#see what it is at the moment...
+isitfactor <- LonWardProfiles %>%
+  select(inner_outer)%>%
+  summarise_all(class)
+
+isitfactor
+
+# change to factor
+
+LonWardProfiles<- LonWardProfiles %>%
+  mutate(inner_outer=as.factor(inner_outer))
 
 #now run the model
-model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-               log(`Median House Price (£) - 2014`) + 
-               `InnerOuter`, data = LonWardProfiles)
-
-summary(model3)
+model3 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014) + 
+               inner_outer, 
+             data = LonWardProfiles)
+ 
+tidy(model3)
 ```
 
 So how can we interpret this?
@@ -977,22 +1087,26 @@ You will notice that despite there being two values in our dummy variable (Inner
 The order in which the dummy comparisons are made is determined by what is known as a 'contrast matrix'. This determines the treatment group (1) and the control (reference) group (0). We can view the contrast matrix using the `contrasts()` function:  
 
 ```{r, message=FALSE, cache=TRUE}
-contrasts(LonWardProfiles$InnerOuter)
+contrasts(LonWardProfiles$inner_outer)
 ```
 
 If we want to change the reference group, there are various ways of doing this. We can use the `contrasts()` function, or we can use the `relevel()` function. Let's try it:
 
 ```{r, message=FALSE, cache=TRUE}
-LonWardProfiles$InnerOuter <- relevel(LonWardProfiles$InnerOuter, ref="Outer")
 
-model3 <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-               log(`Median House Price (£) - 2014`) + 
-               `InnerOuter`, data = LonWardProfiles)
+LonWardProfiles <- LonWardProfiles %>%
+  mutate(inner_outer = relevel(inner_outer, 
+                               ref="Outer"))
 
-summary(model3)
+model3 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014) + 
+               inner_outer, 
+             data = LonWardProfiles)
+
+tidy(model3)
 ```
 
-You will notice that the only thing that has changed in the model is that the coefficient for the InnerOuter variable now relates to Inner London and is now negative (meaning that living in Inner London is likely to reduce your average GCSE score by 10.93 points compared to Outer London). The rest of the model is exactly the same. 
+You will notice that the only thing that has changed in the model is that the coefficient for the inner_outer variable now relates to Inner London and is now negative (meaning that living in Inner London is likely to reduce your average GCSE score by 10.93 points compared to Outer London). The rest of the model is exactly the same. 
 
 ### TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model
 
@@ -1008,37 +1122,55 @@ You should try and build the optimum model of GCSE performance from your data in
 
 For example, let's try adding the rate of drugs related crime (logged as it is a positively skewed variable, where as the log is normal) and the number of cars per household... are these variables significant? What happens to the spatial errors in your models?
 
-
 ## Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)
 
 Here's my final model from the last section:
 
 ```{r, message=FALSE, cache=TRUE}
 #select some variables from the data file
-myvars <- c("Average GCSE capped point scores - 2014","Unauthorised Absence in All Schools (%) - 2013","Median House Price (£) - 2014","Rate of JobSeekers Allowance (JSA) Claimants - 2015", "% with Level 4 qualifications and above - 2011")
+myvars <- LonWardProfiles %>%
+  select(average_gcse_capped_point_scores_2014,
+         unauthorised_absence_in_all_schools_percent_2013,
+         median_house_price_2014,
+         rate_of_job_seekers_allowance_jsa_claimants_2015,
+         percent_with_level_4_qualifications_and_above_2011,
+         inner_outer)
 
 #check their correlations are OK
-cormat <- cor(tempdf[myvars], use="complete.obs", method="pearson")
+Correlation_myvars <- myvars %>%
+  st_drop_geometry()%>%
+  select(-inner_outer)%>%
+  correlate()
 
 #run a final OLS model
-model_final <- lm(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + 
-                    log(`Median House Price (£) - 2014`) + `InnerOuter` + `Rate of JobSeekers Allowance (JSA) Claimants - 2015` + `% with Level 4 qualifications and above - 2011`, data = LonWardProfiles)
+model_final <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+                    log(median_house_price_2014) + 
+                    inner_outer + 
+                    rate_of_job_seekers_allowance_jsa_claimants_2015 +
+                    percent_with_level_4_qualifications_and_above_2011, 
+                  data = myvars)
 
-summary(model_final)
+tidy(model_final)
 
-#save residuals
-LonWardProfiles$model_final_res <- model_final$residuals
+LonWardProfiles <- LonWardProfiles %>%
+  mutate(model_final_res = residuals(model_final))
 
+par(mfrow=c(2,2))
 plot(model_final)
 ```
 
 ```{r, message=FALSE, cache=TRUE}
 qtm(LonWardProfiles, fill = "model_final_res")
 
-LonWardProfilesSP <- as(LonWardProfiles,"Spatial")
-moran.test(LonWardProfilesSP@data$model_final_res, Lward.knn_4_weight)
-```
+final_model_Moran <- LonWardProfiles %>%
+  st_drop_geometry()%>%
+  select(model_final_res)%>%
+  pull()%>%
+  moran.test(., Lward.knn_4_weight)%>%
+  tidy()
 
+final_model_Moran
+```
 
 Now, we probably could stop at running a spatial error model at this point, but it could be that rather than spatial autocorrelation causing problems with our model, it might be that a "global" regression model does not capture the full story. In some parts of our study area, the relationships between the dependent and independent variable may not exhibit the same slope coefficient. While, for example, increases in unauthorised absence usually are negatively correlated with GCSE score (students missing school results in lower exam scores), in some parts of the city, they could be positively correlated (in affluent parts of the city, rich parents may enrol their children for just part of the year and then live elsewhere in the world for another part of the year, leading to inflated unauthorised absence figures. Ski holidays are cheaper during the school term, but the pupils will still have all of the other advantages of living in a well off household that will benefit their exam scores. 
 
@@ -1046,18 +1178,48 @@ If this occurs, then we have *'non-stationarity'* - this is when the global mode
 
 This part of the practical will only skirt the edges of GWR, for much more detail you should visit the GWR website which is produced and maintained by Prof Chris Brunsdon and Dr Martin Charlton who originally developed the technique - http://gwr.nuim.ie/
 
-There are various packages which will carry out GWR in R, for this pracical we we use `spgwr` (mainly because it was the first one I came across), although you could also use `GWmodel` or `gwrr`. At the end of this practical, you can test out these ideas in ArcGIS using the GWR toolset in the Spatial Statistics Toolbox - http://resources.arcgis.com/en/help/main/10.1/index.html#/Geographically_Weighted_Regression_GWR/005p00000021000000/
+There are various packages which will carry out GWR in R, for this pracical we we use `spgwr` (mainly because it was the first one I came across), although you could also use `GWmodel` or `gwrr`. 
 
-I should also acknowledge the guide on GWR (accessible here: http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf) produced by the University of Bristol, which was a great help when producing this exercise.
+I should also acknowledge [the guide on GWR produced by the University of Bristol](http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf), which was a great help when producing this exercise. However, to use `spgwr` we need to convert our data from `sf` to `sp` format, this is simply done using `as(data, "Spatial")`...
+
+!!!HERE!!!
 
 ```{r, message=FALSE, cache=TRUE}
 library(spgwr)
 
+st_crs(LonWardProfiles) = 27700
+
+LonWardProfilesSP <- LonWardProfiles %>%
+  as(., "Spatial")
+
+st_crs(coordsW) = 27700
+coordsWSP <- coordsW %>%
+  as(., "Spatial")
+
+coordsWSP
+
+
 #calculate kernel bandwidth
-GWRbandwidth <- gwr.sel(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter` + `Rate of JobSeekers Allowance (JSA) Claimants - 2015` + `% with Level 4 qualifications and above - 2011`, data = LonWardProfiles, coords=coordsW,adapt=T)
+GWRbandwidth <- gwr.sel(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+                    log(median_house_price_2014) + 
+                    inner_outer + 
+                    rate_of_job_seekers_allowance_jsa_claimants_2015 +
+                    percent_with_level_4_qualifications_and_above_2011, 
+                  data = LonWardProfilesSP, 
+                        coords=coordsWSP,
+                        adapt=T)
 
 #run the gwr model
-gwr.model = gwr(`Average GCSE capped point scores - 2014` ~ `Unauthorised Absence in All Schools (%) - 2013` + log(`Median House Price (£) - 2014`) + `InnerOuter` + `Rate of JobSeekers Allowance (JSA) Claimants - 2015` + `% with Level 4 qualifications and above - 2011`, data = LonWardProfiles, coords=coordsW, adapt=GWRbandwidth, hatmatrix=TRUE, se.fit=TRUE)
+gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+                    log(median_house_price_2014) + 
+                    inner_outer + 
+                    rate_of_job_seekers_allowance_jsa_claimants_2015 +
+                    percent_with_level_4_qualifications_and_above_2011, 
+                  data = LonWardProfilesSP, 
+                coords=coordsWSP, 
+                adapt=GWRbandwidth, 
+                hatmatrix=TRUE, 
+                se.fit=TRUE)
 
 #print the results of the model
 gwr.model
@@ -1071,53 +1233,62 @@ Coefficient ranges can also be seen for the other variables and they suggest som
 
 
 ```{r, message=FALSE, cache=TRUE}
-results<-as.data.frame(gwr.model$SDF)
+results <- as.data.frame(gwr.model$SDF)
 names(results)
-#attach coefficients to original dataframe
-LonWardProfilesSP@data$coefUnauthAbs<-results$X.Unauthorised.Absence.in.All.Schools.......2013.
-LonWardProfilesSP@data$coefHousePrice<-results$log..Median.House.Price.......2014..
-LonWardProfilesSP@data$coefJSA<-results$X.Rate.of.JobSeekers.Allowance..JSA..Claimants...2015.
-LonWardProfilesSP@data$coefLev4Qual<-results$X...with.Level.4.qualifications.and.above...2011.
+#attach coefficients to original SF
+
+
+LonWardProfiles2 <- LonWardProfiles %>%
+  mutate(coefUnauthAbs = results$unauthorised_absence_in_all_schools_percent_2013,
+         coefHousePrice = results$log.median_house_price_2014.,
+         coefJSA = rate_of_job_seekers_allowance_jsa_claimants_2015,
+         coefLev4Qual = percent_with_level_4_qualifications_and_above_2011)
+
+
 ```
 
 
 ```{r, message=FALSE, cache=TRUE}
-tm_shape(LonWardProfilesSP) +
-  tm_polygons(col = "coefUnauthAbs", palette = "RdBu", alpha = 0.5)
+tm_shape(LonWardProfiles2) +
+  tm_polygons(col = "coefUnauthAbs", 
+              palette = "RdBu", 
+              alpha = 0.5)
 ```
 
 Now how would you plot the House price coeffeicent, Job seekers allowance and level 4 qualification coefficient?
 
 ```{r, message=FALSE, cache=TRUE, include=FALSE}
-tm_shape(LonWardProfilesSP) +
-  tm_polygons(col = "coefHousePrice", palette = "RdBu")
+tm_shape(LonWardProfiles2) +
+  tm_polygons(col = "coefHousePrice", 
+              palette = "RdBu")
 ```
 
 ```{r, message=FALSE, cache=TRUE, include=FALSE}
-tm_shape(LonWardProfilesSP) +
-  tm_polygons(col = "coefJSA", palette = "PuOr")
+tm_shape(LonWardProfiles2) +
+  tm_polygons(col = "coefJSA", 
+              palette = "PuOr")
 ```
 
 ```{r, message=FALSE, cache=TRUE, include=FALSE}
-tm_shape(LonWardProfilesSP) +
-  tm_polygons(col = "coefLev4Qual", palette = "PRGn")
+tm_shape(LonWardProfiles2) +
+  tm_polygons(col = "coefLev4Qual", 
+              palette = "PRGn")
 ```
-
 
 Taking the first plot, which is for the unauthorised absence coefficients, we can see that for the majority of boroughs in London, there is the negative relationship we would expect - i.e. as unauthorised absence goes up, exam scores go down. For three boroughs (Westminster, Kensington & Chelsea and Hammersmith and Fulham, as well as an area near Bexleyheath in South East London - some of the richest in London), however, the relationship is positive - as unauthorised school absence increases, so does average GCSE score. This is a very interesting pattern and counterintuitive pattern, but may partly be explained the multiple homes owned by many living in these boroughs (students living in different parts of the country and indeed the world for significant periods of the year), foreign holidays and the over representation of private schooling of those living in these areas. If this is not the case and unauthorised absence from school is reflecting the unauthorised absence of poorer students attending local, inner city schools, then high GCSE grades may also reflect the achievements of those who are sent away to expensive fee-paying schools elsewhere in the country and who return to their parental homes later in the year. Either way, these factors could explain these results. 
-
 Of course, these results may not be statistically significant across the whole of London. Roughly speaking, if a coefficient estimate is more than 2 standard errors away from zero, then it is "statistically significant".
 
 To calculate standard errors, for each variable you can use a formula similar to this:
 
 ```{r, message=FALSE, cache=TRUE}
-#**NOTE** when you run the code below, it's likely that column headers with `column_names` labelled with lots of quotations - as happens when using read_csv, errors will be caused when trying to reference these in gwr.model. To get over these errors, rename your columns as something simple and run the regression again. 
 
 #run the significance test
-sigTest = abs(gwr.model$SDF$"log(`Median House Price (£) - 2014`)") -2 * gwr.model$SDF$"log(`Median House Price (£) - 2014`)_se"
+sigTest = abs(gwr.model$SDF$"log.median_house_price_2014.")-2 * gwr.model$SDF$"log.median_house_price_2014._se"
+
 
 #store significance results
-LonWardProfilesSP$GWRUnauthSig<-sigTest
+LonWardProfiles2 <- LonWardProfiles2 %>%
+  mutate(GWRUnauthSig = sigTest)
 ```
 
 If this is greater than zero (i.e. the estimate is more than two standard errors away from zero), it is very unlikely that the true value is zero, i.e. it is statistically significant (at nearly the 95% confidence level)
@@ -1125,21 +1296,14 @@ If this is greater than zero (i.e. the estimate is more than two standard errors
 You should now calculate these for each variable in your GWR model and See if you can plot them on a map, for example: 
 
 ```{r, message=FALSE, cache=TRUE}
-tm_shape(LonWardProfilesSP) +
-  tm_polygons(col = "GWRUnauthSig", palette = "RdYlBu")
+tm_shape(LonWardProfiles2) +
+  tm_polygons(col = "GWRUnauthSig", 
+              palette = "RdYlBu")
 ```
 
 From the results of your GWR exercise, what are you able to conclude about the geographical variation in your explanatory variables when predicting your dependent variable? 
 
-ArcGIS
------------------------------
-As mentioned at the beginning of this exercise, GWR can also be carried out using the Spatial Statistics Toolbox in ArcGIS. Using the guide in the ArcGIS help system below, try and repeat your GWR analysis using the tools available in Arc - http://resources.arcgis.com/en/help/main/10.1/index.html#/Geographically_Weighted_Regression_GWR/005p00000021000000/
-
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
-
-
-
-
 

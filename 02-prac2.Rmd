@@ -841,7 +841,7 @@ Building on all of these, the new ```tmap``` (Thematic Map) package has changed 
 
 Choropleth maps are thematic maps which colour areas according to some phenomenon. In our case, we are going to fill some irregular polygons (the London Boroughs) with a colour that corresponds to a particular attribute.
 
-As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. ```qplot()``` and ```ggplot()``` (installed in the ```ggplot2``` package) require some additional steps to format the spatial data but select colours and add keys etc automatically. Here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
+As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (```qplot()```) and ```ggplot()``` (installed in the ```ggplot2``` package, part of the `tidyverse`) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use `ggplot()`. However, here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
 
 1. So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file...it might take a few minutes...
 
