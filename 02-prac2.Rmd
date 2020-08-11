@@ -325,7 +325,7 @@ df[,1]
 
 ```{r}
 df <- df %>%
-  rename(column1 = Data1, column2=Data2)
+  dplyr::rename(column1 = Data1, column2=Data2)
 ```
 
 `dplyr` is a grammar of data manipulation, it has multiple verbs that allow you to change your data into a suitable format. These include `select()`, `filter()`, `summarise()`, which can also be applied to groups in datasets using `group_by()`. `dplyr` will be used throughout this course.
@@ -492,7 +492,7 @@ Datatypelist <- LondonData %>%
 Datatypelist
 ```
 
-We cover `pivot_longer()` later in this practical, but for now 
+We cover `pivot_longer()` later in this practical, but for now we've simply grouped all our variables into one **LONG** column adding another column that contains the class.  
 
 You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.
 
