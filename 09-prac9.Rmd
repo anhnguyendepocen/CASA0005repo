@@ -350,7 +350,7 @@ So first let's again get rid of all the coloumns we aren't using in this model u
 ```{r, message=FALSE, cache=FALSE}
 Bootstrapdata<- LonWardProfiles%>%
   clean_names()%>%
-  select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
+  dplyr::select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
 ```
 
 Next we are going to create our samples using the function `bootstraps()`. First we set the seed (to any number), which just means are results will be the same if we are to re-run this analysis, if we don't then as we are randomly replacing data the next time we do run the code the results could change. 
@@ -475,7 +475,7 @@ Now, let's have a look at our first bootstrap...
 firstboot<-filter(GCSE_aug,id=="Bootstrap0001")
 
 firstbootlength <- firstboot %>%
-  select(average_gcse_capped_point_scores_2014)%>%
+  dplyr::select(average_gcse_capped_point_scores_2014)%>%
   pull()%>%
   length()
 
@@ -493,7 +493,7 @@ Another way is just to ask what are the unique values within our coefficient inf
 ```{r, cache=FALSE}
 uniquecoefficent <- firstboot %>%
   #select(average_gcse_capped_point_scores_2014) %>%
-  select(coef_info)%>%
+  dplyr::select(coef_info)%>%
   unnest(coef_info)%>%
   distinct()
 
@@ -668,7 +668,7 @@ As such, we could extend model 1 into a multiple regression model by adding some
 
 Regressiondata2<- LonWardProfiles%>%
   clean_names()%>%
-  select(average_gcse_capped_point_scores_2014,
+  dplyr::select(average_gcse_capped_point_scores_2014,
          unauthorised_absence_in_all_schools_percent_2013,
          median_house_price_2014)
 
@@ -701,7 +701,7 @@ library(corrr)
 
 Correlation <- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(average_gcse_capped_point_scores_2014,
+  dplyr::select(average_gcse_capped_point_scores_2014,
          unauthorised_absence_in_all_schools_percent_2013,
          median_house_price_2014) %>%
   mutate(median_house_price_2014 =log(median_house_price_2014))%>%
@@ -775,7 +775,7 @@ position <- c(10:74)
 
 Correlation_all<- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(position)%>%
+  dplyr::select(position)%>%
     correlate()
 
 rplot(Correlation_all)
@@ -881,7 +881,7 @@ Lward.knn_4_weight <- LWard_knn %>%
 
 Queen <- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(model2resids)%>%
+  dplyr::select(model2resids)%>%
   pull()%>%
   moran.test(., Lward.queens_weight)%>%
   tidy()
@@ -889,7 +889,7 @@ Queen <- LonWardProfiles %>%
 #then knn = 4
 Nearest_neighbour <- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(model2resids)%>%
+  dplyr::select(model2resids)%>%
   pull()%>%
   moran.test(., Lward.knn_4_weight)%>%
   tidy()
@@ -979,7 +979,7 @@ LonWardProfiles <- LonWardProfiles %>%
 
 KNN4Moran <- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(slag_dv_model2_knn_resids)%>%
+  dplyr::select(slag_dv_model2_knn_resids)%>%
   pull()%>%
   moran.test(., Lward.knn_4_weight)%>%
   tidy()
@@ -1059,7 +1059,7 @@ Let's try it!
 #first, let's make sure R is reading our InnerOuter variable as a factor
 #see what it is at the moment...
 isitfactor <- LonWardProfiles %>%
-  select(inner_outer)%>%
+  dplyr::select(inner_outer)%>%
   summarise_all(class)
 
 isitfactor
@@ -1129,7 +1129,7 @@ Here's my final model from the last section:
 ```{r, message=FALSE, cache=TRUE}
 #select some variables from the data file
 myvars <- LonWardProfiles %>%
-  select(average_gcse_capped_point_scores_2014,
+  dplyr::select(average_gcse_capped_point_scores_2014,
          unauthorised_absence_in_all_schools_percent_2013,
          median_house_price_2014,
          rate_of_job_seekers_allowance_jsa_claimants_2015,
@@ -1139,7 +1139,7 @@ myvars <- LonWardProfiles %>%
 #check their correlations are OK
 Correlation_myvars <- myvars %>%
   st_drop_geometry()%>%
-  select(-inner_outer)%>%
+  dplyr::select(-inner_outer)%>%
   correlate()
 
 #run a final OLS model
@@ -1164,7 +1164,7 @@ qtm(LonWardProfiles, fill = "model_final_res")
 
 final_model_Moran <- LonWardProfiles %>%
   st_drop_geometry()%>%
-  select(model_final_res)%>%
+  dplyr::select(model_final_res)%>%
   pull()%>%
   moran.test(., Lward.knn_4_weight)%>%
   tidy()
