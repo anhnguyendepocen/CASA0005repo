@@ -619,7 +619,7 @@ LondonBoroughs_contains<-LondonBoroughs %>%
 library(janitor)
 
 LondonBoroughs <- LondonBoroughs %>%
-  rename(Borough=`Ward name`)%>%
+  dplyr::rename(Borough=`Ward name`)%>%
   clean_names()
 ```
 
@@ -904,11 +904,12 @@ knitr::include_graphics('prac2_images/sql-joins.png')
 ```
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE,eval=FALSE}
-BoroughDataMap2 <- BoroughMapSF %>% 
+BoroughDataMap2 <- EW %>% 
   clean_names() %>%
+  filter(str_detect(lad15cd, "^E09"))%>%
   left_join(., 
             LondonData,
-            by = c("gss_code" = "new_code"))
+            by = c("lad15cd" = "new_code"))
 
 ```
 

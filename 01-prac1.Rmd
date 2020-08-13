@@ -30,6 +30,10 @@ Each week i'll provide a core chapter to support the skills taught here. However
 This week: 
 
 * [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
+
+**Watching**
+
+* [What is Spatial Data Science](https://www.youtube.com/watch?v=osAbJeTho5w) from some of our friends at CARTO
 :::
 ## Recommended listening `r emo::ji("headphones")`
 

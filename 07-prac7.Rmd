@@ -30,7 +30,7 @@ This week:
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
-## Recommended listening
+## Recommended listening `r emo::ji("headphones")`
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
@@ -775,7 +775,7 @@ Here, as our t values is > than the critial value we can say that there is a rel
 
 * p-value: tells us wheather there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
 
-* cor: Pearon's correlation coefficient
+* cor: Product moment correlation coefficient
 
 * conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
 
@@ -828,12 +828,11 @@ Zha, Y., Gao, J. and Ni, S., 2003. Use of normalized difference built-up index i
 
 ## Remote sensing background (optional)
 
-Landsat sensors capture reflected solar energy, convert these data to radiance, then rescale this data into a Digital Number (DN), the latter representing the intensity of the electromagnetic radiation per pixel. The range of possible DN values depends on the sensor radiometric resolution. For example Landsat Thematic Mapper 5 (TM) measures between 0 and 255 (termed 8 bit), whilst Landsat 8 OLI measures between 0 and 65536 (termed 12 bit). These DN values can then be converted into Top of Atmosphere (TOA) radiance and TOA reflectance through available equations and known constants (https://landsat.usgs.gov/landsat-8-l8-data-users-handbook-section-5¬) that are preloaded into certain software. The former is how much light the instrument sees in meaningful units whilst the latter removes the effects of the light source. However, TOA reflectance is still influenced by atmospheric effects. These atmospheric effects can be removed through atmospheric correction achievable in software such as ENVI and QGIS to give surface reflectance representing a ratio of the amount of light leaving a target to the amount of light striking it. 
+Landsat sensors capture reflected solar energy, convert these data to radiance, then rescale this data into a Digital Number (DN), the latter representing the intensity of the electromagnetic radiation per pixel. The range of possible DN values depends on the sensor radiometric resolution. For example Landsat Thematic Mapper 5 (TM) measures between 0 and 255 (termed 8 bit), whilst Landsat 8 OLI measures between 0 and 65536 (termed 12 bit). These DN values can then be converted into Top of Atmosphere (TOA) radiance and TOA reflectance [through available equations and known constants](https://landsat.usgs.gov/landsat-8-l8-data-users-handbook-section-5¬) that are preloaded into certain software. The former is how much light the instrument sees in meaningful units whilst the latter removes the effects of the light source. However, TOA reflectance is still influenced by atmospheric effects. These atmospheric effects can be removed through atmospheric correction achievable in software such as ENVI and QGIS to give surface reflectance representing a ratio of the amount of light leaving a target to the amount of light striking it. 
 
 We must also consider the spectral resolution of satellite imagery, Landsat 8 OLI has 11 spectral bands and as a result is a multi-spectral sensor. As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) --- this would be three bands of satellite imagery --- however satellites can take advantage of the rest of the spectrum. Each band of Landsat measures in a certain part of the spectrum to produce a DN value. We can then combine these values to produce ‘colour composites’. So a ‘true’ colour composite is where red, green and blue Landsat bands are displayed (the visible spectrum). Based on the differing DN values obtained, we can pick out the unique signatures (values of all spectral bands) of each land cover type, termed spectral signature.
 
-For more information read Young et al. (2017) A survival guide to Landsat preprocessing:
-https://esajournals.onlinelibrary.wiley.com/doi/pdf/10.1002/ecy.1730
+For more information read [Young et al. (2017) A survival guide to Landsat preprocessing](https://esajournals.onlinelibrary.wiley.com/doi/pdf/10.1002/ecy.1730)
 
 ## Feedback
 
