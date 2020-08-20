@@ -280,7 +280,7 @@ sums <- QCountTable %>%
 lambda<- QCountTable%>%
   #calculate lambda
   mutate(total = Var1 * Freqquadratcount)%>%
-  summarise(across(everything(), sum)) %>%
+  dplyr::summarise(across(everything(), sum)) %>%
   mutate(lambda=total/Freqquadratcount) %>%
   dplyr::select(lambda)%>%
   pull(lambda)
@@ -562,7 +562,8 @@ The measures of spatial autocorrelation that we will be using require continuous
 
 To create a continuous observation from the blue plaques data we need to count all of the blue plaques that fall within each Ward in the City. Luckily, we can do this using the ```st_join()``` function from the `sf` package.
 
-```{r echo=TRUE, results='hide', cache=TRUE}
+```{r echo=TRUE, results='hide', cache=FALSE}
+library(sf)
 points_sf_joined <- LondonWards%>%
   st_join(BluePlaquesSub)%>%
   add_count(WardName)%>%
@@ -577,7 +578,7 @@ points_sf_joined <- LondonWards%>%
 
 How about a quick choropleth map to see how we are getting on...
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 
 points_sf_joined<- points_sf_joined %>%                    
   group_by(Wardcode) %>%         

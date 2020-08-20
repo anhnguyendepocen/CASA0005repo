@@ -43,6 +43,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [StatQuest with Josh Starmer](https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw)
 * [Julia Silge](https://twitter.com/juliasilge)
 * [Jenny Bryan](https://twitter.com/JennyBryan)
+* [Garrick Aden‑Buie](https://twitter.com/grrrck)
 </div><br/>
 
 The R package and analysis artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst), whilst artwork used in information boxes has been produced by [Desirée De Leon](https://twitter.com/dcossyle). You can find Allison's images on the [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations) and Desirée's on the [rstudio4edu GitHub repository](https://github.com/rstudio4edu/rmd4edu).
