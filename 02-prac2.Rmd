@@ -29,6 +29,8 @@ This week:
 
 * [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
 
+* [How to Write a Paper for Publication](https://onlinelibrary.wiley.com/doi/epdf/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000).
+
 **Watching**
 
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
